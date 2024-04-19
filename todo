@@ -1,0 +1,29 @@
+* 1. Added all the equipments in all the vehicle models of Morris Garages Brand.[DONE]
+* 2. Added all the batteries and linked them to equipments in all the vehicle models of Morris Garages Petrol/Diesel Brand.[DONE]
+* 3. Added all the equipments in all the vehicle models of Ford Brand.[DONE]
+* 4. Added all the batteries and linked them to equipments in all the vehicle models of Ford Petrol/Diesel Brand.[DONE]
+* 5. Added all the equipments in all the vehicle models of Renault Brand.[DONE]
+* 6. Added all the batteries and linked them to equipments in all the vehicle models of Renault Petrol/Diesel Brand.[DONE]
+* 7. Designed loader for the Indore Battery website.[DONE]
+* 8. Implemented loader functionality in the frontend.[DONE]
+* 9. Updated indore battery frotend to live url using build .[DONE]
+* 10. Updated indore battery backend to live url using pm2 and node and installed all the node modules to it .[DONE]
+
+
+
+
+
+             _________________________________________
+            |                                         |
+            | order      | payment     | delivery     |
+            | ``````````````````````````````````````  |
+            | pending    |paid/pending |pending       |
+            | ``````````````````````````````````````  |
+            | processing |paid/pending |packaging     |
+            | ``````````````````````````````````````  |
+            | processing |paid/pending |shipping      |
+            | ``````````````````````````````````````  |
+            | completed  |paid         |delivered     |
+            | ``````````````````````````````````````  |
+            | completed  |paid         |installed     |
+            |_________________________________________|

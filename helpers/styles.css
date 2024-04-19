@@ -1,0 +1,489 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+p{
+	font-family: 'Sora';
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 30px;
+}
+h4{
+	font-family: 'Oswald';
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 32px;
+}
+tbody tr:nth-child(2n){
+	background-color: #fff;
+}
+
+tbody tr:nth-child(2n-1){
+	background-color: #fff;
+}
+tbody tr:not(:first-child){
+	border-top: 1px solid rgba(0,0,0,0.2);
+}
+.center-wr{
+    max-width: 1328px;
+    margin: 0 auto;
+}
+.before-elem{
+    position: relative;
+}.before-elem::before{
+    content: "";
+    position: absolute;
+    background-color: #2390D5;
+    height: 30px;
+    width: 4px;
+    left: -11px;
+    top: 2px;
+}
+.form-btn-active{
+	position: relative;
+}
+
+.form-btn-active::after{
+	position: absolute;
+	content: "";
+	display: block;
+	bottom: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid #FF7637;
+}
+
+.btn-special-spread{
+	transition: all 300ms ease;
+	position: relative;
+	z-index: 0;
+}
+.btn-special-spread::before{
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 1px;
+	transition: all 300ms ease;
+	background-color: #000;
+	z-index: -1;
+}
+
+.btn-special-spread:hover::before{
+	width: 100%;
+}
+ 
+.btn-special-spread-second{
+	transition: all 300ms ease;
+	position: relative;
+	z-index: 0;
+}
+.btn-special-spread-second::before{
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 1px;
+	transition: all 300ms ease;
+	background-color: #FF7637;
+	z-index: -1;
+}
+
+.btn-special-spread-second:hover::before{
+	width: 100%;
+}
+
+
+
+.girl-img{
+    position: relative;
+}.girl-img::after{
+    content: "";
+    position: absolute;
+    background-image: url("https://www.batteryboss.in/assets/images/girl.png");
+    width: 270px;
+    height: 349px;
+    right: -17%;
+    top: -19%;
+}.banner-after-elem{
+    position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.banner-after-elem::after{
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	display: block;
+	width: 1px;
+	height: 100px;
+	border-left: 1px solid rgba(0,0,0,0.1)
+}
+.banner-after-elem.know-more{
+    position: relative;
+}.why-choose-us-list{
+    position: relative;
+}.why-choose-us-list::after{
+    content: "";
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    background-image: url("/images/qualityProducts.png");
+    left: 0px;
+    border: 1px solid rgba(0,0,0,0.1);
+    top: 0;
+    border-radius: 50%;
+    padding: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+}.why-choose-us-list:nth-child(2)::after{
+    background-image: url("/images/exceptionalCustomerService.png");
+}.why-choose-us-list:nth-child(3)::after{
+    background-image: url("/images/wideRangeProducts.png");
+}
+.feel-free-strip img{
+    background-image: url("/images/ellipse.png");
+    padding: 22px;
+    background-position: center;
+    background-repeat: no-repeat;
+}.feel-free-strip {
+    position: relative;
+}.feel-free-strip:nth-child(1)::after,
+.feel-free-strip:nth-child(2)::after{
+    position: absolute;
+    content: '';
+    height: 100px;
+    width: 0.08px;
+    background-color: rgba(255, 255,255,0.2);
+    right: -10%;
+    top: 0%;
+}.battery-types-list-wr li{
+    position: relative;
+    padding: 5px 10px;
+}.battery-types-list-wr li::before{
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 2px;
+    left: 0;
+    background-color: #34C064;
+    transform: rotate(90deg);
+    top: 30%;
+}.social-icons-list figure{
+    padding: 15px;
+    border-radius: 50%;
+    border:1px solid rgba(0,0,0,0.1);
+}.help-section{
+        background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.7),rgba(7, 7, 7, 0.7)), url('/images/freeToCall.png');
+        background-size: cover;
+        font-family: 'Oswald', sans-serif;
+}.car-brand-grid-wr .brand-row:nth-child(2) .brand-item:nth-child(3),
+.car-brand-grid-wr .brand-row:nth-child(2) .brand-item:nth-child(4){
+    width: 26% !important;
+}
+
+
+.car-brand-grid-wr .brand-row:nth-child(2) .brand-item,
+.car-brand-grid-wr .brand-row:nth-child(1) .brand-item,
+.car-brand-grid-wr .brand-row:nth-child(3) .brand-item{
+    border: 1px solid rgba(0,0,0,0.1);
+    border-right:0px ;
+}
+.car-brand-grid-wr .brand-row:nth-child(1) .brand-item:nth-child(1),
+.car-brand-grid-wr .brand-row:nth-child(2) .brand-item:nth-child(1),
+.car-brand-grid-wr .brand-row:nth-child(3) .brand-item:nth-child(1){
+    border-left:0px ;
+}
+.car-brand-grid-wr .brand-row:nth-child(1) .brand-item{
+    border-right:0px ;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+.car-brand-grid-wr .brand-row:nth-child(3) .brand-item{
+    border-top: 0px;
+    border-bottom: 0px;
+}.car-brand-grid-wr .brand-item{
+    width: 346px !important;
+    height: 200px !important;
+}
+.car-brand-grid-wr .brand-row:nth-child(2) .brand-item.battery{
+    border-bottom: 0px;
+}h3{
+    font-size: 34px;
+    color:#000;
+    font-weight:800;
+	font-family: 'Oswald';
+}h3 span{
+	font-family: inherit;
+    color: #FF7637;
+}.know-more-wr p:nth-child(1){
+    padding: 15px 0;
+	color: #202020;
+}.know-more-wr button{
+    padding: 15px 40px;
+	margin-top: 15px;
+    font-size: 18px;
+    background: #000;
+    color: #fff;
+    border-left: 8px solid #FF7637;
+    font-weight: 800;
+}.know-more-wr button:focus{
+    outline: none;
+} 
+.why-choose-us-list p{
+    color: #00000099;
+}
+.offers-and-discount-badge{
+	position: absolute;
+	top: -136px;
+	left: -105px;
+	width: 200px;
+	height: 200px;
+	transform: rotate(-45deg);
+	background-color: #484848;
+}
+.offers-and-discount-badge p{
+	position: absolute;
+	bottom: 10px;
+	left: 40%;
+	transform: translateX(-50%);
+	color: #fff;
+	font-weight: 600;
+}
+
+.discount-badge{
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: #FF7637;
+	padding: 5px 10px;
+	color: #fff;
+}
+.battery-card-swiper{
+	border: 1px solid rgba(0,0,0,0.1);
+}
+.battery-card-swiper:hover{
+	border:4px solid #FF7637;
+	border-bottom: none;
+}
+.swiper-card-buy-now{
+	opacity: 0;
+	transition: all 300ms ease;
+}
+.battery-swiper-card:hover .swiper-card-buy-now{
+	opacity: 1;
+}
+
+.brands-submenu{
+    transform: translateY(-100px);
+    transition: 0.5s ease;
+    opacity: 0;
+    z-index: -1;
+    visibility: hidden;
+}
+.brands-nav:hover .brands-submenu{
+    transform: translateY(0);
+    opacity: 1;
+    z-index: 0;
+    visibility: visible;
+}.accounts-submenu{
+    transform: translateY(-62px);
+    transition: 0.5s ease;
+    opacity: 0;
+    z-index: -1;
+    visibility: hidden;
+}.accounts-nav:hover .accounts-submenu{
+    transform: translateY(0);
+    opacity: 1;
+    z-index: 0;
+    visibility: visible;
+}.accounts-nav,.brands-nav{
+    cursor: pointer;
+}.left-form-border{
+    border-top-left-radius:15px ;
+    border-bottom-left-radius:15px ;
+}.right-form-border{
+    border-top-right-radius:15px ;
+    border-bottom-right-radius:15px ;
+}input::placeholder {
+    color:rgba(0,0,0,0.5);
+}.white::placeholder{
+    color: #fff;
+}
+
+.addr-label .addr-input{
+	z-index: 0;
+}
+.addr-label .addr-input::after{
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	content: "";
+	display: block;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	border:1px solid rgba(0,0,0,0.2);
+	z-index: 1;
+	background-color: #fff;
+}
+
+.addr-label:has(.addr-input:checked){
+	border:2px solid #0D4EF2;
+	background-color: #E7EDFE;
+	color: #0D4EF2;
+}
+.addr-input:checked:after{
+	border: 5px solid #0D4EF2;
+}
+.addr-drawer-drop{
+	height: 0px;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 300ms ease;
+}
+.billing-table{
+	width: 100%;
+}
+
+.billing-table td{
+	font-size: 13px;
+	font-weight: 400;
+	font-family: sans-serif;
+	padding: 2px 0px;
+}
+.billing-table tr{
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+/* .final-bill-amount{
+	background-color: #fff;
+	border-top: 1px solid rgba(0,0,0,0.2);
+	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23ff7637' stroke-width='13' stroke-dasharray='2%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+} */
+
+.express-delivery-checkbox{
+	padding: 0;
+	margin-right: 5px;
+}
+.express-delivery-checkbox::before{
+	content: "";
+	position: absolute;
+	left: -4px;
+	top: -4px;
+	display: block;
+	width: 20px;
+	height: 20px;
+	/* background-image: url(/images/icons8-tick-box-24.png); */
+	background-color: #fff;
+	border: 1px solid rgba(0,0,0,0.2);
+}
+.express-delivery-checkbox:checked::before{
+	background-image: url(/images/icons8-tick-box-24.png); 
+	background-size: 24px;
+    background-position: -3px -3px;
+	/* background-position: center;
+	background-size: cover;
+	/* border: 5px solid #ff7637; */
+
+}  
+/* Style the scrollbar thumb (draggable handle) */
+.brand-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.brand-sidebar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.brand-sidebar::-webkit-scrollbar-thumb {
+  background: #FF7637; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar {
+	width: 4px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey; 
+	border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: #FF7637; 
+	border-radius: 10px;
+  }
+  .testtt{
+	height: 550px;
+		width: 100%;
+		margin-top: 0;
+		margin-bottom: 0;
+		margin-right: auto;
+		margin-left: auto;
+		left: 0;
+		right: 0;
+		z-index: 100;
+		/* Add linear gradient and background image */
+		background: linear-gradient(#ff763745, #ff763745), url('https://content.jdmagicbox.com/comp/def_content/battery_dealers_exide/default-battery-dealers-exide-8.jpg');
+		background-size: cover; /* Adjust to your preference */
+  }
+
+  .feedback-container {
+	background-color: #f7f7f7;
+	width: 400px;
+	height: 200px;
+	border-radius: 10px;
+	position: relative;
+  }
+  
+  .emoji-container {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 20%;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: flex;
+	overflow: hidden;
+  }
+  
+  .far {
+	margin: 1px;
+	transform: translateX(0);
+	transition: transform 0.2s;
+  }
+  
+  .rating-container {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 20%;
+  }
+  
+  .fa-star {
+	color: lightgray;
+	cursor: pointer;
+  }
+  
+  .fa-star.active {
+	color: gold;
+  }
+  
