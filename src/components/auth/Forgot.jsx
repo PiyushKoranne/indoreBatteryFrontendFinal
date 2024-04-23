@@ -50,7 +50,7 @@ const Forgot = () => {
 								</div>
 							</div>
 								</Link>
-							<h3 className='font-["Poppins"] font-medium text-[16px] mt-[45px]'>Forgot Password</h3>
+							<h3 className='font-["Sora"] font-medium text-[16px] mt-[45px]'>Forgot Password</h3>
 							{
 								showResetForm ? (
 									<Formik
@@ -97,17 +97,17 @@ const Forgot = () => {
 													<div className='relative pt-[25px] pb-[35px] mt-[15px]'>
 														<span className='absolute top-0 text-[14px] font-medium font-sans'>Email</span>
 														<input type="text" name="email" value={values.email} onChange={handleChange} onBlur={handleBlur} className='border-[1px] border-[rgba(0,0,0,0.25)] w-full p-[6px] rounded-[6px]' />
-														{((errors.email && touched.email)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Poppins"]'>{errors.email}</span>}
+														{((errors.email && touched.email)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Sora"]'>{errors.email}</span>}
 													</div>
 													<div className='relative pt-[25px] pb-[35px] mt-[15px]'>
 														<span className='absolute top-0 text-[14px] font-medium font-sans'>Password</span>
 														<input type="password" name="password" value={values.password} onChange={handleChange} onBlur={handleBlur} className='border-[1px] border-[rgba(0,0,0,0.25)] w-full p-[6px] rounded-[6px]' />
-														{((errors.password && touched.password)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Poppins"]'>{errors.password}</span>}
+														{((errors.password && touched.password)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Sora"]'>{errors.password}</span>}
 													</div>
 													<div className='relative pt-[25px] pb-[35px] mt-[15px]'>
 														<span className='absolute top-0 text-[14px] font-medium font-sans'>Confirm Password</span>
 														<input type="password" name="confirmPassword" value={values.confirmPassword} onChange={handleChange} onBlur={handleBlur} className='border-[1px] border-[rgba(0,0,0,0.25)] w-full p-[6px] rounded-[6px]' />
-														{((errors.confirmPassword && touched.confirmPassword)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Poppins"]'>{errors.confirmPassword}</span>}
+														{((errors.confirmPassword && touched.confirmPassword)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Sora"]'>{errors.confirmPassword}</span>}
 													</div>
 
 													<div className='relative pt-[25px] pb-[35px] mt-[15px]'>
@@ -125,7 +125,7 @@ const Forgot = () => {
 															setFieldTouched={props.setFieldTouched}
 															highlightColor={'#4caf50'}
 														/>
-														{((errors.otp && touched.otp)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Poppins"]'>{errors.otp}</span>}
+														{((errors.otp && touched.otp)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Sora"]'>{errors.otp}</span>}
 													</div>
 
 													<button className='w-full text-white font-medium bg-[#ff7637] rounded-[6px] shadow-md flex items-center justify-center'>{isSubmitting ? <ColorRing
@@ -175,7 +175,7 @@ const Forgot = () => {
 													<div className='relative pt-[25px] pb-[35px] mt-[15px]'>
 														<span className='absolute top-0 text-[14px] font-medium font-sans'>Email</span>
 														<input type="text" name="email" value={values.email} onChange={handleChange} onBlur={handleBlur} className='border-[1px] border-[rgba(0,0,0,0.25)] w-full p-[6px] rounded-[6px]' />
-														{(errors.email || (errors.email && dirty)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Poppins"]'>{errors.email}</span>}
+														{(errors.email || (errors.email && dirty)) && <span className='absolute bottom-[10px] right-0 text-red-500 text-[14px] font-medium font-["Sora"]'>{errors.email}</span>}
 													</div>
 													<button className='w-full py-[6px] text-white font-medium bg-[#ff7637] rounded-[6px] shadow-md'>Send OTP</button>
 													<p className='text-[13px] text-[#787878] leading-[20px] mt-[15px]'>An OTP will be sent to your registered email, upon verification of the OTP, you will be able to reset your login password</p>

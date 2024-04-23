@@ -2,10 +2,11 @@ import React from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import EnquirySection from "../common/EnquirySection";
+import HeaderNew from "../common/HeaderNew";
 function Checkout(){
     return(
         <>
-        <Header/>
+        <HeaderNew />
         <section className="pt-[9%] pb-[4%] bg-[#F7F7F7]">  
             <div className="center-wr">
                 <div className="flex">

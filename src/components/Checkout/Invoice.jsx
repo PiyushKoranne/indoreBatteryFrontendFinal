@@ -3,6 +3,7 @@ import Header from '../common/Header'
 import Footer from '../common/Footer'
 import { QRCodeSVG } from 'qrcode.react';
 import axios from 'axios';
+import HeaderNew from '../common/HeaderNew';
 
 function Invoice() {
 
@@ -36,7 +37,7 @@ function Invoice() {
 
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			<section className="bg-[#ffffff] pt-[100px] pb-[4%]">
 				<div className="center-wr">
 					<div className='flex items-center rounded-[8px] border-[1px] border-[rgba(0,0,0,0.15)] h-[200px]'>

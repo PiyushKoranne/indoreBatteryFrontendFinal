@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
@@ -7,11 +6,11 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Sora';
 }
 
 p {
-	font-family: 'Poppins';
+	font-family: 'Sora';
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 30px;
@@ -406,6 +405,13 @@ h3 strong {
 .battery-swiper-card:hover .swiper-card-buy-now {
 	opacity: 1;
 }
+.battery-swiper-card:hover figure {
+	border-color: #ff7637;
+}
+.battery-swiper-card:hover figcaption {
+	background-color: #ff7637;
+	color: #fff;
+}
 
 .brands-submenu {
 	transform: translateY(0px) translateX(-100px);
@@ -681,7 +687,7 @@ textarea::placeholder {
 
 .brand-link:hover li,
 .brand-link:hover span.hover {
-	color: #FF7637;
+	color: #ff7637;
 }
 
 .brand-link.brandName:hover li,
@@ -811,7 +817,7 @@ textarea::placeholder {
 }
 
 .is-sticky {
-	display: flex;
+	/* display: flex; */
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -982,7 +988,7 @@ textarea::placeholder {
 }
 
 .faq-content-wr h3 {
-	font-family: "Poppins";
+	font-family: "Sora";
 }
 
 .faq-content-wr h1 {
@@ -1351,7 +1357,7 @@ footer .cursive {
 }
 
 .sk-ww-google-reviews-review-text-content div {
-	font-family: "Poppins" !important;
+	font-family: "Sora" !important;
 	font-size: 14px !important;
 	font-weight: 500 !important;
 }
@@ -1583,7 +1589,7 @@ nav.fill ul li a:hover:after {
 
 .warranty-date-picker .ant-picker .ant-picker-input input::placeholder {
 	color: #000;
-	font-size: 16px;
+	font-size: 15px;
 }
 
 .about-content span {
@@ -1597,7 +1603,7 @@ nav.fill ul li a:hover:after {
 
 .offer-point p:first-child {
 	font-size: 16px;
-	font-family: 'Poppins';
+	font-family: 'Sora';
 	font-weight: 600;
 	line-height: 40px;
 }
@@ -1852,6 +1858,15 @@ fieldset>legend {
 }.banner-after-elem a:hover figcaption{
 	color: #ff7637;
 }
+.banner-after-elem::after{
+	content: "";
+	display: block;
+	width: 1px;
+	height: 100%;
+	background-color: rgb(255, 255, 255, 0.2);
+	right: -50%;
+	top: 50%;
+}
 .for-header-hover li {
   position: relative;
 }.for-header-hover li::before {
@@ -1958,4 +1973,44 @@ fieldset>legend {
 }
 .free-to-call-strip-content{
 	box-shadow: -20px 20px 74px 0px #00000014;
+}
+.free-to-call-strip-fig {
+	border:1px solid white;
+	background: url(/images/feetocallellipse.png);
+}
+.swiper-pagination.swiper-pagination-bullets.swiper-pagination-horizontal{
+	text-align: end;
+	padding-right: 50px;
+}
+.swiper-pagination-bullet{
+	border-radius: 10px;
+	transition: all 300ms ease;
+	background-color: #fff;
+	opacity: 0.75;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active{
+	width: 25px;
+	opacity: 1;
+}
+
+.batt-form-select.ant-select-single{
+	height: auto;
+	font-size: inherit;
+}
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item-active{
+	background-color: #ffffff !important;
+}
+.ant-drawer-body{
+	padding: 0 !important;
+}
+.ant-menu-item.ant-menu-item-only-child{
+	height: auto !important;
+	border-radius: 0px;
+	margin: 0px;
+	width: 100%;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.ant-menu-item.ant-menu-item-selected.ant-menu-item-only-child{
+	color: #000;
+	background-color: #f7f7f5;
 }

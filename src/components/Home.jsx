@@ -12,6 +12,7 @@ import KnowMore from "./homeComponents/KnowMore";
 import { batteryIndoreDataService } from "../services/dataService";
 import NeedAnyHelpStrip from "./homeComponents/NeedAnyHelpStrip";
 import Loader from "./Loader";
+import HeaderNew from "./common/HeaderNew";
 
 function Home() {
 
@@ -83,7 +84,7 @@ function Home() {
 	return (
 		<>
 			{showLoader && <Loader />}
-			<Header pageData={pageData?.sections?.filter(section => section.sectionName === "Contact Details Section")[0]} />
+			<HeaderNew pageData={pageData?.sections?.filter(section => section.sectionName === "Contact Details Section")[0]} />
 			<Banner pageData={pageData?.sections?.filter(section => section.sectionName === "Hero Section")[0]} />
 			<KnowMore pageData={pageData?.sections?.filter(section => section.sectionName === "Know More Section")[0]} />
 			<ShopByManufacturer pageData={pageData?.sections?.filter(section => section.sectionName === "Shop by Manufacturers")[0]} />

@@ -3,10 +3,11 @@ import Header from "./Header";
 import EnquirySection from "./EnquirySection";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
+import HeaderNew from "./HeaderNew";
 function OrderDetailsPage(){
     return(
         <>
-        <Header/>
+        <HeaderNew />
         <section className="order-details-w bg-[#F7F7F7] py-[5%] pb-[10%]">
         <div className="max-w-[628px] mx-[auto]">
 
@@ -17,7 +18,7 @@ function OrderDetailsPage(){
                     <img src="https://batterybackend.react.stagingwebsite.co.in/images/2024_1_3_3_Amaron-FLO-42B20R.jpg" alt="Prouct Image" />
                 </figure>
 
-                <span  className="h-[fit-content] font-['poppins'] bg-[#000] text-[#fff] rounded-[30px] px-[25px] py-[10px]">In progress</span>
+                <span  className="h-[fit-content] font-['Sora'] bg-[#000] text-[#fff] rounded-[30px] px-[25px] py-[10px]">In progress</span>
 
                 </div>
                 <div>

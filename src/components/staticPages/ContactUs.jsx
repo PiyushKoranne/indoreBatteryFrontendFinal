@@ -8,12 +8,26 @@ import axios from "axios";
 import { Formik } from "formik";
 import swal from "sweetalert";
 import { ColorRing } from "react-loader-spinner";
+import { batteryIndoreDataService } from "../../services/dataService";
+import HeaderNew from "../common/HeaderNew";
 
 
 function ContactUsPage() {
 
 	const [contactusContent, setContactUsContent] = useState([]);
+	const [contactDetails, setContactDetails] = useState(null);
+
 	const navigate = useNavigate();
+
+	async function getContactDetails() {
+		try {
+			const response = await batteryIndoreDataService.getContactDetails();
+			setContactDetails(response?.data?.data);
+
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	const navigateToMap = () => {
 		window.open('https://maps.app.goo.gl/StHNbjqYqArVsq4Y8', '_blank');
@@ -39,13 +53,14 @@ function ContactUsPage() {
 	}
 
 	useEffect(() => {
+		getContactDetails();
 		getPageData();
 	}, [])
 
 	return (
 		<>
-			<Header />
-			<section className="contact-us-wr bg-[#f7f7f7] py-[5%] pb-[10%]">
+			<HeaderNew />
+			<section className="contact-us-wr bg-[#f7f7f7] pt-[40px] pb-[10%]">
 				<div className="center-wr">
 					<div className="flex p-[8px] bg-[#f7f7f7] gap-[7px]">
 						<span><Link to={"/"} className="hover:text-[#ff7637]">Home</Link></span> &gt; <span className="text-[#FF7637] font-[600]">Contact Us</span>
@@ -146,7 +161,7 @@ function ContactUsPage() {
 								</figure>
 								<div >
 									<h3 className="text-[20px] font-[300] pb-[15px]">Our Address</h3>
-									<h4 className="text-[18px] font-[500] uppercase">22, Gulab Bagh, Dewas Naka, Indore, 452010</h4>
+									<h4 className="text-[18px] font-[500] uppercase">{contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'address')[0]?.elementValue}</h4>
 								</div>
 							</div>
 
@@ -157,7 +172,7 @@ function ContactUsPage() {
 								</figure>
 								<div >
 									<h3 className="text-[20px] font-[300] pb-[15px]">Call Us</h3>
-									<h4 className="text-[18px] font-[500] uppercase">883 912 4524</h4>
+									<h4 className="text-[18px] font-[500] uppercase">{contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[1]?.split(" ")?.join("")}</h4>
 								</div>
 							</div>
 
@@ -167,7 +182,7 @@ function ContactUsPage() {
 								</figure>
 								<div >
 									<h3 className="text-[20px] font-[300] pb-[15px]">Mail Us</h3>
-									<h4 className="text-[18px] font-[500] uppercase">batteryindore@gmail.com</h4>
+									<h4 className="text-[18px] font-[500] uppercase">{contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'email')[0]?.elementValue}</h4>
 								</div>
 							</div>
 						</div>

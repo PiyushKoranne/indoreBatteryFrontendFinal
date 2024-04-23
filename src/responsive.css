@@ -280,7 +280,8 @@
 }.all-category-pg-wr > div > div:nth-child(2) {
     padding-top: 3%;
 }.btn-special-spread {
-    width: 30%;
+    width: 35%;
+		font-size: 16px;
 }.footer-banner-after-elem:not(:last-child)::after {
     right: -22%;
 }#Loader figure {
@@ -1092,7 +1093,7 @@
     .privacy-policy-pg-wr, 
     .warranty-registeration-pg-wr,
     .offers-page-wr {
-        padding:7% 0 35%;
+        padding:7% 0 5%;
     }.enquiry-form-wr .btn-special-spread {
         width: 56%; 
     }.car-brand-grid-container div {
@@ -1152,7 +1153,7 @@
         font-size: 13px;
         padding: 11px 14px;
     }.products-card-wr .product-name-wr h3{
-        font-size: 20px !important;
+        /* font-size: 20px !important; */
         text-align: center;
         padding-top: 20px;
     }.products-card-wr .product-name-wr{

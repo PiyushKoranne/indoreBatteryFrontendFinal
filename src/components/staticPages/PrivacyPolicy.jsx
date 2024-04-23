@@ -5,6 +5,7 @@ import Footer from "../common/Footer";
 import { Link } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import HeaderNew from "../common/HeaderNew";
 
 function PrivacyPolicy(){
         const contentArray = [
@@ -28,7 +29,7 @@ function PrivacyPolicy(){
 
     return(
         <>
-        <Header/>
+        <HeaderNew />
         <section className="privacy-policy-pg-wr bg-[#F7F7F7] py-[5%] pb-[10%]">
             <div className="center-wr">
                  <div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">

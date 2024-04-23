@@ -3,6 +3,7 @@ import Header from '../common/Header'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import Countdown from 'react-countdown';
+import HeaderNew from '../common/HeaderNew';
 
 
 const Success = () => {
@@ -49,7 +50,7 @@ const Success = () => {
 	},[])
   return (
 	<>
-		<Header />
+		<HeaderNew />
 		<section className='pt-[100px] bg-[#fff] flex flex-col items-center justify-center'>
 			<figure className='flex items-center justify-center relative'>
 				<img src="/images/tick-circle-svgrepo-com.svg" width={150} alt="Tick" />

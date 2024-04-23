@@ -5,6 +5,7 @@ import Footer from "./common/Footer";
 import { batteryIndoreDataService } from "../services/dataService";
 import { Link } from "react-router-dom";
 import log from "../utils/utilityFunctions";
+import HeaderNew from "./common/HeaderNew";
 
 
 function Categories(){
@@ -31,7 +32,7 @@ function Categories(){
 
     return(
         <>
-        <Header/>
+        <HeaderNew />
         <section className="all-category-pg-wr bg-[#F7F7F7] py-[5%]">
 			<div className="center-wr">
 				<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">

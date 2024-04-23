@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import log from "../../utils/utilityFunctions";
 import toast, { Toaster } from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
+import HeaderNew from "../common/HeaderNew";
 
 function Cart() {
 	const navigate = useNavigate();
@@ -174,7 +175,7 @@ function Cart() {
 
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			{
 				cart === undefined ? (
 					<div className="py-[10%] flex justify-center">
@@ -226,7 +227,7 @@ function Cart() {
 								</div>
 								<div className="w-[90%] mx-auto my-[15px] p-[30px] bg-white shadow-[1px_1px_3px_rgba(0,0,0,0.15)] relative">
 									<div className="flex items-center justify-between">
-										<h3 className="text-[18px] font-[600] font-['Poppins']" style={{ color: !showIndicator ? "#000" : "red" }}>Choose an address</h3> <i style={{ visibility: !showIndicator ? "hidden" : "visible" }} className="text-red-400 fa-solid fa-arrow-left absolute indicator-arrow"></i>
+										<h3 className="text-[18px] font-[600] font-['Sora']" style={{ color: !showIndicator ? "#000" : "red" }}>Choose an address</h3> <i style={{ visibility: !showIndicator ? "hidden" : "visible" }} className="text-red-400 fa-solid fa-arrow-left absolute indicator-arrow"></i>
 										<button className="p-[10px] font-semibold text-orange-500 text-[14px] border-2 border-orange-500" onClick={handleOpenDrawer}>Add new address</button>
 									</div>
 									<div className="p-[10px] flex items-center gap-[25px] flex-wrap">
@@ -244,7 +245,7 @@ function Cart() {
 									</div>
 									<div ref={drawerRef} className="relative addr-drawer-drop ">
 										<span className="absolute top-[10px] right-[10px] text-[28px] cursor-pointer" onClick={handleCloseDrawer}>&times;</span>
-										<h4 className="font-['Poppins'] my-[15px]">Add a new address</h4>
+										<h4 className="font-['Sora'] my-[15px]">Add a new address</h4>
 										<div className="flex items-center gap-[25px] w-[100%] pb-[10px]">
 											<label htmlFor="home-addr-type" className="w-[150px] addr-label flex flex-col	border-2 items-start justify-start relative rounded-[8px] pt-[12px] pb-[12px] px-[15px]">
 												<input id="home-addr-type" onChange={(e) => { setNewAddress(prev => ({ ...prev, addressType: e.target.value })) }} className="addr-input absolute top-[15px] right-[15px]" type="radio" name="addressType" value="Home" aria-labelledby="delivery-0-name" aria-describedby="delivery-0-shipping delivery-0-price" />
@@ -319,9 +320,9 @@ function Cart() {
 								<div className="py-[15px] flex justify-between w-[90%] my-[0] mx-[auto]">
 									<div style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="w-[40%] py-[15px] h-[100%]  pb-[20px] px-[30px] bg-[#fff]">
 										<div className="py-[7px]">
-											<h3 className="text-[18px] font-[600] font-['Poppins']">Apply Coupon</h3>
+											<h3 className="text-[18px] font-[600] font-['Sora']">Apply Coupon</h3>
 										</div>
-										{couponMessage && <div className="rounded-[8px] p-[15px] bg-rose-100 text-rose-500">{couponMessage}</div>}
+										{couponMessage && <div className="rounded-[8px] p-[15px] bg-red-100 text-red-500">{couponMessage}</div>}
 										<div className="py-[7px] flex items-center justify-between">
 											<input onChange={(e) => { setCouponCode(e.target.value) }} value={couponCode || ""} className="text-[14px] w-[71%] px-[10px] py-[10px] border-[1px] border-solid border-[#0000004d]" type="text" placeholder="Enter Coupon Code" />
 											<button className="text-[14px] bg-[#EEEEEE] w-[27%] py-[10px]  px-[7px] border-[1px] border-solid border-[#0000004d]" onClick={handleApplyCoupon}>Apply</button>
@@ -331,7 +332,7 @@ function Cart() {
 												<div className="bg-emerald-100 rounded-[6px] p-[10px] mt-[15px]">
 													<h6 className="text-emerald-500 font-bold tracking-[2px] leading-[20px] flex items-center mb-[10px] gap-[5px]"><i className='bx bxs-award text-[22px] leading-[20px]'></i> {coupon?.couponCode}</h6>
 													<p className="text-[13px] leading-[18px] my-[5px] text-emerald-700 px-[30px]">Coupon Applied:{coupon?.couponDescription}</p>
-													<div className="text-end"><button onClick={handleRemoveCoupon} className="text-rose-600 font-semibold">Remove</button></div>
+													<div className="text-end"><button onClick={handleRemoveCoupon} className="text-red-600 font-semibold">Remove</button></div>
 												</div>
 											)
 										}
@@ -370,7 +371,7 @@ function Cart() {
 											</tr>
 											{discount && (<tr>
 												<td className="w-[30%] font-['Trebuchet MS'] text-[13px] font-semibold p-[2px]">Coupon Applied</td>
-												<td className="w-[70%] font-sans font-semibold text-[14px] text-end text-rose-600"><i className='bx bx-rupee'></i> -{discount}</td>
+												<td className="w-[70%] font-sans font-semibold text-[14px] text-end text-red-600"><i className='bx bx-rupee'></i> -{discount}</td>
 											</tr>)}
 											<tr style={{ borderTop: "1px solid rgba(0,0,0,0.4)" }}>
 												<td className="w-[30%] font-['Arial'] text-[14px] font-semibold p-[5px] font-semibold">Order Total</td>

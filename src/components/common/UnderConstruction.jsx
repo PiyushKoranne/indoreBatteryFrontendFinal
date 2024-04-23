@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import Header from './Header'
 import { Link } from 'react-router-dom'
+import HeaderNew from './HeaderNew'
 
 const UnderConstruction = () => {
 
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			<section className='under-construction-container pt-[100px] flex flex-col items-center justify-center font-["Sora"] tracking-[2px] text-[#484848]'>
 				<h1 className='uppercase text-[48px] font-bold'>Great Things are being built</h1>
 				<img src="/images/under_construction.png" alt="under construction" />

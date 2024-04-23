@@ -13,6 +13,7 @@ import log from "../../utils/utilityFunctions";
 import { GoogleLogin } from "@react-oauth/google";
 import { Formik } from "formik";
 import { ColorRing } from "react-loader-spinner";
+import HeaderNew from "../common/HeaderNew";
 // CSS Styles, adjust according to your needs
 const formStyle = {
 	display: 'flex',
@@ -125,16 +126,16 @@ function Login() {
 
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			<section className="bg-[#fff] pt-[7%]">
 				<div className="center-wr">
 					<div className="bg-[#fff] flex items-center justify-center">
 						<div className="w-[40%] my-[15px] flex items-start justify-start flex-col p-[30px] pt-[100px] login-form-wr">
 							<div className="pt-[20px]">
-								<h3 className="text-[20px] font-[500] leading-[33px] font-['Poppins']">Login to your account</h3>
+								<h3 className="text-[20px] font-[500] leading-[33px] font-['Sora']">Login to your account</h3>
 								<span>We are happy to see you return! Please log in to continue.</span>
 							</div>
-							<div className={`p-[9px] mt-[15px] rounded-[6px] w-[83%] text-rose-500 flex items-center gap-[10px] `}>
+							<div className={`p-[9px] mt-[15px] rounded-[6px] w-[83%] text-red-500 flex items-center gap-[10px] `}>
 								{error && <i className="bx bx-error-circle text-[28px]"></i>}
 								{error}
 							</div>

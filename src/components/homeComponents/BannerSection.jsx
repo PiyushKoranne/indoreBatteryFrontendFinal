@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import axios from "axios";
 import 'swiper/css';
+import 'swiper/css/pagination';
 import { useNavigate } from "react-router-dom";
 import { batteryIndoreDataService } from "../../services/dataService";
 import ConstantService from "../../services/constantsService";
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import CustomForm from "../test/FormikTest";
 import log from "../../utils/utilityFunctions";
+import { Select } from "antd";
+import { PiCaretDownBold } from "react-icons/pi";
 
 function Banner({ pageData }) {
 
@@ -44,9 +47,9 @@ function Banner({ pageData }) {
 	};
 
 	async function fetchCarBrands() {
-		log("fetching car brands...")
+		log("fetching car brands...");
 		const response = await batteryIndoreDataService.getAllCarBrands();
-		setCarBrands(response?.data)
+		setCarBrands(response?.data);
 	}
 
 
@@ -96,8 +99,8 @@ function Banner({ pageData }) {
 						disableOnInteraction: false
 					}}
 					loop
-					modules={[Autoplay]}
-					pagination={{ clickable: true }}
+					modules={[Autoplay, Pagination]}
+					pagination={{ clickable: "true" }}
 					onSlideChange={() => { log('slide change') }}
 					onSwiper={(swiper) => { log(swiper) }}
 				>
@@ -108,8 +111,8 @@ function Banner({ pageData }) {
 									<div className="fixed w-screen z-[10] top-[200px]">
 										{/* <span className="text-[#fff]  font-[800] w-[60%] mx-[auto] left-[-10%] relative  text-[38px] uppercase block font-['Oswald']">We offer a very wide selection of batteries for all types of vehicles.</span> */}
 									</div>
-									<figure className="1440:h-auto 1749:h-[690px]">
-										<img className="w-[100%] object-contain object-center" src={`https://batterybackend.react.stagingwebsite.co.in/images/${item?.value}`} alt="banner slider image" />
+									<figure className="1024:h-[560px]">
+										<img className="w-[100%] object-cover h-full" src={`https://batterybackend.react.stagingwebsite.co.in/images/${item?.value}`} alt="banner slider image" />
 									</figure>
 								</div>
 							</SwiperSlide>
@@ -126,7 +129,7 @@ function Banner({ pageData }) {
 				</Swiper>
 
 				<div className="320:w-full 1368:w-[27%]">
-					<div className="320:mt-[0px] 1368:mt-[14%]">
+					<div className="320:mt-[0px] 1368:mt-[0%]">
 						<div className=" text-[#000] p-[24px] 1200:w-[50%] 1368:w-full">
 							<div className="mb-4">
 								<h3 className="pb-[10px] pt-[10px] text-[22px] font-[800]">FIND YOUR BATTERY QUICKLY</h3>
@@ -149,7 +152,15 @@ function Banner({ pageData }) {
 										<div className="mb-4">
 											<label className="block text-sm font-semibold mb-2">Car Brand</label>
 											<span className="text-[red] mt-[-5px] pb-[5px]" style={{ display: carBrandErr ? "block" : "none" }}>{carBrandErr}</span>
-											<select
+											<Select
+												suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+												variant="borderless"
+												defaultValue=""
+												className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+												onChange={(val) => { setSelectedCarBrand(carBrands.find(item => item?.postData?.brandName === val)) }}
+												options={[{ value: "", label: "Select a Model" }, ...carBrands?.map(item => ({ value: item?.postData?.brandName, label: item?.postData?.brandName }))]}
+											/>
+											{/* <select
 												value={selectedCarBrand?.postData?.brandName}
 												onChange={(e) => setSelectedCarBrand(carBrands.find(item => item?.postData?.brandName === e.target.value))}
 												required
@@ -159,57 +170,54 @@ function Banner({ pageData }) {
 												{carBrands?.map((item, index) => (
 													<option key={index} value={item?.postData?.brandName}>{item?.postData?.brandName}</option>
 												))}
-											</select>
+											</select> */}
 										</div>
 										<div className="mb-4">
 											<label className="block text-sm font-semibold mb-2">  Car Model</label>
 											<span className="text-[red] block mt-[-5px] pb-[5px]" style={{ display: carModelErr ? "block" : "none" }}>{carModelErr}</span>
-											<select
-												onChange={(e) => setSelectedCarModel(selectedCarBrand?.postData?.linkedEquipments.find(item => item.value?.split("__")[1] === e.target.value))}
-												required className="w-full p-[10px] border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent]">
-												<option value="Select Manufacturer">Select Model</option>
-												{selectedCarBrand && selectedCarBrand?.postData?.linkedEquipments?.map((item, index) => (
-													<option key={index} value={item?.value?.split("__")[1]}>{item?.value?.split("__")[0]} </option>
-												))}
-											</select>
+											<Select
+												suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+												variant="borderless"
+												defaultValue=""
+												className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+												onChange={(val) => { setSelectedCarModel(selectedCarBrand?.postData?.linkedEquipments.find(item => item.value?.split("__")[1] === e.target.value)) }}
+												options={selectedCarBrand ? [...selectedCarBrand?.postData?.linkedEquipments?.map((item, index) => ({ value: item?.value?.split("__")[1], label: item?.value?.split("__")[0] }))] : [{ value: "", label: "Choose a Brand" }]}
+											/>
 										</div>
 										<div className="mb-4">
 											<label className="block text-sm font-semibold mb-2"> Battery Brand </label>
-											<select
-												onChange={(e) => setSelectedBatteryBrand(e.target.value)}
-												required className="w-full p-[10px] border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent]">
-												<option value="">Choose a Brand</option>
-												<option value="All Brands">All Brands</option>
-												{batteryBrands?.map((item, index) => (
-													<option key={index} value={item?.brandName}>{item?.brandName} </option>
-												))}
-											</select>
+											<Select
+												suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+												variant="borderless"
+												defaultValue=""
+												className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+												onChange={(val) => { setSelectedBatteryBrand(val) }}
+												options={[{ value: "", label: "Battery Brand" }, ...batteryBrands?.map((item, index) => ({ value: item?.brandName, label: item?.brandName }))]}
+											/>
 										</div>
 										<div className="flex justify-between gap-[20px] state-city-input-wr">
 
 											<div className="mb-4 w-[50%]">
 												<label className="block text-sm font-semibold mb-2">State </label>
-												<select
-
-													onChange={handleStateChange}
-													value={selectedState}
-													className="w-full p-[10px] border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent]">
-													<option value="">Select State</option>
-													{indianStatesAndCities?.map((item, index) => (
-														<option key={index} value={item?.state}>{item?.state}</option>
-													))}
-												</select>
+												<Select
+													suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+													variant="borderless"
+													defaultValue=""
+													className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+													onChange={(val) => { setSelectedState(val) }}
+													options={[{ value: "", label: "Choose a State" }, ...indianStatesAndCities?.map((item, index) => ({ value: item?.state, label: item?.state }))]}
+												/>
 											</div>
 											<div className="mb-4 w-[50%]">
 												<label className="block text-sm font-semibold mb-2">  City </label>
-												<select
-													onChange={(e) => setSelectedCity(e.target.value)}
-													className="w-full p-[10px] border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent]">
-													<option value="">Select City</option>
-													{selectedCities.map((city, index) => (
-														<option key={index} value={city}>{city}</option>
-													))}
-												</select>
+												<Select
+												  suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+													variant="borderless"
+													defaultValue=""
+													className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+													onChange={(val) => { setSelectedCity(val) }}
+													options={[{ value: "", label: "Choose a City" }, ...selectedCities?.map((item, index) => ({ value: item, label: item }))]}
+												/>
 											</div>
 										</div>
 										<button
@@ -225,7 +233,7 @@ function Banner({ pageData }) {
 							{batteryType === 'inverter' && (
 								<div>
 									<form onSubmit={findCarBattery}>
-										<div className="mb-4 text-[#4D4D4D] inverter-btry-radio">
+										<div className="mb-4 inverter-btry-radio">
 											<label className="block text-sm font-semibold mb-2">I am looking for</label>
 											<div className="flex">
 												<div className="mx-[5px]">
@@ -242,66 +250,78 @@ function Banner({ pageData }) {
 
 										{/* Dropdowns for Inverter Battery */}
 
-										<div className="mb-4 text-[#4D4D4D]">
+										<div className="mb-4">
 											<label className="block text-sm font-semibold mb-2">  Capacity </label>
 											<span className="text-[red] block mt-[-5px] pb-[5px]" style={{ display: capacityErr ? "block" : "none" }}>{capacityErr}</span>
-											<select required onChange={(e) => { setInverterFormQuery(prev => ({ ...prev, capacity: e.target.value })) }} className="w-full p-[10px] border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent]">
-												<option value={0} >Select Capacity</option>
-												<option value={80} >80 AH</option>
-												<option value={100} >100 AH</option>
-												<option value={115} >115 AH</option>
-												<option value={120} >120 AH</option>
-												<option value={135} >135 AH</option>
-												<option value={140} >140 AH</option>
-												<option value={145} >145 AH</option>
-												<option value={150} >150 AH</option>
-												<option value={155} >155 AH</option>
-												<option value={160} >160 AH</option>
-												<option value={165} >165 AH</option>
-												<option value={180} >180 AH</option>
-												<option value={200} >200 AH</option>
-												<option value={220} >220 AH</option>
-												<option value={230} >230 AH</option>
-												<option value={250} >250 AH</option>
-												<option value={260} >260 AH</option>
-											</select>
+											<Select
+												suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+												variant="borderless"
+												defaultValue={0}
+												className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+												onChange={(val) => { setInverterFormQuery(prev => ({ ...prev, capacity: val })) }}
+												options={[
+													{ value: 0, label: "Select Capacity" }, 
+													{ value: 80, label: "80" },
+													{ value: 100, label: "100" },
+													{ value: 115, label: "115" },
+													{ value: 120, label: "120" },
+													{ value: 135, label: "135" },
+													{ value: 140, label: "140" },
+													{ value: 145, label: "145" },
+													{ value: 150, label: "150" },
+													{ value: 155, label: "155" },
+													{ value: 160, label: "160" },
+													{ value: 165, label: "165" },
+													{ value: 180, label: "180" },
+													{ value: 200, label: "200" },
+													{ value: 220, label: "220" },
+													{ value: 230, label: "230" },
+													{ value: 250, label: "250" },
+													{ value: 260, label: "260" },
+													
+												]}
+											/>
 										</div>
 										<div className="mb-4">
 											<label className="block text-sm font-semibold mb-2">  Battery Brand </label>
-											<select required onChange={(e) => { setInverterFormQuery(prev => ({ ...prev, brand: e.target.value })) }} className="w-full p-[10px] border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent]">
-												<option value="All Brands">All Brands</option>
-												<option value={"Livguard"}>Livguard</option>
-												<option value={"Amaron"}>Amaron</option>
-												<option value={"Exide"}>Exide</option>
-												<option value={"PowerZONE"}>PowerZONE</option>
-												<option value={"SF"}>SF</option> Sonic
-											</select>
+											<Select
+												suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+												variant="borderless"
+												defaultValue="All Brands"
+												className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+												onChange={(val) => { setInverterFormQuery(prev => ({ ...prev, brand: val })) }}
+												options={[
+													{ value: "All Brands", label: "All Brands" }, 
+													{ value: "Livguard", label: "Livguard" },
+													{ value: "Amaron", label: "Amaron" },
+													{ value: "Exide", label: "Exide" },
+													{ value: "PowerZONE", label: "PowerZONE" },
+													{ value: "SF Sonic", label: "SF Sonic" },
+												]}
+											/>
 										</div>
 										<div className="flex justify-between gap-[20px]  inverter-btry-little">
-
 											<div className="mb-4 w-[50%]">
 												<label className="block text-sm font-semibold mb-2">State</label>
-												<select
-
-													onChange={handleStateChange}
-													value={selectedState}
-													className="w-full p-[10px] border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent]">
-													<option value="">Select State</option>
-													{indianStatesAndCities?.map((item, index) => (
-														<option key={index} value={item?.state}>{item?.state}</option>
-													))}
-												</select>
+												<Select
+													suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+													variant="borderless"
+													defaultValue=""
+													className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+													onChange={(val) => { setSelectedState(val) }}
+													options={[{ value: "", label: "Choose a State" }, ...indianStatesAndCities?.map((item, index) => ({ value: item?.state, label: item?.state }))]}
+												/>
 											</div>
 											<div className="mb-4 w-[50%]">
 												<label className="block text-sm font-semibold mb-2">  City </label>
-												<select
-													onChange={(e) => setSelectedCity(e.target.value)}
-													className="w-full p-[10px] border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent]">
-													<option value="">Select City</option>
-													{selectedCities.map((city, index) => (
-														<option key={index} value={city}>{city}</option>
-													))}
-												</select>
+												<Select
+													suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+													variant="borderless"
+													defaultValue=""
+													className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
+													onChange={(val) => { setSelectedCity(val) }}
+													options={[{ value: "", label: "Choose a City" }, ...selectedCities?.map((item, index) => ({ value: item, label: item }))]}
+												/>
 											</div>
 										</div>
 										<button
@@ -323,31 +343,31 @@ function Banner({ pageData }) {
 			<div className=" banner-after-elem-wr py-[40px] bg-[#000] text-[#fff]">
 				<ul className="banner-after-elem-cont flex justify-center gap-[110px]">
 					<li className="banner-after-elem">
-						<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+						<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 							<img src="/images/freeShipping.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 						</figure>
 						<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px]">FREE SHIPPING</figcaption>
 					</li>
 					<li className="banner-after-elem">
-						<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+						<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 							<img src="/images/freeInstallation.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 						</figure>
 						<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px]">FREE INSTALLATION</figcaption>
 					</li>
 					<li className="banner-after-elem">
-						<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+						<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 							<img src="/images/bestPrices.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 						</figure>
 						<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px]">BEST PRICES</figcaption>
 					</li>
 					<li className="banner-after-elem">
-						<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+						<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 							<img src="/images/cod.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 						</figure>
 						<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px]">CASH ON DELIVERY</figcaption>
 					</li>
 					<li>
-						<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+						<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 							<img src="/images/payOnline.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 						</figure>
 						<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px]">PAY BY ONLINE</figcaption>

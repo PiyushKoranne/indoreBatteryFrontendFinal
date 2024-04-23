@@ -6,6 +6,7 @@ import { batteryIndoreDataService } from '../../services/dataService';
 import ConstantService from '../../services/constantsService';
 import Footer from './Footer';
 import EnquirySection from './EnquirySection';
+import HeaderNew from './HeaderNew';
 
 const CategoryModels = () => {
 	const {state} = useLocation();
@@ -78,7 +79,7 @@ const CategoryModels = () => {
 	
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			<section className="category-brand-pg bg-[#F7F7F7] py-[5%] pb-[10%]">
 				<div className="center-wr">
 					<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">
@@ -295,7 +296,7 @@ const CategoryModels = () => {
 								<div style={{borderRadius:"0 60px 60px 0"}} className="bg-[#fff] flex items-center justify-between py-[15px] mb-[20px] border-[#FF7637] border-[1px]">
 									<div className='text-center w-[86%] category-name-strip'>
 										<h3 className='text-[22px] uppercase'>{state.brandName}  {batteryCategory?.split("-")?.map(item => item.substring(0,1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}</h3>
-										<h4 className='text-[15px] font-[200] font-[poppins]'>With Indore Battery, get  {state.brandName}  {batteryCategory?.split("-")?.map(item => item.substring(0,1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")} at Best Price</h4>
+										<h4 className='text-[15px] font-[200] font-[Sora]'>With Indore Battery, get  {state.brandName}  {batteryCategory?.split("-")?.map(item => item.substring(0,1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")} at Best Price</h4>
 									</div>
 									<figure className='px-[15px] py-[10px] rounded-[50%] border-[1px] border-[rgba(0,0,0,0.15)] category-logo-cont mr-[11px] h-[89px] flex items-center justify-center'>
 										<img src={`https://batterybackend.react.stagingwebsite.co.in/images/${state.brandLogo}`}  className='w-[60px]' alt="bike category logo" />

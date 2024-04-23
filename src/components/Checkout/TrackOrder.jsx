@@ -4,6 +4,7 @@ import Footer from "../common/Footer";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HeaderNew from "../common/HeaderNew";
 
 function TrackOrder() {
 
@@ -19,8 +20,6 @@ function TrackOrder() {
 	});
 
 	const [tabber, setTabber] = useState(0);
-
-	console.log('@@@@@@@@@@@@@@@@@@', productDetails);
 
 	async function getDetails() {
 		const urlParams = new URLSearchParams(window.location.search);
@@ -63,7 +62,7 @@ function TrackOrder() {
 
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			<section className="order-details-w bg-[#F7F7F7] py-[5%] pb-[10%]">
 				<div className="max-w-[628px] mx-[auto]">
 					<div className="flex justify-between flex-col gap-[25px] border-[1px] border-[rgba(0,0,0,0.15)] p-[15px] rounded-[8px] bg-[#fff]">
@@ -72,11 +71,11 @@ function TrackOrder() {
 								<img src={`https://batterybackend.react.stagingwebsite.co.in/images/${productDetails?.productImage}`} alt="Prouct Image" />
 							</figure>
 
-							<span className={`h-[fit-content] font-['poppins'] text-[#fff] rounded-[30px] px-[25px] py-[10px] ${trackerState.orderDelivered ? 'bg-green-400' : 'bg-[#000000]'}`}>{trackerState.orderDelivered ? 'Completed' : 'In Progress'}</span>
+							<span className={`h-[fit-content] font-['Sora'] text-[#fff] rounded-[30px] px-[25px] py-[10px] ${trackerState.orderDelivered ? 'bg-green-400' : 'bg-[#000000]'}`}>{trackerState.orderDelivered ? 'Completed' : 'In Progress'}</span>
 
 						</div>
 						<div>
-							<h3 className="pb-[15px] font-[600] text-[24px] font-['Poppins']">Order <span className="block text-[16px] text-[#000]"># {orderDetails?.orderId}</span></h3>
+							<h3 className="pb-[15px] font-[600] text-[24px] font-['Sora']">Order <span className="block text-[16px] text-[#000]"># {orderDetails?.orderId}</span></h3>
 
 							<div className="flex justify-between">
 								<div className=" flex flex-col pb-[25px]">

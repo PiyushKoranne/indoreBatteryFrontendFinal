@@ -3,12 +3,13 @@ import Header from './Header'
 import { useNavigate } from 'react-router-dom'
 import EnquirySection from './EnquirySection';
 import Footer from './Footer';
+import HeaderNew from './HeaderNew';
 
 const NotFound = () => {
 	const navigate = useNavigate();
 	return (
 		<>
-		<Header />
+		<HeaderNew />
 			<section className='not-found-page-container bg-[#f7f7f5] pt-[65px] border-2 border-green-400 pb-[10.1%]'>
 				<div className='center-wr'>
 					<div className=' flex flex-col items-center justify-start'>

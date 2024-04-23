@@ -44,12 +44,12 @@ function TopMoneySavers({ pageData }) {
 							<SwiperSlide key={idx}>
 								<Link to={`/buy-battery/${item?.batterySlug}`} key={idx} className="battery-card-link">
 									<div className='battery-swiper-card w-[310px] flex flex-col items-center justify-start p-[10px] cursor-pointer relative'>
-											<div className="discount-badge z-[1]" style={{right:"0px"}} >{item.discount === "" ? "25" : item.discount}% OFF</div>
-										<figure className='w-[100%] h-[270px] relative overflow-hidden border-2 border-[rgba(0,0,0,0.1)] flex items-center justify-center'>
+										<div className="discount-badge z-[1]" style={{right:"0px"}} >{item.discount === "" ? "25" : item.discount}% OFF</div>
+										<figure className='transition-all w-[100%] h-[270px] relative overflow-hidden border-2 border-b-0 border-[rgba(0,0,0,0.1)] flex items-center justify-center'>
 											{item?.isnew === 'true' && <div className="offers-and-discount-badge" ><p>NEW</p></div>}
 											<img src={`https://batterybackend.react.stagingwebsite.co.in/images/${item.batteryImages}`} className='w-[75%] h-auto mx-auto my-0' alt="" />
 										</figure>
-										<figcaption className="uppercase bg-[#e5e5e5] p-[5px] text-center font-[300] w-[100%]">Car Battery</figcaption>
+										<figcaption className="transition-all uppercase bg-[#e5e5e5] p-[5px] text-center font-[300] w-[100%]">Car Battery</figcaption>
 										<h3 className='mt-[15px] font-semibold text-[18px] w-[100%] mb-[15px] whitespace-nowrap text-ellipsis overflow-hidden'>
 											{item?.batteryName}
 										</h3>

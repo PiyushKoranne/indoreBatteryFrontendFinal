@@ -44,14 +44,14 @@ function KnowMore({pageData}) {
                         <figure  className=" w-[60px] h-[58px] flex items-center justify-center mb-[10px]">
                           <img src="/images/passengerVechile.png" alt="indore battery feature image" />
                         </figure>
-                       <figcaption className="w-[100px] text-center font-[400] font-['Sora'] text-[14px] transition-all ">Passenger Vechiles</figcaption></Link>
+                       <figcaption className="w-[100px] text-center font-[400] font-['Sora'] text-[14px] transition-all ">Passenger Vehicles</figcaption></Link>
                     </li>
                     <li className="banner-after-elem w-[14.28%] know-more cursor-pointer">
                     <Link to={"/categories/truck-batteries"} className="flex items-center justify-center flex-col">
                         <figure  className=" w-[60px] h-[58px] flex items-center justify-center mb-[10px]">
                           <img src="/images/commercialVechile.png" alt="indore battery feature image" />
                         </figure>
-                       <figcaption className="w-[100px] text-center font-[400] font-['Sora'] text-[14px] transition-all ">Commercial Vechiles</figcaption></Link>
+                       <figcaption className="w-[100px] text-center font-[400] font-['Sora'] text-[14px] transition-all ">Commercial Vehicles</figcaption></Link>
                     </li>
 					<li className="banner-after-elem w-[14.28%] know-more cursor-pointer">
           <Link to={"/categories/inverter-batteries"} className="flex items-center justify-center flex-col">
@@ -64,9 +64,9 @@ function KnowMore({pageData}) {
 					<li className="banner-after-elem w-[14.28%] know-more cursor-pointer">
           <Link to={"/categories/e-vehicle-batteries"} className="flex items-center justify-center flex-col">
                         <figure  className=" w-[60px] h-[58px] flex items-center justify-center mb-[10px]">
-                          <img src="/images/eVechiles.png" alt="indore battery feature image" />
+                          <img src="/images/eVehicles.png" alt="indore battery feature image" />
                         </figure>
-                        <figcaption className="w-[100px] text-center font-[400] font-['Sora'] text-[14px] transition-all ">E-Vechiles</figcaption></Link>
+                        <figcaption className="w-[100px] text-center font-[400] font-['Sora'] text-[14px] transition-all ">E-Vehicles</figcaption></Link>
                     </li>
 					<li className="banner-after-elem w-[14.28%] know-more cursor-pointer">
           <Link to={"/categories/e-vehicle-batteries"} className="flex items-center justify-center flex-col">

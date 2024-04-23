@@ -7,6 +7,7 @@ import { batteryIndoreDataService } from '../../services/dataService';
 import log from '../../utils/utilityFunctions';
 import Footer from '../common/Footer';
 import EnquirySection from '../common/EnquirySection';
+import HeaderNew from '../common/HeaderNew';
 
 const BatteryCategoryBrands = () => {
 	const { batteryCategory } = useParams();
@@ -124,8 +125,8 @@ const BatteryCategoryBrands = () => {
 
 	return (
 		<>
-			<Header />
-			<section className="category-brand-pg bg-[#F7F7F7] py-[5%] pb-[10%]">
+			<HeaderNew />
+			<section className="category-brand-pg bg-[#F7F7F7] py-[40px] pb-[10%]">
 				<div className="center-wr">
 					<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">
 						<span><Link className='hover:text-[#ff7637]' to="/" >Home</Link></span> &gt; <span className="text-[#FF7637] font-[600]"> {batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}</span> <span className="text-[#3BBA11] font-[600]">{carBrandName}</span>
@@ -332,7 +333,7 @@ const BatteryCategoryBrands = () => {
 								<div style={{ borderRadius: "0 60px 60px 0" }} className="bg-[#fff] flex items-center justify-between py-[15px] mb-[20px] border-[#FF7637] border-[1px]">
 									<div className='text-center w-[86%] category-name-strip'>
 										<h3 className='text-[22px] uppercase'>{batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}</h3>
-										<h4 className='text-[15px] font-[200] font-[poppins]'>Indore Battery offering {batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}  at Best Price</h4>
+										<h4 className='text-[15px] font-[200] font-[Sora]'>Indore Battery offering {batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}  at Best Price</h4>
 									</div>
 									<figure className='px-[15px] py-[10px] rounded-[50%] border-[1px] border-[rgba(0,0,0,0.15)] mr-[11px] h-[89px] category-logo-cont'>
 										<img src="/images/bikeCategoryLogo.png" alt="bike category logo" />

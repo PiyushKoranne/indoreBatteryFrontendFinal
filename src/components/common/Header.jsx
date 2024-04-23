@@ -9,8 +9,8 @@ import { batteryIndoreDataService } from "../../services/dataService";
 import log from "../../utils/utilityFunctions";
 
 
-function Header({pageData}) {
-	
+function Header({ pageData }) {
+
 	const navigate = useNavigate();
 	const { loginStatus, setLoginStatus } = useContext(LoginContext);
 	const backend_url = import.meta.env.VITE_BACKEND_URL;
@@ -21,12 +21,12 @@ function Header({pageData}) {
 	const [contactDetails, setContactDetails] = useState(null);
 
 	const toggleMenu = () => {
-		console.log("TOggle menu",isMenuOpen)
-	  setIsMenuOpen(!isMenuOpen);
+		console.log("TOggle menu", isMenuOpen)
+		setIsMenuOpen(!isMenuOpen);
 		setIsStickyMenuOpen(false)
-	};	const toggleStickyMenu = () => {
-		console.log("Sticky menu",isStickyMenuOpen)
-	  setIsStickyMenuOpen(!isStickyMenuOpen);
+	}; const toggleStickyMenu = () => {
+		console.log("Sticky menu", isStickyMenuOpen)
+		setIsStickyMenuOpen(!isStickyMenuOpen);
 		setIsMenuOpen(false)
 	};
 
@@ -50,7 +50,7 @@ function Header({pageData}) {
 		}
 	}
 
-	
+
 	async function fetchAllCategories() {
 		try {
 			const response = await batteryIndoreDataService.getAllCategories();
@@ -111,86 +111,86 @@ function Header({pageData}) {
 						<figure className="logo-img">
 							<img src="/images/bolt.png" alt="Indore Battery Logo Image" />
 						</figure>
-						<figcaption className="text-[#fff] text-[18px] font-[400]"><span className="font-[600]"> FLash sale:</span> 60% off car batteries | use code "Batt60". <span className="font-[600]">Shop Now</span></figcaption>
+						<figcaption className="text-[#fff] text-[18px] font-[400]"><span className="font-[600]"> Flash sale:</span> 60% off car batteries | use code "Batt60". <span className="font-[600]">Shop Now</span></figcaption>
 					</div>
 
 					<div className="upper-header-left-wr flex items-center gap-[20px]">
 						<figure className="logo-img">
 							<img src="/images/Phone.png" alt="Indore Battery Logo Image" />
 						</figure>
-						<h1 className="text-[#fff] text-[18px] font-[400]"> 
-						<a target="_blank" href={`tel:${contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[0]?.split(" ")?.join("")}`}> {contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[0]?.split(" ")?.join("")}</a>,&nbsp;
-						<a target="_blank" href={`tel:${contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[1]?.split(" ")?.join("")}`}> {contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[1]?.split(" ")?.join("")}</a></h1>
+						<h1 className="text-[#fff] text-[18px] font-[400]">
+							<a target="_blank" href={`tel:${contactDetails?.sectionContent?.filter(item => item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[0]?.split(" ")?.join("")}`}> {contactDetails?.sectionContent?.filter(item => item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[0]?.split(" ")?.join("")}</a>,&nbsp;
+							<a target="_blank" href={`tel:${contactDetails?.sectionContent?.filter(item => item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[1]?.split(" ")?.join("")}`}> {contactDetails?.sectionContent?.filter(item => item?.elementAttrName === 'phone')[0]?.elementValue?.split(",")[1]?.split(" ")?.join("")}</a></h1>
 					</div>
 				</div>
 			</div>
 
 			<div className="nav-header bg-[transparent] header-section absolute w-[90%] mt-[0] mb-[0] mr-[auto] ml-[auto] left-[0] right-[0] z-[100]">
-				<div className="flex items-center justify-center lower-header-wr">
+				<div className="flex items-center justify-start lower-header-wr">
 					<div className="cursor-pointer categories dropdown brands-nav">
 						<div>
-							<Link to="/categories" className="category-header pt-[18px] pb-[19px] focus:outline-none pl-[40px] pr-[180px] bg-[#fff] font-[500] text-[19px] relative" name="Categories" id="myAccount">
+							<Link to="/categories" className="category-header pt-[20px] pb-[20px] focus:outline-none pl-[40px] pr-[180px] bg-[#fff] font-[500] text-[19px] relative" name="Categories" id="myAccount">
 								Categories
 							</Link>
 						</div>
 
 						<div className="relative">
-							<ul className="brands-submenu categories bg-[#fff] top-[19px] w-[100%] text-[#000] absolute font-[400] text-[14px] px-[20px] py-[20px]">
+							<ul className="brands-submenu categories bg-[#ff7637] top-[19px] w-[100%] text-[#fff] absolute font-[400] text-[14px] px-[20px] py-[20px]">
 								{categories?.map((item, index) => (
-									<Link key={index} to={`/categories${item?.postData?.categorySlug || '/car-batteries'}`} className="brand-link"> <li className="py-[10px]">{item?.postData?.categoryName}</li></Link>
+									<Link key={index} to={`/categories${item?.postData?.categorySlug || '/car-batteries'}`} className="brand-link brandName for-header-hover"> <li className="py-[10px]">{item?.postData?.categoryName}</li></Link>
 								))}
 							</ul>
 						</div>
 
 					</div>
-					<div>
+					<div className="flex-grow">
 
 						{/* BURGER MENU */}
-					<div className="burger-menu">
-    						  <button className="burger-menu-toggle" onClick={toggleMenu}>
-    						    ☰
-    						  </button>
-    						  {isMenuOpen && (
-    						    <div className="burger-menu-items">
-    						      <ul>
-    						        <li className="py-[5%]"><Link to="/offers">Special Offers</Link></li>
-    						        <li className="py-[5%]"><Link to="/about-us">About Us</Link></li>
-    						        {/* <li className="py-[5%]"><Link to="/under-construction">Exchange Battery</Link></li> */}
-												<li className="py-[5%]"><Link to="/offers">Special Offers</Link></li>
-    						        <li className="py-[5%]"><Link to="/warranty-registeration">Warranty Registeration</Link></li>
-    						        <li className="py-[5%]"><Link to="/faq">FAQ</Link></li>
-    						        <li className="py-[5%]"><Link to="/contact-us">Contact Us</Link></li>
-												{/* 
+						<div className="burger-menu">
+							<button className="burger-menu-toggle" onClick={toggleMenu}>
+								☰
+							</button>
+							{isMenuOpen && (
+								<div className="burger-menu-items">
+									<ul>
+										<li className="py-[5%]"><Link to="/offers">Special Offers</Link></li>
+										<li className="py-[5%]"><Link to="/about-us">About Us</Link></li>
+										{/* <li className="py-[5%]"><Link to="/under-construction">Exchange Battery</Link></li> */}
+										<li className="py-[5%]"><Link to="/offers">Special Offers</Link></li>
+										<li className="py-[5%]"><Link to="/warranty-registeration">Warranty Registration</Link></li>
+										<li className="py-[5%]"><Link to="/faq">FAQ</Link></li>
+										<li className="py-[5%]"><Link to="/contact-us">Contact Us</Link></li>
+										{/* 
 												 */}
-    						        <li><ul>
-													 {
-											(loginStatus && loginStatus?.isLoggedIn) ? (
-												<>
-													<Link to="/cart"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-cart-shopping text-[18px]"></i> <span>Cart</span></li></Link>
-													<Link to="/wishlist"> <li className="py-[10px] flex gap-[15px] hover:text-[#B80000] transition"><i className="fa-regular fa-heart text-[18px]"></i> <span>Whislist</span></li></Link>
-													<Link to="/orders/current"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-boxes-stacked text-[18px]"></i> <span>Orders</span></li></Link>
-													<li onClick={handleLogout} className="py-[10px] flex gap-[15px] hover:text-[#40A2E3] transition"><i className="fa-solid fa-right-from-bracket text-[18px]"></i> <span className="whitespace-nowrap">Sign Out</span></li>
-												</>
-											) : (
-												<>
-													<Link to="/login"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${loginIcon}`} alt="auth icons" /></figure> <span>login</span></li></Link>
-													<Link to="/register"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${registerIcon}`} alt="auth icons" /></figure> <span>register</span></li></Link>
-												</>
-											)
-										}</ul>
+										<li><ul>
+											{
+												(loginStatus && loginStatus?.isLoggedIn) ? (
+													<>
+														<Link to="/cart"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-cart-shopping text-[18px]"></i> <span>Cart</span></li></Link>
+														<Link to="/wishlist"> <li className="py-[10px] flex gap-[15px] hover:text-[#B80000] transition"><i className="fa-regular fa-heart text-[18px]"></i> <span>Whislist</span></li></Link>
+														<Link to="/orders/current"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-boxes-stacked text-[18px]"></i> <span>Orders</span></li></Link>
+														<li onClick={handleLogout} className="py-[10px] flex gap-[15px] hover:text-[#40A2E3] transition"><i className="fa-solid fa-right-from-bracket text-[18px]"></i> <span className="whitespace-nowrap">Sign Out</span></li>
+													</>
+												) : (
+													<>
+														<Link to="/login"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${loginIcon}`} alt="auth icons" /></figure> <span>login</span></li></Link>
+														<Link to="/register"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${registerIcon}`} alt="auth icons" /></figure> <span>register</span></li></Link>
+													</>
+												)
+											}</ul>
 										</li>
-    						        {/* Add more menu items as needed */}
-    						      </ul>
-    						    </div>
-    						  )}
-    				</div>
+										{/* Add more menu items as needed */}
+									</ul>
+								</div>
+							)}
+						</div>
 
-								{/* NORMAL LOWER HEADER MENU */}
+						{/* NORMAL LOWER HEADER MENU */}
 						<ul className="flex lower-header-cont justify-center bg-[#EEEEEE]">
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/offers" className="brand-link"><span className="hover">Special Offers</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/about-us" className="brand-link"><span className="hover">About Us</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] brands-nav cursor-pointer">
-								<div><span> Brands</span></div>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/offers" className="brand-link"><span className="hover">Special Offers</span></Link></li>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/about-us" className="brand-link"><span className="hover">About Us</span></Link></li>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] brands-nav cursor-pointer">
+								<div><span> Brands &nbsp; <i class="fa-solid fa-angle-down text-[#ff7637]"></i></span></div>
 								<div className="relative">
 									<ul className="brands-submenu bg-[#ff7637] top-[19px] w-[260px] text-[#fff] absolute font-[400] text-[14px] px-[20px] py-[20px]">
 										{brandNames?.map((item, index) => (
@@ -199,13 +199,13 @@ function Header({pageData}) {
 									</ul>
 								</div>
 							</li>
-							{/* <li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/under-construction" className="brand-link"><span className="hover">Exchange Battery</span></Link></li> */}
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/warranty-registeration" className="brand-link"><span className="hover">Warranty Registeration</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/faq" className="brand-link"><span className="hover">FAQ</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/contact-us" className="brand-link"><span className="hover">Contact</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] accounts-nav">
+							{/* <li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/under-construction" className="brand-link"><span className="hover">Exchange Battery</span></Link></li> */}
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/warranty-registeration" className="brand-link"><span className="hover">Warranty Registration</span></Link></li>
+							<li className="p-[20px]	 px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/faq" className="brand-link"><span className="hover">FAQ</span></Link></li>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/contact-us" className="brand-link"><span className="hover">Contact</span></Link></li>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] accounts-nav flex-grow">
 								<span className=" flex gap-[10px]">
-									<figure><img src="/images/User.png" alt="my account" /></figure> {loginStatus && loginStatus?.isLoggedIn ? loginStatus?.userName : 'My Account'}</span>
+									<figure><img src="/images/User.png" alt="my account" /></figure> {loginStatus && loginStatus?.isLoggedIn ? loginStatus?.userName : 'Log In'}</span>
 								<div className="relative shadow-lg bg-[#fff] w-full ">
 									<ul className="login-wr-dropdown accounts-submenu shadow-md rounded-[15px] bg-[#fff] top-[37px] border-[1px] border-[rgba(0,0,0,0.15)] w-full font-500 absolute font-[400] text-[14px] px-[20px] py-[10px]">
 										{
@@ -227,83 +227,81 @@ function Header({pageData}) {
 								</div>
 							</li>
 						</ul>
-					
+
 					</div>
 				</div>
 			</div>
 
 			<div className="nav-header bg-[#EEEEEE] hidden header-sticky-section absolute w-[90%] mt-[0] mb-[0] mr-[auto] ml-[auto] left-[0] right-[0] z-[100]">
-				<div className="flex items-center mx-[auto]">
-					<div onClick={()=>navigate("/")} className="sticky-header-logo-wr flex items-center justify-center w-[100px] p-[10px] cursor-pointer">
+				<div className="flex items-center mx-[auto] w-[90%] ">
+					<div onClick={() => navigate("/")} className="sticky-header-logo-wr flex items-center justify-center w-[100px] p-[10px] cursor-pointer">
 						<img src="/images/logo.svg" alt="" />
 					</div>
 					<div className="cursor-pointer categories dropdown brands-nav">
 
 						<div>
-							<Link to="/categories" className="category-header pt-[18px] pb-[18px] focus:outline-none pl-[40px] pr-[180px] bg-[#fff] font-[500] text-[19px] relative" name="Categories" id="myAccount">
+							<Link to="/categories" className="category-header pt-[20px] pb-[20px] focus:outline-none pl-[40px] pr-[180px] bg-[#fff] font-[500] text-[19px] relative" name="Categories" id="myAccount">
 								Categories
 							</Link>
 						</div>
 
 						<div className="relative">
-							<ul className="brands-submenu categories shadow-lg bg-[#fff] top-[19px] w-[100%] text-[#000] absolute font-[400] text-[14px] px-[20px] py-[20px]">
+							<ul className="brands-submenu categories shadow-lg bg-[#ff7637] top-[19px] w-[100%] text-[#fff] absolute font-[400] text-[14px] px-[20px] py-[20px]">
 								{categories?.map((item, index) => (
-									<Link key={index} to={`/categories${item?.postData?.categorySlug || '/car-batteries'}`} className=" brand-link"> <li className="py-[10px]">{item?.postData?.categoryName}</li></Link>
+									<Link key={index} to={`/categories${item?.postData?.categorySlug || '/car-batteries'}`} className="brand-link brandName for-header-hover"> <li className="py-[10px]">{item?.postData?.categoryName}</li></Link>
 								))}
 							</ul>
 						</div>
 
 					</div>
-					<div>
-					<div className="burger-menu">
-    						 
-    				
-    						  				<div className="burger-menu">
-													<button className="burger-menu-toggle" onClick={toggleStickyMenu}>
-														☰
-													</button>
-													{isStickyMenuOpen && (
-														<div className="burger-menu-items one">
-															<ul>
-																<li className="py-[5%]"><Link to="/offers">Special Offers</Link></li>
-																<li className="py-[5%]"><Link to="/about-us">About Us</Link></li>
-																{/* <li className="py-[5%]"><Link to="/under-construction">Exchange Battery</Link></li> */}
-																<li className="py-[5%]"><Link to="/offers">Special Offers</Link></li>
-																<li className="py-[5%]"><Link to="/warranty-registeration">Warranty Registeration</Link></li>
-																<li className="py-[5%]"><Link to="/faq">FAQ</Link></li>
-																<li className="py-[5%]"><Link to="/contact-us">Contact Us</Link></li>
-																<li><ul>
-																	 {
-															(loginStatus && loginStatus?.isLoggedIn) ? (
-																<>
-																	<Link to="/cart"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-cart-shopping text-[18px]"></i> <span>Cart</span></li></Link>
-																	<Link to="/wishlist"> <li className="py-[10px] flex gap-[15px] hover:text-[#B80000] transition"><i className="fa-regular fa-heart text-[18px]"></i> <span>Whislist</span></li></Link>
-																	<Link to="/orders/current"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-boxes-stacked text-[18px]"></i> <span>Orders</span></li></Link>
-																	<li onClick={handleLogout} className="py-[10px] flex gap-[15px] hover:text-[#40A2E3] transition"><i className="fa-solid fa-right-from-bracket text-[18px]"></i> <span className="whitespace-nowrap">Sign Out</span></li>
-																</>
-															) : (
-																<>
-																	<Link to="/login"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${loginIcon}`} alt="auth icons" /></figure> <span>login</span></li></Link>
-																	<Link to="/register"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${registerIcon}`} alt="auth icons" /></figure> <span>register</span></li></Link>
-																</>
-															)
-														}</ul>
-														</li>
-				
-				
-																
-																{/* Add more menu items as needed */}
-															</ul>
-														</div>
-													)}
-										</div>
-    						
-    				</div>
+					<div className="">
+						<div className="burger-menu">
+							<div className="burger-menu">
+								<button className="burger-menu-toggle" onClick={toggleStickyMenu}>
+									☰
+								</button>
+								{isStickyMenuOpen && (
+									<div className="burger-menu-items one">
+										<ul>
+											<li className="py-[5%]"><Link to="/offers">Special Offers</Link></li>
+											<li className="py-[5%]"><Link to="/about-us">About Us</Link></li>
+											{/* <li className="py-[5%]"><Link to="/under-construction">Exchange Battery</Link></li> */}
+											<li className="py-[5%]"><Link to="/offers">Special Offers</Link></li>
+											<li className="py-[5%]"><Link to="/warranty-registeration">Warranty Registration</Link></li>
+											<li className="py-[5%]"><Link to="/faq">FAQ</Link></li>
+											<li className="py-[5%]"><Link to="/contact-us">Contact Us</Link></li>
+											<li><ul>
+												{
+													(loginStatus && loginStatus?.isLoggedIn) ? (
+														<>
+															<Link to="/cart"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-cart-shopping text-[18px]"></i> <span>Cart</span></li></Link>
+															<Link to="/wishlist"> <li className="py-[10px] flex gap-[15px] hover:text-[#B80000] transition"><i className="fa-regular fa-heart text-[18px]"></i> <span>Whislist</span></li></Link>
+															<Link to="/orders/current"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-boxes-stacked text-[18px]"></i> <span>Orders</span></li></Link>
+															<li onClick={handleLogout} className="py-[10px] flex gap-[15px] hover:text-[#40A2E3] transition"><i className="fa-solid fa-right-from-bracket text-[18px]"></i> <span className="whitespace-nowrap">Sign Out</span></li>
+														</>
+													) : (
+														<>
+															<Link to="/login"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${loginIcon}`} alt="auth icons" /></figure> <span>login</span></li></Link>
+															<Link to="/register"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${registerIcon}`} alt="auth icons" /></figure> <span>register</span></li></Link>
+														</>
+													)
+												}</ul>
+											</li>
+
+
+
+											{/* Add more menu items as needed */}
+										</ul>
+									</div>
+								)}
+							</div>
+
+						</div>
 						<ul className="flex lower-header-cont">
 							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer "><Link to="/offers" className="brand-link"><span className="hover"> Special Offers</span></Link></li>
 							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer "><Link to="/about-us" className="brand-link"><span className="hover">About Us</span></Link></li>
 							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] brands-nav cursor-pointer">
-								<div><span> Brands</span></div>
+								<div className=""><span> Brands &nbsp; <i class="fa-solid fa-angle-down text-[#ff7637]"></i></span></div>
 								<div className="relative">
 									<ul className="brands-submenu bg-[#ff7637] top-[19px] w-[260px] text-[#fff] absolute font-[400] text-[14px] px-[20px] py-[20px]">
 										{brandNames?.map((item, index) => (
@@ -313,12 +311,12 @@ function Header({pageData}) {
 								</div>
 							</li>
 							{/* <li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/under-construction" className="brand-link"><span className="hover">Exchange Battery</span></Link></li> */}
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/warranty-registeration" className="brand-link"><span className="hover">Warranty Registeration</span></Link></li>
+							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/warranty-registeration" className="brand-link"><span className="hover">Warranty Registration</span></Link></li>
 							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/faq" className="brand-link"><span className="hover">FAQ</span></Link></li>
 							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/contact-us" className="brand-link"><span className="hover">Contact</span></Link></li>
 							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] accounts-nav">
 								<span className=" flex gap-[10px]">
-									<figure><img src="/images/User.png" alt="my account" /></figure> {loginStatus && loginStatus?.isLoggedIn ? loginStatus?.userName : 'My Account'}</span>
+									<figure><img src="/images/User.png" alt="my account" /></figure> {loginStatus && loginStatus?.isLoggedIn ? loginStatus?.userName : 'Log In'}</span>
 								<div className="relative">
 									<ul className="login-wr-dropdown accounts-submenu shadow-md rounded-[15px] bg-[#fff] top-[45px] border-[1px] border-[rgba(0,0,0,0.15)] font-500 absolute font-[400] text-[14px] px-[20px] py-[10px]">
 										{
@@ -328,7 +326,7 @@ function Header({pageData}) {
 													<Link to="/wishlist"> <li className="py-[10px] flex gap-[15px] hover:text-[#B80000] transition"><i className="fa-regular fa-heart text-[18px]"></i> <span>Whislist</span></li></Link>
 													<Link to="/orders/current"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-boxes-stacked text-[18px]"></i> <span>Orders</span></li></Link>
 													<li onClick={handleLogout} className="py-[10px] flex gap-[15px] hover:text-[#40A2E3] transition"><i className="fa-solid fa-right-from-bracket text-[18px]"></i> <span className="whitespace-nowrap">Sign Out</span></li>
-													</>
+												</>
 											) : (
 												<>
 													<Link to="/login"> <li className="py-[10px] flex gap-[15px]"><figure className="w-[20px]"><img src={`${loginIcon}`} alt="auth icons" /></figure> <span>login</span></li></Link>

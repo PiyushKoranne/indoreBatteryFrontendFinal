@@ -11,6 +11,7 @@ import 'rc-slider/assets/index.css';
 import { ColorRing } from "react-loader-spinner";
 import log from "../utils/utilityFunctions";
 import BatteryCard from "./common/BatteryCard";
+import HeaderNew from "./common/HeaderNew";
 
 const initialFilter = {
 	brand: [],
@@ -320,7 +321,7 @@ function Products() {
 
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			<Toaster position="bottom-center" toastOptions={{
 				className: '',
 				duration: 5000,
@@ -338,12 +339,12 @@ function Products() {
 			}} />
 			<section className="products-page-wr bg-[#F7F7F7] pb-[10%]">
 				<div className="center-wr">
-					<div className="flex  pt-[81px] mb-[30px] justify-between">
+					<div className="flex pt-[11px] mb-[30px] justify-between">
 
 					<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">
-						<span><Link to={"/"} className="hover:text-[#ff7637]">Homae</Link></span> &gt; 
+						<span><Link to={"/"} className="hover:text-[#ff7637]">Home</Link></span> &gt; 
 						{
-							batteryCategory === 'show-batteries' ? <></> : <span className="text-[#ff7637] font-[600]"> 
+							batteryCategory === 'show-batteries' ? <span className="text-[#ff7637] font-[600]">{brandName}</span> : <span className="text-[#ff7637] font-[600]"> 
 							{batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}
 						</span> 
 						}

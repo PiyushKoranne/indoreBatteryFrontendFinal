@@ -36,7 +36,7 @@ const NotYetShipped = () => {
 						</figure>
 						<div className='w-[85%] pl-[20px] flex flex-col items-start justify-between'>
 							<div>
-								<h4 className='text-slate-600 font-["Poppins"] text-[18px] leading-[44px]'>Order Placed on: {`${months[new Date(batch?.createdAt).getMonth()]} ${new Date(batch?.createdAt).getDate()}, ${new Date(batch?.createdAt).getFullYear()}`}</h4>
+								<h4 className='text-slate-600 font-["Sora"] text-[18px] leading-[44px]'>Order Placed on: {`${months[new Date(batch?.createdAt).getMonth()]} ${new Date(batch?.createdAt).getDate()}, ${new Date(batch?.createdAt).getFullYear()}`}</h4>
 								<p className='font-medium text-[13px] font-sans text-[#999999] mb-[10px] leading-[10px]'>Ordered Items: {batch?.orderItems.length} </p>
 								<p className='font-medium text-[13px] font-sans text-[#999999] mb-[10px] leading-[10px]'>Shipping Address: {batch?.shippingAddress?.addressLineOne}, {batch?.shippingAddress?.addressLineTwo}, {batch?.shippingAddress?.city},{batch?.shippingAddress?.state} ({batch?.shippingAddress?.pinCode})</p>
 								<p className='font-medium text-[13px] font-sans text-[#999999] mb-[10px] leading-[10px]'>Billing Address: {batch?.billingAddress?.addressLineOne}, {batch?.billingAddress?.addressLineTwo}, {batch?.billingAddress?.city}, {batch?.billingAddress?.state} ({batch?.billingAddress?.pinCode})</p>

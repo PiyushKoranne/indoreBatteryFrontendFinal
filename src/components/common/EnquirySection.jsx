@@ -15,6 +15,7 @@ function EnquirySection({ pageData }) {
 	const [carBrands, setCarBrands] = useState([]);
 	const [bikeBrands, setBikeBrands] = useState([]);
 	const [inverterBrands, setInverterBrands] = useState([]);
+	const [contactDetails, setContactDetails] = useState(null);
 
 	const statesAndCities = ConstantService.indianStatesAndCities;
 	const states = ConstantService.indianStatesAndCities?.map(item => item.state);
@@ -23,6 +24,17 @@ function EnquirySection({ pageData }) {
 		const response = await batteryIndoreDataService.getAllCarBrands();
 		setCarBrands(response?.data);
 		log(response?.data);
+	}
+
+	async function getContactDetails() {
+		try {
+			const response = await batteryIndoreDataService.getContactDetails();
+			console.log("GETTING CONTACT DETAILS RESPONSE", response);
+			setContactDetails(response?.data?.data);
+
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async function getBikeBrands() {
@@ -51,6 +63,7 @@ function EnquirySection({ pageData }) {
 		getCarBrands();
 		getBikeBrands();
 		getInverterBrands();
+		getContactDetails();
 	}, []);
 
 	return (
@@ -58,8 +71,8 @@ function EnquirySection({ pageData }) {
 			<section className="enquiry-section-bg relative pt-[100px] 320:pt-[50px] 1200:mt-[150px] 1200:pt-[180px]">
 				<div className="center-wr">
 						<FreeToCallStrip />
-					<div className="flex relative pt-[150px] 320:pt-[20px] 320:flex-wrap 320:justify-between ">
-						<figure className="flex items-center absolute top-[80px] 320:top-[-50px]">
+					<div className="flex relative 1200:pt-[50px] 320:pt-[20px] 320:flex-wrap 320:justify-between ">
+						<figure className="flex items-center absolute top-[80px] 320:top-[-50px] 1200:top-[0px] 1200:translate-y-[-50%]">
 							<img src="/images/logo.svg" className="320:w-[35px] 1200:w-[50px]" alt="" />
 							<h3 className="font-[700] leading-[68px] text-[24px] 320:text-[16px] 1200:text-[24px] uppercase inline-block ml-[20px] ">Indore Battery</h3>
 						</figure>
@@ -101,10 +114,10 @@ function EnquirySection({ pageData }) {
 								<div>
 									<span className="mb-[15px] inline-block mt-[30px] text-[16px] font-[700] uppercase font-['Oswald']">Company Info</span>
 									<ul className="320:text-[14px] 1368:text-[16px]">
-										<li><Link to="/about-us"> About Us</Link></li>
-										<li><Link to="/contact-us"> Contact Us</Link></li>
-										<li><Link to="/offers"> Special Offers</Link></li>
-										<li><Link to="/warranty-registeration"> Warranty Registration</Link></li>
+										<li><Link to="/about-us">About Us</Link></li>
+										<li><Link to="/contact-us">Contact Us</Link></li>
+										<li><Link to="/offers">Special Offers</Link></li>
+										<li><Link to="/warranty-registeration">Warranty Registration</Link></li>
 									</ul>
 								</div>
 								<div>
@@ -133,7 +146,6 @@ function EnquirySection({ pageData }) {
 										let errors = {};
 										if(!values.name) errors.name = "* Name is required";
 										else if(values.name.length < 3) errors.name = "* Name is be atleast three characters";
-										
 										if(!values.city) errors.city = "* City is required";
 										if(!values.state) errors.state = "* State is required";
 										if(!values.contactNum) errors.contactNum = "* Phone is required";
@@ -145,7 +157,7 @@ function EnquirySection({ pageData }) {
 										setTimeout(()=>{
 											handleSubmitEnquiry(values);
 											setSubmitting(false);
-											resetForm(true)
+											resetForm(true);
 										},400)
 									}}
 								>
@@ -154,31 +166,30 @@ function EnquirySection({ pageData }) {
 											<form id="footer-enquiry-form" onSubmit={handleSubmit} className="flex flex-col">
 
 												<div className="relative pt-[20px] mt-[10px]">
-													{ touched.name && errors.name && <span className="font-medium text-rose-500 text-[14px] absolute left-0 top-[2px]" >{errors.name}</span>}
-													<input name="name" value={values.name} onChange={handleChange} onBlur={handleBlur} className={`w-full  solid p-[10px] focus:outline-none border-[1px] ${(touched.name && errors.name) ? 'border-rose-500':' border-[rgba(0,0,0,0.2)]' }`} type="text" placeholder="Name" />
+													{ touched.name && errors.name && <span className="font-medium text-red-500 text-[14px] absolute left-0 top-[2px]" >{errors.name}</span>}
+													<input name="name" value={values.name} onChange={handleChange} onBlur={handleBlur} className={`w-full  solid p-[10px] focus:outline-none border-[1px] ${(touched.name && errors.name) ? 'border-red-500':' border-[rgba(0,0,0,0.2)]' }`} type="text" placeholder="Name" />
 												</div>
 
 												<div className="relative pt-[20px]">
-													{ touched.contactNum && errors.contactNum && <span className="font-medium text-rose-500 text-[14px] absolute left-0 top-[2px]" >{errors.contactNum}</span>}
-													<input maxLength={10} name="contactNum" value={values.contactNum} onChange={handleChange} onBlur={handleBlur} className={`w-full solid p-[10px] focus:outline-none border-[1px] ${ (touched.contactNum && errors.contactNum) ? 'border-rose-500':'border-[rgba(0,0,0,0.2)]'}`} type="text" placeholder="Phone" />
+													{ touched.contactNum && errors.contactNum && <span className="font-medium text-red-500 text-[14px] absolute left-0 top-[2px]" >{errors.contactNum}</span>}
+													<input maxLength={10} name="contactNum" value={values.contactNum} onChange={handleChange} onBlur={handleBlur} className={`w-full solid p-[10px] focus:outline-none border-[1px] ${ (touched.contactNum && errors.contactNum) ? 'border-red-500':'border-[rgba(0,0,0,0.2)]'}`} type="text" placeholder="Phone" />
 												</div>
 
 												<div className="relative pt-[20px]">
-													{ touched.state && errors.state && <span className="font-medium text-rose-500 text-[14px] absolute left-0 top-[2px]" >{errors.state}</span>}
+													{ touched.state && errors.state && <span className="font-medium text-red-500 text-[14px] absolute left-0 top-[2px]" >{errors.state}</span>}
 													<Select 
 														variant="borderless"
-														className={`w-full bg-white h-[45px] solid focus:outline-none border-[1px] ${ (touched.state && errors.state) ? 'border-rose-500' : 'border-[rgba(0,0,0,0.2)]'}`}
+														className={`w-full bg-white h-[45px] solid focus:outline-none border-[1px] ${ (touched.state && errors.state) ? 'border-red-500' : 'border-[rgba(0,0,0,0.2)]'}`}
 														defaultValue={""}
 														onChange={(val) => { setFieldValue('state', val)}}
-														options={[ {value:'', label:"Choose a state"},...states.map(item => ({value: item, label: item}))]}
+														options={[ {value:'', label:"Choose a state"}, ...states.map(item => ({value: item, label: item}))]}
 													/>
-
 												</div>
 												<div className="relative pt-[20px]">
-													{ touched.city && errors.city && <span className="font-medium text-rose-500 text-[14px] absolute left-0 top-[2px]" >{errors.city}</span>}
+													{ touched.city && errors.city && <span className="font-medium text-red-500 text-[14px] absolute left-0 top-[2px]" >{errors.city}</span>}
 													<Select 
 														variant="borderless"
-														className={`w-full bg-white h-[45px] solid focus:outline-none border-[1px] ${ (touched.state && errors.state) ? 'border-rose-500' : 'border-[rgba(0,0,0,0.2)]'}`}
+														className={`w-full bg-white h-[45px] solid focus:outline-none border-[1px] ${ (touched.state && errors.state) ? 'border-red-500' : 'border-[rgba(0,0,0,0.2)]'}`}
 														defaultValue={""}
 														onChange={(val) => { setFieldValue('city', val)}}
 														options={
@@ -188,12 +199,11 @@ function EnquirySection({ pageData }) {
 															[{value:'', label:'Choose a city'}]
 														}
 													/>
-													
 												</div>
 
 												<div className="relative pt-[20px]">
-													{ touched.enquiry && errors.enquiry && <span className="font-medium text-rose-500 text-[14px] absolute left-0 top-[2px]" >{errors.enquiry}</span>}
-													<textarea name="enquiry" value={values.enquiry} onChange={handleChange} onBlur={handleBlur} className={`w-full solid p-[10px] focus:outline-none border-[1px] ${ (touched.enquiry && errors.enquiry) ? 'border-rose-500' : 'border-[rgba(0,0,0,0.2)]'}`} style={{ resize: "none" }} cols="30" rows="5" placeholder="Message"></textarea>
+													{ touched.enquiry && errors.enquiry && <span className="font-medium text-red-500 text-[14px] absolute left-0 top-[2px]" >{errors.enquiry}</span>}
+													<textarea name="enquiry" value={values.enquiry} onChange={handleChange} onBlur={handleBlur} className={`w-full solid p-[10px] focus:outline-none border-[1px] ${ (touched.enquiry && errors.enquiry) ? 'border-red-500' : 'border-[rgba(0,0,0,0.2)]'}`} style={{ resize: "none" }} cols="30" rows="5" placeholder="Message"></textarea>
 												</div>
 
 												<button className="btn-special-spread 1368:w-1/2 1749:w-[50%] pl-[20px] pr-[20px] mt-[30px] 1368:text-[18px] 320:text-[14px] 980:text-[16px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#1B283A] 320:py-[6px]">
@@ -207,7 +217,6 @@ function EnquirySection({ pageData }) {
 														colors={['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']}
 													/> : 'Submit'}</span>
 												</button>
-
 											</form>
 										)
 									}
@@ -217,45 +226,45 @@ function EnquirySection({ pageData }) {
 							<div className="w-[90%] 768:w-[50%] 980:w-[200px]  320:w-full mt-[20px] 1368:mt-[50px] 320:ml-0 ml-[30%] 320:p-[20px] 768:pt-[0px] 768:mb-[15px] 980:px-[0px]">
 								<span className="inline-block 320:text-[16px] 980:text-[16px] font-[700] uppercase font-['Oswald'] text-center 980:text-left w-full 980: mb-[25px]">Social Media</span>
 								<ul className="flex gap-[20px] social-icons-list items-center justify-center 980:justify-start">
-									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href="#"><i className="fa-brands fa-twitter"></i></a></li>
-									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href="#"><i className="fa-brands fa-instagram"></i></a></li>
-									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href="#"><i className="fa-brands fa-facebook-f"></i></a></li>
+									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'twitter')[0]?.elementValue}><i className="fa-brands fa-twitter"></i></a></li>
+									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'instagram')[0]?.elementValue}><i className="fa-brands fa-instagram"></i></a></li>
+									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'facebook')[0]?.elementValue}><i className="fa-brands fa-facebook-f"></i></a></li>
 								</ul>
 							</div>
 						</div>
 					</div>
 
-					<div className=" footer-banner-after-elem-wr py-[40px] mt-[15px] 320:hidden">
+					<div className=" footer-banner-after-elem-wr py-[40px] mt-[15px] 320:hidden 850:block">
 						<ul className="banner-after-elem-cont flex items-center">
 							<li className="footer-banner-after-elem w-[20%]">
-								<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+								<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 									<img src="/images/freeShippingFtr.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px] mx-auto">FREE SHIPPING</figcaption>
+								<figcaption className="font-semibold font-['Oswald'] 850:text-[16px] 1200:text-[18px] text-center w-[140px] mx-auto">FREE SHIPPING</figcaption>
 							</li>
 							<li className="footer-banner-after-elem w-[20%]">
-								<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+								<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 									<img src="/images/freeInstallationFtr.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px] mx-auto">FREE INSTALLATION</figcaption>
+								<figcaption className="font-semibold font-['Oswald'] 850:text-[16px] 1200:text-[18px] text-center w-[140px] mx-auto">FREE INSTALLATION</figcaption>
 							</li>
 							<li className="footer-banner-after-elem w-[20%]">
-								<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+								<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 									<img src="/images/bestPricesFtr.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px] mx-auto">BEST PRICES</figcaption>
+								<figcaption className="font-semibold font-['Oswald'] 850:text-[16px] 1200:text-[18px] text-center w-[140px] mx-auto">BEST PRICES</figcaption>
 							</li>
 							<li className="footer-banner-after-elem w-[20%]">
-								<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+								<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 									<img src="/images/codFtr.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px] mx-auto">CASH ON DELIVERY</figcaption>
+								<figcaption className="font-semibold font-['Oswald'] 850:text-[16px] 1200:text-[18px] text-center w-[140px] mx-auto">CASH ON DELIVERY</figcaption>
 							</li>
 							<li className="footer-banner-after-elem w-[20%]">
-								<figure className=" w-[140px] h-[58px] mb-[14px] ml-[auto] mr-[auto] mt-[0]">
+								<figure className=" w-[140px] h-[58px] mb-[0px] ml-[auto] mr-[auto] mt-[0]">
 									<img src="/images/codFtr2.png" className="ml-[auto] mr-[auto]" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="font-semibold font-['Oswald'] text-[18px] text-center w-[140px] mx-auto">PAY BY ONLINE</figcaption>
+								<figcaption className="font-semibold font-['Oswald'] 850:text-[16px] 1200:text-[18px] text-center w-[140px] mx-auto">PAY BY ONLINE</figcaption>
 							</li>
 						</ul>
 					</div>

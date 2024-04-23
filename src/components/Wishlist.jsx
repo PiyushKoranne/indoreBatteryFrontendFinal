@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { batteryIndoreDataService } from '../services/dataService';
 import { Empty } from 'antd';
 import { ColorRing } from 'react-loader-spinner';
+import HeaderNew from './common/HeaderNew';
 
 const Wishlist = () => {
 
@@ -61,10 +62,10 @@ const Wishlist = () => {
 
   return (
 	<>
-		<Header/>
+		<HeaderNew />
 		<section className='wishlist-pg-wr pt-[100px]'>
 		<div className='max-w-[80%] mx-[auto] mb-[30px]'>
-			<h4 className='font-[poppins] font-[600] text-[#000]'>My Wishlist <span className='text-[rgba(0,0,0,0.5)]'> ({wishlist?.length} items)</span></h4>
+			<h4 className='font-[Sora] font-[600] text-[#000]'>My Wishlist <span className='text-[rgba(0,0,0,0.5)]'> ({wishlist?.length} items)</span></h4>
 			<button onClick={removeAllBatteryFromWishlist} className=' border-none outline-none bg-[#0766AD] wishlist-btn text-white rounded-[8px] font-bold text-[12px] py-[8px] px-[30px] my-[10px]'>Remove All</button>
 			<button onClick={()=>{navigate(`/categories/show-batteries/Amaron`)}} className='mx-[10px] border-none wishlist-btn outline-none bg-[#40A2E3]   rounded-[8px] text-white font-bold text-[12px] py-[8px] px-[30px] my-[10px]'>Explore More</button>
 		</div>
@@ -125,7 +126,7 @@ wishlist?.length > 0 ? (
 ):(
 <div className="flex flex-col items-center justify-center w-[100%]">
 <img src="/images/no-data.svg" className=" w-[40%]" alt="no data" />
-<p>No items are in you wishlist yet. Start adding <i className='fa-solid fa-heart text-rose-600'></i></p>
+<p>No items are in you wishlist yet. Start adding <i className='fa-solid fa-heart text-red-600'></i></p>
 </div>
 )
 )}

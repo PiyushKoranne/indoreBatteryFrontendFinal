@@ -3,6 +3,7 @@ import Header from '../common/Header'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import Footer from '../common/Footer';
 import axios from 'axios';
+import HeaderNew from '../common/HeaderNew';
 
 
 const OrderHistory = () => {
@@ -28,10 +29,10 @@ const OrderHistory = () => {
 
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			<section className='order-details-w bg-[#fff] py-[5%]'>
 				<div className='center-wr'>
-					<h4 className='font-["Poppins"] flex items-center gap-[15px]' >Your Orders 
+					<h4 className='font-["Sora"] flex items-center gap-[15px]' >Your Orders 
 					<span className='inline-block p-[10px] rounded-full font-semibold bg-[#e5e5e5] flex w-fit items-center justify-center leading-[5px] '>{ordersHistoyCount}</span>
 					</h4>
 					<div className='my-[25px]'>

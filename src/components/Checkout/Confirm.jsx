@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 axios.defaults.withCredentials = true;
 import log from "../../utils/utilityFunctions";
 import toast, { Toaster } from "react-hot-toast";
+import HeaderNew from "../common/HeaderNew";
 
 
 function Confirm() {
@@ -168,7 +169,7 @@ function Confirm() {
 
 	return (
 		<>
-			<Header />
+			<HeaderNew />
 			<section className="pt-[4%] pb-[2%] bg-[#F7F7F7]">
 				<div className="center-wr">
 					<div className="flex">
@@ -203,7 +204,7 @@ function Confirm() {
 								{
 									order?.coupon && (
 										<h3 style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="text-[18px] text-right border-solid border-t-[1px] border-t-[rgba(0,0,0,0.1)] font-[600] px-[18px] py-[10px] font-sans flex items-center justify-between">
-											<span className="text-[#000] text-[16px]">Total Discount </span><span className="text-rose-600 text-[14px]">- ₹ {order?.subTotal * ( order.coupon?.couponDiscount / 100)}</span>
+											<span className="text-[#000] text-[16px]">Total Discount </span><span className="text-red-600 text-[14px]">- ₹ {order?.subTotal * ( order.coupon?.couponDiscount / 100)}</span>
 										</h3>
 									)
 								}

@@ -24,7 +24,7 @@ import PrivacyPolicy from "./components/staticPages/PrivacyPolicy";
 import OffersPage from "./components/staticPages/OffersPage";
 import FaqPage from "./components/staticPages/Faq";
 import AboutUs from "./components/staticPages/AboutUsPage";
-import WarrantyRegisteration from "./components/staticPages/WarrantyRegisteration";
+import Warrantyregisteration from "./components/staticPages/Warrantyregisteration";
 import ContactUsPage from "./components/staticPages/ContactUs";
 import {GoogleOAuthProvider} from '@react-oauth/google'
 import OrderDetailsPage from "./components/common/OrderDetailsPage";
@@ -90,7 +90,7 @@ function App(){
 			<Route path="/offers" element={<OffersPage />} />
 			<Route path="/faq" element={<FaqPage />} />
 			<Route path="/about-us" element={<AboutUs />} />
-			<Route path="/warranty-registeration" element={<WarrantyRegisteration />} />
+			<Route path="/warranty-registeration" element={<Warrantyregisteration />} />
 			<Route path="/contact-us" element={<ContactUsPage />} />
 
 

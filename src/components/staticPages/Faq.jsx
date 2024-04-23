@@ -7,12 +7,13 @@ import axios from "axios";
 import { useInView } from 'react-intersection-observer';
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
-import { Collapse } from 'antd';
+import { Collapse, Select } from 'antd';
 import parse from 'html-react-parser';
 import { IoCaretForward } from "react-icons/io5";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { Formik } from "formik";
 import { ColorRing } from "react-loader-spinner";
+import HeaderNew from "../common/HeaderNew";
 
 
 function FaqPage() {
@@ -77,18 +78,18 @@ function FaqPage() {
 	}, [])
 	return (
 		<>
-			<Header />
-			<section className="bg-[#f7f7f7] py-[5%] pb-[7%] faq-pg-wr">
+			<HeaderNew />
+			<section className="bg-[#f7f7f7] pt-[40px] 320:pb-[50px] pb-[7%] faq-pg-wr">
 				<div className="center-wr">
 					<div className="flex p-[8px] gap-[7px]">
 						<span><Link to={"/"} className="hover:text-[#ff7637]">Home</Link></span> &gt; <span className="text-[#FF7637] font-[600]">Faq</span>
 					</div>
 
-					<div>
+					<div className="320:py-[50px]">
 						<h1 className="text-center"><strong>FREQUENTLY</strong> ASKED QUESTIONS</h1>
 						<p className="text-center leading-[25px] text-[14px] w-[60%] mx-auto my-0 mt-[15px]">We have compiled a list of the queries that we get asked most often. We try our best to reach out to our customers as soon as possible, in the meantime you are likely to find answers to your queries here.</p>
 
-						<div className="flex items-center mt-[60px] justify-between">
+						<div className="flex items-center 320:flex-col 1024:flex-row 320:gap-[20px] mt-[60px] justify-between">
 							<h3 className="text-[21px] font-[700] leading-[31px] uppercase">Have any questions?</h3>
 							<div className="rounded-[6px] pl-[10px] py-[10px] border-[1px] border-[#ff7637] pr-[50px] relative w-[70%] bg-white">
 								<input type="text" className="bg-white outline-none border-none w-full" placeholder="Type your questions here." />
@@ -101,22 +102,22 @@ function FaqPage() {
 
 			<section>
 				<div className="center-wr">
-					<div className="mx-auto my-[35px] flex items-center justify-evenly w-fit">
+					<div className="mx-auto my-[50px] flex flex-wrap items-center justify-evenly w-fit">
 						{/* border-[#ff7637] text-[#ff7637] */}
-						<span onClick={() => { setTabber("general") }} className={`cursor-pointer inline-block font-semibold py-[15px] px-[50px] border-[1px] border-[rgba(0,0,0,0.08)] ${tabber === 'general' ? 'bg-[#ff7637] text-[#ffffff]' : 'bg-transparent'}`}>General</span>
-						<span onClick={() => { setTabber("batteries") }} className={`cursor-pointer inline-block font-semibold py-[15px] px-[50px] border-[1px] border-[rgba(0,0,0,0.08)] ${tabber === 'batteries' ? 'bg-[#ff7637] text-[#ffffff]' : 'bg-transparent'}`}>Batteries</span>
-						<span onClick={() => { setTabber("services") }} className={`cursor-pointer inline-block font-semibold py-[15px] px-[50px] border-[1px] border-[rgba(0,0,0,0.08)] ${tabber === 'services' ? 'bg-[#ff7637] text-[#ffffff]' : 'bg-transparent'}`}>Service</span>
-						<span onClick={() => { setTabber("payments") }} className={`cursor-pointer inline-block font-semibold py-[15px] px-[50px] border-[1px] border-[rgba(0,0,0,0.08)] ${tabber === 'payments' ? 'bg-[#ff7637] text-[#ffffff]' : 'bg-transparent'}`}>Payments</span>
+						<span onClick={() => { setTabber("general") }} className={`cursor-pointer inline-block font-semibold py-[15px] 320:py-[7px] 320:w-[50%] 650:w-fit 320:text-center 320:px-[25px] px-[50px] border-[1px] border-[rgba(0,0,0,0.08)] ${tabber === 'general' ? 'bg-[#ff7637] text-[#ffffff]' : 'bg-transparent'}`}>General</span>
+						<span onClick={() => { setTabber("batteries") }} className={`cursor-pointer inline-block font-semibold py-[15px] 320:py-[7px] 320:w-[50%] 650:w-fit 320:text-center 320:px-[25px] px-[50px] border-[1px] border-[rgba(0,0,0,0.08)] ${tabber === 'batteries' ? 'bg-[#ff7637] text-[#ffffff]' : 'bg-transparent'}`}>Batteries</span>
+						<span onClick={() => { setTabber("services") }} className={`cursor-pointer inline-block font-semibold py-[15px] 320:py-[7px] 320:w-[50%] 650:w-fit 320:text-center 320:px-[25px] px-[50px] border-[1px] border-[rgba(0,0,0,0.08)] ${tabber === 'services' ? 'bg-[#ff7637] text-[#ffffff]' : 'bg-transparent'}`}>Service</span>
+						<span onClick={() => { setTabber("payments") }} className={`cursor-pointer inline-block font-semibold py-[15px] 320:py-[7px] 320:w-[50%] 650:w-fit 320:text-center 320:px-[25px] px-[50px] border-[1px] border-[rgba(0,0,0,0.08)] ${tabber === 'payments' ? 'bg-[#ff7637] text-[#ffffff]' : 'bg-transparent'}`}>Payments</span>
 					</div>
 
-					<div className="w-[60%] mx-auto my-[35px] faq-collapse">
+					<div className="w-[60%] 320:w-full mx-auto my-[35px] faq-collapse">
 						{qna?.length > 0 ? (
 							<Collapse
 								expandIconPosition="end"
 								bordered={false}
 								items={tabber === "general" ? qna?.slice(0, 4) : tabber === "batteries" ? qna.slice(4, 8) : tabber === "services" ? qna.slice(8, 12) : qna.slice(12, 15)}
 								defaultActiveKey={['1', '5', '9', '13']}
-								expandIcon={({ isActive }) => <div className="w-[42px] h-[42px] flex items-center justify-center bg-[#f1f1f1]"><MdKeyboardArrowUp size={16} style={{ transform: isActive ? 'rotate(0deg)' : 'rotate(180deg)' }} /></div>	}
+								expandIcon={({ isActive }) => <div className="w-[42px] h-[42px] flex items-center justify-center bg-[#f1f1f1]"><MdKeyboardArrowUp size={16} style={{ transform: isActive ? 'rotate(0deg)' : 'rotate(180deg)' }} /></div>}
 							/>
 						) : (
 							<>
@@ -143,7 +144,7 @@ function FaqPage() {
 					<img src="/images/faq-bottom-bg.png" alt="" />
 				</figure>
 				<div className="center-wr">
-					<div className="pt-[80px] pb-[200px]">
+					<div className="pt-[80px] pb-[200px] 320:pb-[80px]">
 						<h3 className="font-['Oswald'] font-[700] leading-[68px] text-[34px] text-white text-center mb-[20px]"><strong>DIDN'T</strong> FIND AN ANSWER?</h3>
 						<p className="content-para-white text-center">If you cannot find an answer to your question in our FAQ, you can always contact us and we will react out to you shortly.</p>
 						<div className="mt-[60px]">
@@ -166,19 +167,19 @@ function FaqPage() {
 							>
 								{({ values, errors, handleBlur, handleChange, handleSubmit, touched, isSubmitting }) => (
 									<form onSubmit={handleSubmit} className="w-[100%] flex items-center justify-center flex-wrap mx-auto gap-[22px]">
-										<div className="relative w-[31.33%] bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.5)]">
+										<div className="relative 320:w-[97.4%] 650:w-[31.33%] bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.5)]">
 											{(touched.name && errors.name) && <span className="text-red-500 absolute top-[0px] translate-y-[-100%] left-[5px] font-medium text-[14px]">{errors.name}</span>}
 											<input placeholder="Full Name" className="faq-black-form w-full p-[10px] bg-transparent text-[rgba(255,255,255,0.5)] outline-none" type="text" name="name" value={values.name} onChange={handleChange} onBlur={handleBlur} />
 										</div>
-										<div className="relative w-[31.33%] bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.5)]">
+										<div className="relative 320:w-[97.4%] 650:w-[31.33%] bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.5)]">
 											{(touched.contactNum && errors.contactNum) && <span className="text-red-500 absolute top-[0px] translate-y-[-100%] left-[5px] font-medium text-[14px]">{errors.contactNum}</span>}
 											<input placeholder="Mobile" className="faq-black-form w-full p-[10px] bg-transparent text-[rgba(255,255,255,0.5)] outline-none" type="text" name="contactNum" value={values.contactNum} onChange={handleChange} onBlur={handleBlur} />
 										</div>
-										<div className="relative w-[31.33%] bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.5)]">
+										<div className="relative 320:w-[97.4%] 650:w-[31.33%] bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.5)]">
 											{(touched.city && errors.city) && <span className="text-red-500 absolute top-[0px] translate-y-[-100%] left-[5px] font-medium text-[14px]">{errors.city}</span>}
 											<input placeholder="City" className="faq-black-form w-full p-[10px] bg-transparent text-[rgba(255,255,255,0.5)] outline-none" type="text" name="city" value={values.city} onChange={handleChange} onBlur={handleBlur} />
 										</div>
-										<div className="relative w-[97.4%] bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.5)]">
+										<div className="relative 320:w-[97.4%] 980:w-[97.4%] 650:w-[75%] bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.5)]">
 											{(touched.enquiry && errors.enquiry) && <span className="text-red-500 absolute top-[0px] translate-y-[-100%] left-[5px] font-medium text-[14px]">{errors.enquiry}</span>}
 											<textarea placeholder="Enquiry" className="faq-black-form resize-none w-full p-[10px] bg-transparent outline-none" rows={8} type="text" name="enquiry" value={values.enquiry} onChange={handleChange} onBlur={handleBlur} >{values.enquiry}</textarea>
 										</div>

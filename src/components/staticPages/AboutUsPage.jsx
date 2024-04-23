@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import HeaderNew from "../common/HeaderNew";
 
 function AboutUs() {
 
@@ -82,7 +83,6 @@ function AboutUs() {
 		})
 	}
 
-	console.log("rendering about us page");
 
 	async function getPageData() {
 		await sleep(500);
@@ -97,8 +97,8 @@ function AboutUs() {
 
 	return (
 		<>
-			<Header />
-			<section className="bg-[#f7f7f7] about-us-pg-wr pt-[5%] 320:pt-[0px] 768:pt-[80px]">
+			<HeaderNew />
+			<section className="bg-[#f7f7f7] about-us-pg-wr pt-[40px] 320:pt-[0px] 768:pt-[40px]">
 				<div className="center-wr">
 					<div className="flex p-[8px] gap-[7px] ">
 						<span><Link to={"/"} className="hover:text-[#ff7637]">Home</Link></span> &gt; <span className="text-[#FF7637] font-[600]">About Us</span>
@@ -109,12 +109,12 @@ function AboutUs() {
 							<div className="w-[100%] pt-[30px] flex 320:flex-wrap-reverse 768:flex-wrap">
 								<div className="1200:w-[50%] 320:w-full">
 									{!pageData[1]?.sectionContent[0].elementValue ? (<Skeleton className="h-[30px] mb-[35px]" />) : (
-										<div dangerouslySetInnerHTML={{ __html: pageData[1]?.sectionContent[0].elementValue }} className="exception text-center 320:mt-[20px]"></div>
+										<div dangerouslySetInnerHTML={{ __html: pageData[1]?.sectionContent[0].elementValue }} className="exception 320:text-center 1200:text-left 320:mt-[20px]"></div>
 									)
 									}
 									{!pageData[1]?.sectionContent[2].elementValue ? (<Skeleton count={8} />) : (
-										<div className="about-top-para-wr font-['Sora'] text-[16px] font-[400] leading-[30px] pb-[6%] pt-[15px] text-[#202020] 320:text-center" dangerouslySetInnerHTML={{ __html: pageData[1]?.sectionContent[2].elementValue }}></div>
-									)
+										<div className="about-top-para-wr font-['Sora'] text-[16px] font-[400] leading-[30px] 1200:pr-[50px] 1440:pr-[100px] pb-[6%] pt-[15px] text-[#202020] 320:text-center 1200:text-left" dangerouslySetInnerHTML={{ __html: pageData[1]?.sectionContent[2].elementValue }}></div>
+									) 
 									}
 								</div>
 								<figure className="1200:w-[50%] 320:w-full flex	">
@@ -184,7 +184,7 @@ function AboutUs() {
 
 			<section>
 				<div className="center-wr">
-					<div className="pt-[4%] 320:pt-[0px] pb-[5%]">
+					<div className="1200:pt-[4%] 320:pt-[0px] pb-[5%]">
 						<div>
 							<h3 className="text-center font-[700] leading-[68px] text-[34px]"><strong>OUR</strong> PRODUCT RANGE</h3>
 						</div>
