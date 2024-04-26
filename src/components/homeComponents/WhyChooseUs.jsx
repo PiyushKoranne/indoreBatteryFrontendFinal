@@ -16,12 +16,12 @@ function WhyChooseUs({ pageData }) {
 
 
 	return (
-		<section className="shop-by-manufactures">
+		<section className="shop-by-manufactures 320:hidden 1024:block 320:py-[35px] 650:py-[0px]">
 			<div className="center-wr">
 				{
 					pageData?.sectionContent[3]?.elementValue === "" ?
 					<Skeleton className="h-[30px] mb-[30px]"/> 
-					: <h3 className="w-[100%] mt-[10%] text-[34px] text-[#000] font-[800] uppercase" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[3]?.elementValue }}></h3>
+					: <h3 className="w-[100%] mt-[10%] text-[34px] pb-[25px] text-[#000] font-[800] uppercase 320:text-center 480:text-left" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[3]?.elementValue }}></h3>
 
 				}
 				<div className="flex for-alignment">
@@ -30,7 +30,7 @@ function WhyChooseUs({ pageData }) {
 							{pageData?.sectionContent[0]?.elementValue === "" ?
 							<Skeleton count={8}/>
 							 :
-							<p className="mt-[3%]" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[0]?.elementValue }}></p>
+							<p className="mt-[3%] 320:text-center 480:text-left" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[0]?.elementValue }}></p>
 						}
 						</div>
 						<div>
@@ -60,7 +60,7 @@ function WhyChooseUs({ pageData }) {
 							</ul>
 						</div>
 					</div> 
-					<div className="relative">
+					<div className="relative 320:hidden 480:block">
 						<figure className=" relative bottom-[60px] left-[30px] w-full why-img-cont">{
 							pageData?.sectionContent[1]?.elementAttrSrcImg === "" ? 
 							<Skeleton className="h-[500px] w-[633px] mt-[64px]" /> :

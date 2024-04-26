@@ -104,7 +104,7 @@ function Products() {
 				setWishlistTrigger(prev => !prev);
 			}
 		} catch (error) {
-			log("Error: While adding item to wishlist.",error);
+			log("Error: While adding item to wishlist.", error);
 		}
 	}
 
@@ -115,7 +115,7 @@ function Products() {
 				setWishlistTrigger(prev => !prev);
 			}
 		} catch (error) {
-			log("Error: While removing item from wishlist.",error);
+			log("Error: While removing item from wishlist.", error);
 		}
 	}
 
@@ -128,7 +128,7 @@ function Products() {
 				setFilters(prev => ({ ...prev, brand: prev.brand.filter(item => item !== value) }))
 			}
 		} catch (error) {
-			log("Error: While filtering by brand.",error);
+			log("Error: While filtering by brand.", error);
 		}
 	}
 
@@ -141,7 +141,7 @@ function Products() {
 				setFilters(prev => ({ ...prev, subbrand: prev.subbrand.filter(item => item !== value) }))
 			}
 		} catch (error) {
-			log("Error: While filtering by sub-brands.",error);
+			log("Error: While filtering by sub-brands.", error);
 		}
 	}
 
@@ -154,7 +154,7 @@ function Products() {
 				setFilters(prev => ({ ...prev, capacity: prev.capacity.filter(item => item !== value) }));
 			}
 		} catch (error) {
-			log("Error: While filtering by capacity.",error);
+			log("Error: While filtering by capacity.", error);
 		}
 	}
 
@@ -167,7 +167,7 @@ function Products() {
 				setFilters(prev => ({ ...prev, warranty: prev.warranty.filter(item => item !== value) }))
 			}
 		} catch (error) {
-			log("Error: While filtering by warranty.",error);
+			log("Error: While filtering by warranty.", error);
 		}
 	}
 
@@ -240,7 +240,7 @@ function Products() {
 			log("Before setting filtered result to state", finalFilteredOutput);
 			setFilteredBatteries(finalFilteredOutput);
 		} catch (error) {
-			log("Error: While filtering batteries.",error);
+			log("Error: While filtering batteries.", error);
 		}
 	}
 
@@ -291,7 +291,7 @@ function Products() {
 				setWishlist(response.data.wishList)
 			}
 		} catch (error) {
-			log("Error: While fetching wishlist data.",error)
+			log("Error: While fetching wishlist data.", error)
 		}
 	}
 
@@ -314,7 +314,7 @@ function Products() {
 		));
 	};
 
-	function toggleFilterMenu(){
+	function toggleFilterMenu() {
 		setOpenFilterSidebar(prevState => !prevState);
 	}
 
@@ -337,151 +337,18 @@ function Products() {
 					},
 				},
 			}} />
-			<section className="products-page-wr bg-[#F7F7F7] pb-[10%]">
+			<section className="products-page-wr bg-[#F5f5f5] pb-[100px]">
 				<div className="center-wr">
-					<div className="flex pt-[11px] mb-[30px] justify-between">
+					<div className="flex pt-[40px] mb-[30px] justify-between">
 
-					<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">
-						<span><Link to={"/"} className="hover:text-[#ff7637]">Home</Link></span> &gt; 
-						{
-							batteryCategory === 'show-batteries' ? <span className="text-[#ff7637] font-[600]">{brandName}</span> : <span className="text-[#ff7637] font-[600]"> 
-							{batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}
-						</span> 
-						}
-					</div>
-
-						<div className="relative">
-							
-						<div onClick={toggleFilterMenu} className="flex items-center justify-center bg-[#fff] shadow-md  border-[1px] border-[rgba(0,0,0,0.15)] rounded-[36px] py-[10px] w-[120px] gap-[9px] product-filter-btn">
-						<i class='bx bx-filter-alt'></i>
-							<span>Filter</span>
-						</div>
-
-							{/* Filter side bar */}
-
-						<div className="absolute z-[1000] w-[280px] bg-[#fff] px-[20px] mx-[20px] h-[910px] py-[15px] pb-[30px] right-[0] top-[100%] shadow-md border-[1px] border-[rgba(0,0,0,0.15)]" style={{ overflowY: "auto",visibility:!openFilterSidebar ? "hidden" :"visible",opacity:!openFilterSidebar ? "0" :"1",transition:" all ease 0.3s"  }} >
-							<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
-								<div>
-									<h3 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase" style={{fontSize:"18px !important"}}>Price</h3>
-								</div>
-								<div className="text-[#7a7a7a]">
-									<p className="text-[15px] font-semibold font-sans mb-[10px]">₹{filters.priceRange.low} - ₹{filters.priceRange.high}</p>
-									<Slider
-										step={100}
-										range
-										min={1000}
-										max={75000}
-										onChange={(val) => { setFilters(prev => ({ ...prev, priceRange: { low: val[0], high: val[1] } })) }}
-										allowCross={false}
-										defaultValue={[1000, 75000]}
-										styles={{
-											track: {
-												backgroundColor: '#ff7637',
-												height: '10px'
-											},
-											handle: {
-												border: "5px solid #e45c1d",
-												boxShadow: "2px 2px 24px 0px rgba(0,0,0,0.4)",
-												backgroundColor: "#e45c1d",
-												top: '6px',
-												opacity: '1',
-												width: '18px',
-												height: '18px',
-												borderRadius: '1px'
-											},
-											rail: {
-												height: '10px'
-											}
-										}}
-									/>
-								</div>
-							</div>
-							<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
-								<div>
-									<h3 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Brands</h3>
-								</div>
-								<div className="text-[#7a7a7a]">
-									<label className="mt-[10px] flex items-start" name={`AllBrands`}>
-										<input className="border-[#7a7a7a] mt-[2px]" checked={filters?.brand.includes('all brands')} onChange={handleBrandFiltering} value={'all brands'} type="checkbox" />
-										<span className="px-[10px] text-[15px]">All Brands</span>
-									</label>
-									{
-										Array.from(new Set(allBatteries?.map(item => item?.postData?.brand)?.map(item => item?.toLowerCase()))).map(item => (
-											<label key={item} className="mt-[10px] flex items-start" name={`${item}`}>
-												<input className="border-[#7a7a7a] mt-[2px]" checked={filters?.brand.includes(item)} onChange={handleBrandFiltering} value={item} type="checkbox" />
-												<span className="px-[10px] text-[15px]" >
-													{item?.substring(0, 1).toUpperCase() + item?.slice(1)}</span>
-											</label>
-										))
-									}
-								</div>
-							</div>
-							{allBatteries?.length > 0 && <div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
-								<div>
-									<h3 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Sub-Brands</h3>
-								</div>
-								<div className="text-[#7a7a7a]">
-									{
-										Array.from(new Set(allBatteries?.map(item => item?.postData?.subbrand && item?.postData?.subbrand?.toLowerCase()))).map(item => item && (
-											<label key={item} className="mt-[10px] flex items-start" name={`${item}`}>
-												<input className="border-[#7a7a7a] mt-[2px]" checked={filters?.subbrand.includes(item)} onChange={handleSubBrandFiltering} value={item} type="checkbox" />
-												<span className="px-[10px] text-[15px]">
-													{item?.substring(0, 1).toUpperCase() + item.slice(1)}
-												</span>
-											</label>
-										))
-									}
-								</div>
-							</div>}
-							{allBatteries?.length > 0 &&
-								<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
-									<div>
-										<h3 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Capacity</h3>
-									</div>
-									<div className="text-[#7a7a7a]">
-										{
-											Array.from(new Set(allBatteries?.map(item => (item?.postData?.capacity)))).map(item => (
-												<label key={item} className="mt-[10px] flex items-start">
-													<input className="border-[#7a7a7a] mt-[2px]" value={item} checked={filters.capacity.includes(item)} onChange={handleCapacityFiltering} type="checkbox" />
-													<span className="px-[10px] text-[15px]">{`${item} AH`}</span>
-												</label>
-											))
-										}
-									</div>
-								</div>
+						<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">
+							<span><Link to={"/"} className="hover:text-[#ff7637]">Home</Link></span> &gt;
+							{
+								batteryCategory === 'show-batteries' ? <span className="text-[#ff7637] font-[600]">{brandName}</span> : <span className="text-[#ff7637] font-[600]">
+									{batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}
+								</span>
 							}
-							<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
-								<div>
-									<h3 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Type</h3>
-								</div>
-								<div className="text-[#7a7a7a]">
-									{typeArray}
-								</div>
-							</div>
-							<div>
-								<div>
-									<h3 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Warranty</h3>
-								</div>
-								<div className="text-[#7a7a7a]">
-									{ allBatteries?.length > 0  ?
-										Array.from(new Set(allBatteries?.map(item => ({ totalWarranty: item?.postData?.totalWarranty, fullReplacementWarranty: item?.postData?.fullReplacementWarranty, proRataWarranty: item?.postData?.proRataWarranty }))))?.map((item, idx) => (
-											<label key={idx} className="mt-[10px] flex items-start">
-												<input className="border-[#7a7a7a] mt-[2px]" value={`${item?.totalWarranty}__${item?.fullReplacementWarranty}__${item?.proRataWarranty}`} checked={filters.warranty.includes(`${item?.totalWarranty}__${item?.fullReplacementWarranty}__${item?.proRataWarranty}`)} onChange={handleWarrantyFiltering} type="checkbox" />
-												<span className="px-[10px] text-[15px]">{`${item?.totalWarranty} Months ( ${item?.fullReplacementWarranty} Months Full Replacement + ${item?.proRataWarranty} Months Pro Rata)`}</span>
-											</label>
-										)) 
-										:
-										warrantyArr.map((item, idx) => (
-											<label key={idx} className="mt-[10px] flex items-start">
-												<input className="border-[#7a7a7a] mt-[2px]" type="checkbox" />
-												<span className="px-[10px] text-[15px]">{item.name}</span>
-											</label>
-										))
-									}
-								</div>
-							</div>
 						</div>
-		</div>
 
 
 					</div>
@@ -490,7 +357,7 @@ function Products() {
 						{/* sidebar */}
 						<div className="responsive brand-sidebar w-[20%] bg-[#fff] px-[20px] mx-[20px] h-[910px] py-[15px] pb-[30px] sticky top-[100px]" style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)", overflowY: "auto" }} >
 							<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
-								<div className="py-[15px] text-center"><button onClick={()=>{setFilters(initialFilter)}} className="border-2 border-[#ff7637] px-[20px] py-[5px] text-[#ff7637]">Clear Filters</button></div>
+								<div className="py-[15px] text-center"><button onClick={() => { setFilters(initialFilter) }} className="border-2 border-[#ff7637] px-[20px] py-[5px] text-[#ff7637]">Clear Filters</button></div>
 								<div>
 									<h3 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Price</h3>
 								</div>
@@ -593,13 +460,13 @@ function Products() {
 									<h3 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Warranty</h3>
 								</div>
 								<div className="text-[#7a7a7a]">
-									{ allBatteries?.length > 0  ?
+									{allBatteries?.length > 0 ?
 										Array.from(new Set(allBatteries?.map(item => ({ totalWarranty: item?.postData?.totalWarranty, fullReplacementWarranty: item?.postData?.fullReplacementWarranty, proRataWarranty: item?.postData?.proRataWarranty }))))?.map((item, idx) => (
 											<label key={idx} className="mt-[10px] flex items-start">
 												<input className="border-[#7a7a7a] mt-[2px]" value={`${item?.totalWarranty}__${item?.fullReplacementWarranty}__${item?.proRataWarranty}`} checked={filters.warranty.includes(`${item?.totalWarranty}__${item?.fullReplacementWarranty}__${item?.proRataWarranty}`)} onChange={handleWarrantyFiltering} type="checkbox" />
 												<span className="px-[10px] text-[15px]">{`${item?.totalWarranty} Months ( ${item?.fullReplacementWarranty} Months Full Replacement + ${item?.proRataWarranty} Months Pro Rata)`}</span>
 											</label>
-										)) 
+										))
 										:
 										warrantyArr.map((item, idx) => (
 											<label key={idx} className="mt-[10px] flex items-start">
@@ -613,16 +480,16 @@ function Products() {
 						</div>
 						{/* content */}
 
-						<div className="flex flex-col w-[100%] products-card-wr">
+						<div className="flex flex-col w-[100%] products-card-wr bg-[80%]">
 
 							{(filteredPage) ? (
 								<>
 									{/* top card */}
-									<div style={{ borderRadius: "0 60px 60px 0", display:state?.gettingPassedData?.brandLogo === undefined ? "none":"flex" }} className="bg-[#fff] flex items-center justify-between py-[15px] mb-[20px] border-[#FF7637] border-[1px]">
+									<div style={{ borderRadius: "0 60px 60px 0", display: state?.gettingPassedData?.brandLogo === undefined ? "none" : "flex" }} className="320:bg-transparent 320:border-none 980:border-solid 320:flex-col-reverse 980:flex-row 980:bg-[#fff] flex items-center justify-between py-[15px] mb-[20px] border-[#FF7637] border-[1px]">
 										<div className='text-center w-[86%]'>
-											<h3 className='text-[22px] uppercase'>{brandModelName} {batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}</h3>
+											<h4 className='320:text-[16px] 980:text-[22px] uppercase'>{brandModelName} {batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}</h4>
 										</div>
-										<figure  className='px-[15px] py-[10px] rounded-[50%] border-[1px] border-[rgba(0,0,0,0.15)] mr-[11px] h-[89px] flex items-center justify-center'>
+										<figure className='px-[15px] py-[10px] 320:p-[8px] rounded-[50%] border-[1px] border-[rgba(0,0,0,0.15)] mr-[11px] h-[89px] 320:h-[80px] 320:w-[80px] flex items-center justify-center'>
 											<img src={`https://batterybackend.react.stagingwebsite.co.in/images/${state?.gettingPassedData?.brandLogo}`} className='w-[60px]' alt="bike category logo" />
 										</figure>
 									</div>
@@ -632,7 +499,7 @@ function Products() {
 							)}
 
 							{/* battery Cards */}
-							<div className="w-[100%] flex flex-wrap">
+							<div className="w-[100%] flex flex-wrap 320:gap-[25px] 1200:gap-[10px]">
 								{!loading ?
 									renderBatteryCards() :
 									(<>

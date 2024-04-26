@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import BatteryBrandsGrid from "../common/BatteryBrandGrid";
 import axios from "axios";
 import { batteryIndoreDataService } from "../../services/dataService";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import log from "../../utils/utilityFunctions";
+import { Link } from "react-router-dom";
 
 function ShopByBrand({ pageData }) {
 	const [brands, setBrands] = useState([]);

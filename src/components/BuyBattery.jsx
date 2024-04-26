@@ -99,10 +99,13 @@ function BuyBattery() {
 			if (!batteryId) return;
 			const response = await batteryIndoreDataService.addToWishlist(batteryId);
 			if (response.status === 200) {
-				navigate("/wishlist");
+				toast.success("Item added to wishlist");
 			}
 		} catch (error) {
-			log(error)
+			log(error);
+			if(error?.response.status === 400){
+				toast.error("Login to save to wishlist")
+			}
 		}
 	}
 
@@ -212,7 +215,6 @@ function BuyBattery() {
 	}
 
 	async function handleAddToCart() {
-		let cartData = localStorage.getItem('cart');
 		if (!loginStatus || !loginStatus?.isLoggedIn) {
 
 			localStorage.setItem('cart', JSON.stringify({ batteryId, quantity, exchangeBattery }));
@@ -262,13 +264,13 @@ function BuyBattery() {
 					},
 				}} />
 				<div className="center-wr">
-					<div className="mt-[5%]">
-						<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px] mt-[81px] mb-[30px]">
-							<span><Link to="/" className="hover:text-[#ff7637]">Home</Link> &gt; </span> <span className="text-[#ff7637] font-[600]">{postData?.name}</span>
+					<div className="mt-[0%]">
+						<div className="flex p-[8px] bg-[#ffffff] gap-[7px] 320:mt-[41px] 320:mb-[15px] mb-[30px] 320:text-[14px]">
+							<span><Link to="/" className="hover:text-[#ff7637]">Home</Link> &gt; </span> <span className="text-[#ff7637] font-[600] text-ellipsis overflow-ellipsis w-[200px] whitespace-nowrap inline-block overflow-hidden">{postData?.name}</span>
 						</div>
 
-						<div className="flex">
-							<div className="w-[37%]">
+						<div className="flex flex-wrap">
+							<div className="850:w-[37%] 320:w-full">
 								<figure className="w-[100%] border-[1px] solid border-[rgba(0,0,0,0.2) p-[40px] relative">
 									{parseInt(postData?.stock) === 0 && (
 										<div className="absolute top-[-74px] left-[-9px]">
@@ -277,38 +279,37 @@ function BuyBattery() {
 									)}
 									<img src={`${backend_url}/images/${postData?.batteryimages}`} alt="battery image" />
 								</figure>
-
-								<div>
-									<div className="flex gap-[15px] pt-[15px]">
-										<div onClick={openReviewModal} className="w-[240px] py-[8px] hover:bg-[#ff763720] cursor-pointer transition-all px-[15px] text-center border-[1px] solid border-[rgba(0,0,0,0.2)] flex items-center gap-[10px]">
-											<figure className="bg-[#ff7637] w-[35px] h-[35px] flex items-center justify-center rounded-full"><i className="text-[18px] text-white bx bxs-phone-call"></i></figure>
-											<span>Request Callback</span>
+								<div className="320:hidden 850:block">
+									<div className="flex flex-wrap gap-[15px] pt-[15px]">
+										<div onClick={openReviewModal} className="320:w-full 1200:w-[46.5%] py-[8px] hover:bg-[#ff763720] cursor-pointer transition-all px-[15px] text-center border-[1px] solid border-[rgba(0,0,0,0.2)] flex items-center gap-[10px]">
+											<figure className="bg-[#ff7637] 320:w-[25px] 320:h-[25px] w-[35px] h-[35px] flex items-center justify-center rounded-full"><i className="320:text-[16px] text-[18px] text-white bx bxs-phone-call"></i></figure>
+											<span className="text-[14px]" >Request Callback</span>
 										</div>
-										<div onClick={openQuotationModal} className="w-[240px] py-[8px] hover:bg-[#ff763720] cursor-pointer transition-all px-[15px] text-center border-[1px] solid border-[rgba(0,0,0,0.2)] flex items-center gap-[10px]">
-											<figure className="bg-[#ff7637] w-[35px] h-[35px] flex items-center justify-center rounded-full"><i className="text-[18px] text-white bx bxs-receipt"></i></figure>
-											<span>Ask For Quotation</span>
+										<div onClick={openQuotationModal} className="320:w-full 1200:w-[46.5%] py-[8px] hover:bg-[#ff763720] cursor-pointer transition-all px-[15px] text-center border-[1px] solid border-[rgba(0,0,0,0.2)] flex items-center gap-[10px]">
+											<figure className="bg-[#ff7637] 320:w-[25px] 320:h-[25px] w-[35px] h-[35px] flex items-center justify-center rounded-full"><i className="320:text-[16px] text-[18px] text-white bx bxs-receipt"></i></figure>
+											<span className="text-[14px]" >Ask For Quotation</span>
 										</div>
 									</div>
-									<div className="flex gap-[15px] pt-[15px]">
-										<div onClick={scrollToRatingSection} className="w-[240px] py-[8px] hover:bg-[#ff763720] cursor-pointer transition-all px-[15px] text-center border-[1px] solid border-[rgba(0,0,0,0.2)] flex items-center gap-[10px]">
-											<figure className="bg-[#ff7637] w-[35px] h-[35px] flex items-center justify-center rounded-full"><i className="text-[18px] text-white bx bxs-star"></i></figure>
-											<span>Write a Review</span>
+									<div className="flex flex-wrap gap-[15px] pt-[15px]">
+										<div onClick={scrollToRatingSection} className="320:w-full 1200:w-[46.5%] py-[8px] hover:bg-[#ff763720] cursor-pointer transition-all px-[15px] text-center border-[1px] solid border-[rgba(0,0,0,0.2)] flex items-center gap-[10px]">
+											<figure className="bg-[#ff7637] 320:w-[25px] 320:h-[25px] w-[35px] h-[35px] flex items-center justify-center rounded-full"><i className="320:text-[16px] text-[18px] text-white bx bxs-star"></i></figure>
+											<span className="text-[14px]" >Write a Review</span>
 										</div>
-										<div onClick={handleAddToWishlist} className="w-[240px] py-[8px] hover:bg-[#ff763720] cursor-pointer transition-all px-[15px] text-center border-[1px] solid border-[rgba(0,0,0,0.2)] flex items-center gap-[10px]">
-											<figure className="bg-[#ff7637] w-[35px] h-[35px] flex items-center justify-center rounded-full"><i className="text-[18px] text-white bx bxs-heart"></i></figure>
-											<span>Add to Wishlist</span>
+										<div onClick={handleAddToWishlist} className="320:w-full 1200:w-[46.5%] py-[8px] hover:bg-[#ff763720] cursor-pointer transition-all px-[15px] text-center border-[1px] solid border-[rgba(0,0,0,0.2)] flex items-center gap-[10px]">
+											<figure className="bg-[#ff7637] 320:w-[25px] 320:h-[25px] w-[35px] h-[35px] flex items-center justify-center rounded-full"><i className="320:text-[16px] text-[18px] text-white bx bxs-heart"></i></figure>
+											<span className="text-[14px]" >Add to Wishlist</span>
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<div className="w-[50%] mx-[2%]">
+							<div className="850:w-[50%] 320:w-full mx-[2%]">
 								<div>
-									<h3 className="text-[28px] font-[600] py-[15px] font-['Sora']">{postData?.name}</h3>
-									<div className="font-[600] "><span> Warranty:</span> <span> {postData?.warranty}</span></div>
-									<div className="font-[600] my-[10px]"><span> Capacity: <span>{postData?.capacity} AH </span></span></div>
-									<div className="my-[10px]"><span className="font-[400] ">MRP:</span><span className="font-[600] line-through ml-[10px] font-sans"> ₹{postData?.mrp}</span><span className="inline-block bg-green-700 text-[13px] text-white px-[10px] rounded-[2px] font-semibold py-[3px] ml-[20px]">{`${Math.round(((parseInt(postData?.mrp) - parseInt(postData?.specialprice)) / parseInt(postData?.mrp)) * 100)}% OFF`}</span></div>
-									<div className="my-[10px]"><span className="font-[400] ">Special Price:</span><span className="font-[600] font-sans"> ₹{postData?.specialprice}</span></div>
+									<h3 className="text-[28px] font-[600] py-[15px] font-['Oswald'] uppercase"><span>{postData?.name?.split(" ")[0]}</span> {postData?.name?.split(" ")?.slice(1)?.join(" ")}</h3>
+									<div className="font-[600] 320:text-[14px]"><span> Warranty:</span> <span>&nbsp; {postData?.warranty}</span></div>
+									<div className="font-[600] my-[10px] 320:text-[14px]"><span> Capacity:&nbsp; <span>{postData?.capacity} AH </span></span></div>
+									<div className="my-[10px]"><span className="font-[600] 320:text-[14px]">MRP:</span><span className="font-[600] line-through ml-[10px] font-sans"> ₹{postData?.mrp}</span><span className="inline-block bg-green-700 text-[13px] text-white px-[10px] rounded-[2px] font-semibold py-[3px] ml-[20px]">{`${Math.round(((parseInt(postData?.mrp) - parseInt(postData?.specialprice)) / parseInt(postData?.mrp)) * 100)}% OFF`}</span></div>
+									<div className="my-[10px]"><span className="font-[600] 320:text-[14px]">Special Price:</span>&nbsp;<span className="font-[600] font-sans"> ₹{postData?.specialprice}</span></div>
 									<div className="mt-[20px]">
 										<button className="bg-[#ff7637] px-[10px] py-[6px] text-[#fff]" onClick={handleDecrement}>-</button>
 										<input className="w-[50px] py-[5px] text-center border-[1px] border-solid border-[#0000004d]" min={1} max={10} type="number" onChange={(e) => setQuantity(e.target.value)} value={quantity} />
@@ -317,7 +318,7 @@ function BuyBattery() {
 
 									<div className="mt-[25px]">
 										<div className="flex" style={{ display: !postData?.pricewitholdbattery ? "none" : "block" }}>
-											<label onClick={() => { setExchangeBattery(true) }} htmlFor="with-old" className="battery-price-picker flex justify-between px-[15px] w-[50%]">
+											<label onClick={() => { setExchangeBattery(true) }} htmlFor="with-old" className="battery-price-picker flex justify-between px-[15px] 320:px-0 320:w-full w-[50%]">
 												<div className="flex items-center gap-[10px]">
 													<input
 														type="radio"
@@ -325,14 +326,14 @@ function BuyBattery() {
 														name="specialPrice"
 														checked={exchangeBattery}
 													/>
-													<span>With Old Battery <em className="text-[12px] font-[200]">(Same Ah)</em></span>
+													<span className="text-[14px]">With Old Battery <em className="text-[12px] font-[200]">(Same Ah)</em></span>
 												</div>
 												<span className="font-sans">₹{postData?.pricewitholdbattery}</span>
 											</label>
 										</div>
 
 										<div className="flex  mt-[10px]" style={{ display: !postData?.pricewitholdbattery ? "none" : "block" }}>
-											<label onClick={() => { setExchangeBattery(false) }} htmlFor="without-old" className="battery-price-picker flex justify-between px-[15px] w-[50%]">
+											<label onClick={() => { setExchangeBattery(false) }} htmlFor="without-old" className="battery-price-picker flex justify-between px-[15px] 320:px-0 320:w-full w-[50%]">
 												<div className="flex items-center gap-[10px]">
 													<input
 														type="radio"
@@ -340,18 +341,22 @@ function BuyBattery() {
 														name="specialPrice"
 														checked={!exchangeBattery}
 													/>
-													<span>Without Old Battery </span>
+													<span className="text-[14px]">Without Old Battery </span>
 												</div>
 												<span className="font-sans">₹{postData?.pricewithoutoldbattery}</span>
 											</label>
 										</div>
 
-										{parseInt(postData?.stock) > 0 && (<><button onClick={handleBuyNow} className=" mx-[15px] p-[10px] w-[30%] pl-[20px] pr-[20px] mt-[30px] text-[18px] font-[600] focus:outline-none bg-[#236DDC] text-white">Buy Now</button>
-											<button onClick={handleAddToCart} className=" mx-[15px] p-[10px] w-[30%] pl-[20px] pr-[20px] mt-[30px] text-[18px] font-[600] focus:outline-none bg-[#000] text-white">Add to Cart</button></>)}
+										{parseInt('10') > 0 && (
+											<div className="flex items-center  relative">
+												<button onClick={handleBuyNow} className=" mx-[15px] p-[10px] 320:w-fit 320:mx-0 w-[30%] pl-[20px] pr-[20px] mt-[30px] 320:text-[14px]  text-[18px] font-[600] focus:outline-none bg-[#236DDC] text-white">Buy Now</button>
+												<button onClick={handleAddToCart} className=" mx-[15px] p-[10px] 320:w-fit 320:mx-0 320:ml-[10px] w-[30%] pl-[20px] pr-[20px] mt-[30px] 320:text-[14px]  text-[18px] font-[600] focus:outline-none bg-[#000] text-white">Add to Cart</button>
+												<button onClick={handleAddToWishlist} className="absolute right-0 w-[40px] h-[40px] flex items-center justify-center rounded-full border-2 border-gray-700 mx-[15px] 320:mx-0 320:ml-[10px] mt-[30px]"><i className="text-[20px] fa-regular fa-heart"></i></button>
+											</div>)}
 
 									</div>
 									<div className="mt-[20px]">
-										<h3 className=" w-[20%]  uppercase py-[8px] border-t-[1px] border-b-[1px] border-dashed whitespace-nowrap text-[20px] font-[400] border-[#3BBA11] text-[#3BBA11]">View All Offers</h3>
+										<h3 className=" w-[20%] 320:w-full  uppercase py-[8px] border-t-[1px] border-b-[1px] border-dashed whitespace-nowrap text-[20px] font-[400] border-[#3BBA11] text-[#3BBA11]">View All Offers</h3>
 										<ul className="uppercase text-[12px] font-[400] py-[15px] leading-[20px]">
 											<li>BRAND NEW & 100% GENUINE</li>
 											<li>FREE DELIVERY & INSTALLATION</li>
@@ -372,9 +377,9 @@ function BuyBattery() {
 			<section className="my-[50px]" style={{ display: !postData?.description ? "none" : "block" }}>
 				<div className="center-wr">
 					<div>
-						<h3 className="font-[600] text-[22px]">{postData?.name} Description</h3>
+						<h3 className="font-[600] text-[22px] uppercase">Description</h3>
 					</div>
-					<div className="buy-battery-description py-[15px] gap-[10px] flex flex-col text-[15px] font-['Sora']" dangerouslySetInnerHTML={{ __html: postData?.description }}></div>
+					<div className="buy-battery-description py-[15px] gap-[10px] flex flex-col text-[15px] font-['Sora'] 320:text-left" dangerouslySetInnerHTML={{ __html: postData?.description }}></div>
 				</div>
 			</section>
 
@@ -382,9 +387,9 @@ function BuyBattery() {
 			<section className="my-[50px]">
 				<div className="center-wr">
 					<div>
-						<h3 className="font-[600] text-[22px]">Features</h3>
+						<h3 className="font-[600] text-[22px] uppercase">Features</h3>
 					</div>
-					<div className="buy-battery-features-li py-[15px] text-[15px]" dangerouslySetInnerHTML={{ __html: postData?.features }}></div>
+					<div className="buy-battery-features-li py-[15px] 320:text-[15px]" dangerouslySetInnerHTML={{ __html: postData?.features }}></div>
 
 				</div>
 			</section>
@@ -392,8 +397,8 @@ function BuyBattery() {
 			{/* recommended for */}
 			<section className="my-[50px]">
 				<div className="center-wr">
-					<div><h3 className="font-[400] text-[22px] underline">RECOMMENDED FOR:</h3></div>
-					<div className="buy-battery-recommend-for py-[15px]" dangerouslySetInnerHTML={{ __html: postData?.recommendedfor }}></div>
+					<div><h3 className="font-[600] text-[22px] uppercase">RECOMMENDED FOR:</h3></div>
+					<div className="buy-battery-recommend-for py-[15px] 320:text-[15px]" dangerouslySetInnerHTML={{ __html: postData?.recommendedfor }}></div>
 				</div>
 			</section>
 
@@ -403,20 +408,19 @@ function BuyBattery() {
 						<div className="mx-[20px] p-[10px] py-[20px] border-b-[1px] border-b-solid border-b-[rgba(0,0,0,0.15)]">
 							<h3 className="font-[Sora] text-[#FF7637] font-[500] text-[20px]">Review & Rating</h3>
 						</div>
-						<div className="flex">
-
-							<div>
+						<div className="flex flex-wrap">
+							<div className=" 320:w-full 980:w-fit">
 								<div className="p-[10px] py-[20px] mx-[20px]">
 									<h3 className="border-b-[1px] pb-[20px] border-b-solid border-b-[rgba(0,0,0,0.15)] font-[Sora] text-[#FF7637] font-[500] text-[20px]">Rating: </h3>
 								</div>
-								<div className="feedback-container">
+								<div className="feedback-container 980:w-[400px] 980:h-[200px] 320:w-full 320:h-auto">
 
-									<div className="emoji-container">
+									<div className="text-center">
 										{
 											review?.reviewScore === 1 ? <i className="far fa-angry fa-3x text-red-500"></i> : review?.reviewScore === 2 ? <i className="far fa-frown fa-3x text-amber-500"></i> : review?.reviewScore === 3 ? <i className="far fa-meh fa-3x text-sky-500"></i> : review?.reviewScore === 4 ? <i className="far fa-smile fa-3x text-lime-500"></i> : review?.reviewScore === 5 ? <i className="far fa-laugh fa-3x text-emerald-500"></i> : <i className="far fa-meh fa-3x text-sky-500"></i>
 										}
 									</div>
-									<div className="rating-container">
+									<div className="text-center mt-[10px]">
 										<i onClick={() => { setReview(prev => ({ ...prev, reviewScore: 1 })) }} className='fas fa-star fa-2x' style={{ color: review?.reviewScore >= 1 ? 'gold' : '#959595' }} ></i>
 										<i onClick={() => { setReview(prev => ({ ...prev, reviewScore: 2 })) }} className='fas fa-star fa-2x' style={{ color: review?.reviewScore >= 2 ? 'gold' : '#959595' }} ></i>
 										<i onClick={() => { setReview(prev => ({ ...prev, reviewScore: 3 })) }} className='fas fa-star fa-2x' style={{ color: review?.reviewScore >= 3 ? 'gold' : '#959595' }} ></i>
@@ -425,7 +429,7 @@ function BuyBattery() {
 									</div>
 								</div>
 							</div>
-							<div className="mx-[20px]">
+							<div className="mx-[20px] 980:mx-[0px] 980:w-[calc(100%-400px)]">
 								<div className="p-[10px] py-[20px] border-b-[1px] border-b-solid border-b-[rgba(0,0,0,0.15)]">
 									<h3 className="font-[Sora] text-[#FF7637] font-[500] text-[20px]">Review: </h3>
 								</div>
@@ -438,9 +442,9 @@ function BuyBattery() {
 										placeholder="Name"
 										value={review?.reviewerName}
 										onChange={(e) => setReview(prev => ({ ...prev, reviewerName: e.target.value }))}
-										className="text-[16px] w-[90%] p-2 text-xl my-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.15)]"
+										className="w-full text-[16px] w-[90%] p-2 text-xl my-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.15)]"
 									/>
-									<textarea value={review?.reviewContent} onChange={(e) => setReview(prev => ({ ...prev, reviewContent: e.target.value }))} className=" text-[16px] w-[90%] my-[10px]  p-2 text-xl border-solid border-[1px] border-[rgba(0,0,0,0.15)] resize-none" id="review_textarea" cols="30" rows="2" placeholder="Write a review"></textarea>
+									<textarea value={review?.reviewContent} onChange={(e) => setReview(prev => ({ ...prev, reviewContent: e.target.value }))} className=" text-[16px] w-[90%] 320:w-full my-[10px]  p-2 text-xl border-solid border-[1px] border-[rgba(0,0,0,0.15)] resize-none" id="review_textarea" cols="30" rows="2" placeholder="Write a review"></textarea>
 									<button type="submit" className="btn-special-spread  py-[10px] px-[30px] my-[15px]  text-[15px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]">Publish</button>
 								</form>
 							</div>
@@ -453,162 +457,137 @@ function BuyBattery() {
 			<Footer />
 
 			{/* modals */}
-			{/* call back Request modal */}
-			{showCallbackModal &&
-				<div className="modal fixed w-[100%] h-[100%] bg-[rgba(0,0,0,0.5)] top-[0] z-[100] " tabIndex="-1" role="dialog">
-					<div style={{ boxShadow: "0 5px 15px rgba(0,0,0,.5)" }} className="modal-dialog bg-[#fff] w-[59%] absolute top-[18%] left-[0] right-[0] mx-[auto] my-[0]" role="document">
-						<div className="modal-content px-[15px] py-[20px]">
-							<div className="modal-header flex justify-between">
-								<div>
-									<h5 className="modal-title text-[17px]">Let Us Call You Back</h5>
-									<span className="modal-title text-[15px] font-[200]">We will give you pure customer delight, Happy to help you.</span>
-								</div>
-								<button type="button" className="close h-[20px] w-[20px] text-[30px] text-[#00000054] mt-[-7px]" onClick={closeReviewModal}>
-									<span>&times;</span>
-								</button>
+			<Modal footer={false} title={<div>
+				<h5 className="modal-title text-[17px]">Let Us Call You Back</h5>
+				<span className="modal-title text-[15px] font-[200]">We will give you pure customer delight, Happy to help you.</span>
+			</div>} open={showCallbackModal} onCancel={closeReviewModal}>
+				<div className="modal-content 320:px-0 px-[15px] py-[20px] 320:pb-0">
+
+					<div className="modal-body">
+						<form onSubmit={handleCallbackRequest}>
+
+							<div className="py-[10px]">
+								<span>  <i className='bg-[#ff7637] bx bxs-user text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={name} onChange={(e) => setName(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%]  320:w-[82%] w-[92%]"
+										placeholder="Name" /></span>
 							</div>
-							<div className="modal-body">
-								<form onSubmit={handleCallbackRequest}>
-
-									<div className="py-[10px]">
-										<span>  <i className='bg-[#ff7637] bx bxs-user text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-											<input type="text"
-												value={name} onChange={(e) => setName(e.target.value)}
-												className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-												placeholder="Name" /></span>
-									</div>
-									<div className="py-[10px]">
-										<span>  <i className='bg-[#ff7637] bx bx-mobile text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-											<input type="text"
-												value={contactNum} onChange={(e) => setContactNum(e.target.value)}
-												className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-												placeholder="Mobile Number" /></span>
-									</div>
-									<div className="py-[10px]">
-										<span>  <i className='bg-[#ff7637] bx bxs-map-pin text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-											<input type="text"
-												value={city} onChange={(e) => setCity(e.target.value)}
-												className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-												placeholder="City" /></span>
-									</div>
-									<div className="py-[10px]">
-										<span>  <i className='bg-[#ff7637] bx bxs-envelope text-[#fff] p-[10px] align-middle resize-none py-[20px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-											<textarea
-												value={enquiry} onChange={(e) => setEnquiry(e.target.value)}
-												type="text" rows="2" className="align-middle py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-												placeholder="Enquiry"></textarea></span>
-									</div>
-									<button type="submit" className="btn-special-spread  py-[10px] px-[30px] my-[15px]  text-[15px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]">Send</button>
-								</form>
-
+							<div className="py-[10px]">
+								<span>  <i className='bg-[#ff7637] bx bx-mobile text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={contactNum} onChange={(e) => setContactNum(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%] w-[92%]"
+										placeholder="Mobile Number" /></span>
 							</div>
-						</div>
-					</div>
-
-				</div>
-			}
-
-
-			{showQuotationModal &&
-				<div className="modal fixed w-[100%] h-[100%] bg-[rgba(0,0,0,0.5)] top-[0] z-[100] " tabIndex="-1" role="dialog">
-					<div style={{ boxShadow: "0 5px 15px rgba(0,0,0,.5)" }} className="modal-dialog bg-[#fff] w-[59%] absolute top-[18%] left-[0] right-[0] mx-[auto] my-[0]" role="document">
-						<div className="modal-content px-[15px] py-[20px]">
-							<div className="modal-header flex justify-between">
-								<div>
-									<h5 className="modal-title text-[17px]">Ask to Quotation</h5>
-								</div>
-								<button type="button" className="close h-[20px] w-[20px] text-[30px] text-[#00000054] mt-[-7px]" onClick={closeQuotationModal}>
-									<span>&times;</span>
-								</button>
+							<div className="py-[10px]">
+								<span>  <i className='bg-[#ff7637] bx bxs-map-pin text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={city} onChange={(e) => setCity(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%] w-[92%]"
+										placeholder="City" /></span>
 							</div>
-							<div className="modal-body">
-								<div className="overflow-x-auto">
-									<table className="min-w-full bg-white">
-										<thead>
-											<tr>
-												<th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-bold uppercase tracking-wider">Image</th>
-												<th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-bold uppercase tracking-wider">Item</th>
-												<th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-bold uppercase tracking-wider">Quantity</th>
-												<th className="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-bold uppercase tracking-wider">Price Per Qty</th>
-											</tr>
-										</thead>
-										<tbody className="bg-gray-200">
-											<tr>
-												<td className="px-6 py-4 whitespace-nowrap border-b border-gray-300">
-													<figure className="w-[100px] border-[1px] solid border-[rgba(0,0,0,0.2) p-[10px]">
-														<img src={`${backend_url}/images/${postData?.batteryimages}`} alt="battery image" />
-													</figure>
-												</td>
-												<td className="px-6 py-4 whitespace-nowrap border-b border-gray-300">{postData?.name}</td>
-												<td className="px-6 py-4 whitespace-nowrap border-b border-gray-300">
-													<input type="text"
-														value={quantity} onChange={(e) => setQuantity(e.target.value)}
-														className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[100px]"
-														placeholder="Quantity" /></td>
-												<td className="px-6 py-4 whitespace-nowrap border-b border-gray-300">₹ {specialPrice}</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<form onSubmit={handleQuotationRequest}>
-
-									<div className="flex">
-										<div className="py-[10px] w-[50%]">
-											<span>  <i className='bg-[#ff7637] bx bxs-user text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-												<input type="text"
-													value={name} onChange={(e) => setName(e.target.value)}
-													className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-													placeholder="Name" /></span>
-										</div>
-										<div className="py-[10px] w-[50%]">
-											<span>  <i className='bg-[#ff7637] bx bx-mobile text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-												<input type="text"
-													value={contactNum} onChange={(e) => setContactNum(e.target.value)}
-													className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-													placeholder="Mobile Number" /></span>
-										</div>
-									</div>
-									<div className="flex">
-										<div className="py-[10px] w-[50%]">
-											<span>  <i className='bg-[#ff7637] bx bxs-envelope text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-												<input type="text"
-													value={email} onChange={(e) => setEmail(e.target.value)}
-													className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-													placeholder="Email ID" /></span>
-										</div>
-										<div className="py-[10px] w-[50%]">
-											<span>  <i className='bg-[#ff7637] bx bxs-business text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-												<input type="text"
-													value={companyName} onChange={(e) => setCompanyName(e.target.value)}
-													className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-													placeholder="Company Name" /></span>
-										</div>
-									</div>
-
-									<div className="flex">
-										<div className="py-[10px] w-[50%]">
-											<span>  <i className='bg-[#ff7637] bx bxs-map-pin text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-												<input type="text"
-													value={city} onChange={(e) => setCity(e.target.value)}
-													className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-													placeholder="City" /></span>
-										</div>
-										<div className="py-[10px] w-[50%]">
-											<span>  <i className='bg-[#ff7637] bx bxs-envelope text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
-												<input type="text"
-													value={query} onChange={(e) => setquery(e.target.value)}
-													className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[92%]"
-													placeholder="Query" /></span>
-										</div>
-									</div>
-
-									<button type="submit" className="btn-special-spread  py-[10px] px-[30px] my-[15px]  text-[15px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]">Send Quotation</button>
-								</form>
+							<div className="py-[10px]">
+								<span>  <i className='bg-[#ff7637] 320:hidden bx bxs-envelope text-[#fff] p-[10px] align-middle resize-none py-[20px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<textarea
+										value={enquiry} onChange={(e) => setEnquiry(e.target.value)}
+										type="text" rows="2" className="align-middle py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[100%] w-[92%]"
+										placeholder="Enquiry"></textarea></span>
 							</div>
-						</div>
+							<button type="submit" className="btn-special-spread  py-[10px] px-[30px] my-[15px]  text-[15px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]">Send</button>
+						</form>
+
 					</div>
 				</div>
-			}
+			</Modal>
+
+			<Modal footer={false} title={<h5 className="modal-title text-[17px]">Ask for Quotation</h5>} open={showQuotationModal} onCancel={closeQuotationModal}>
+				<div className="modal-body">
+					<div className="overflow-x-auto">
+						<table className="min-w-full bg-white 320:hidden">
+							<thead>
+								<tr>
+									<th className="320:px-[10px] px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-bold uppercase tracking-wider">Image</th>
+									<th className="320:px-[10px] px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-bold uppercase tracking-wider">Item</th>
+									<th className="320:px-[10px] px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-bold uppercase tracking-wider">Quantity</th>
+									<th className="320:px-[10px] px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-bold uppercase tracking-wider">Price Per Qty</th>
+								</tr>
+							</thead>
+							<tbody className="bg-gray-200">
+								<tr>
+									<td className="px-6 py-4 whitespace-nowrap border-b border-gray-300">
+										<figure className="w-[100px] border-[1px] solid border-[rgba(0,0,0,0.2) p-[10px]">
+											<img src={`${backend_url}/images/${postData?.batteryimages}`} alt="battery image" />
+										</figure>
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap border-b border-gray-300">{postData?.name}</td>
+									<td className="px-6 py-4 whitespace-nowrap border-b border-gray-300">
+										<input type="text"
+											value={quantity} onChange={(e) => setQuantity(e.target.value)}
+											className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[100px]"
+											placeholder="Quantity" /></td>
+									<td className="px-6 py-4 whitespace-nowrap border-b border-gray-300">₹ {specialPrice}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<form onSubmit={handleQuotationRequest}>
+
+						<div className="flex flex-wrap">
+							<div className="py-[10px] w-[50%] 320:w-full">
+								<span>  <i className='bg-[#ff7637] bx bxs-user text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={name} onChange={(e) => setName(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%] w-[92%]"
+										placeholder="Name" /></span>
+							</div>
+							<div className="py-[10px] w-[50%] 320:w-full">
+								<span>  <i className='bg-[#ff7637] bx bx-mobile text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={contactNum} onChange={(e) => setContactNum(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%] w-[92%]"
+										placeholder="Mobile Number" /></span>
+							</div>
+						</div>
+						<div className="flex flex-wrap">
+							<div className="py-[10px] w-[50%] 320:w-full">
+								<span>  <i className='bg-[#ff7637] bx bxs-envelope text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={email} onChange={(e) => setEmail(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%] w-[92%]"
+										placeholder="Email ID" /></span>
+							</div>
+							<div className="py-[10px] w-[50%] 320:w-full">
+								<span>  <i className='bg-[#ff7637] bx bxs-business text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={companyName} onChange={(e) => setCompanyName(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%] w-[92%]"
+										placeholder="Company Name" /></span>
+							</div>
+						</div>
+
+						<div className="flex flex-wrap">
+							<div className="py-[10px] w-[50%] 320:w-full">
+								<span>  <i className='bg-[#ff7637] bx bxs-map-pin text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={city} onChange={(e) => setCity(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%] w-[92%]"
+										placeholder="City" /></span>
+							</div>
+							<div className="py-[10px] w-[50%] 320:w-full">
+								<span>  <i className='bg-[#ff7637] bx bxs-envelope text-[#fff] p-[10px] align-middle py-[10.9px]' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }} ></i>
+									<input type="text"
+										value={query} onChange={(e) => setquery(e.target.value)}
+										className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] 320:w-[82%] w-[92%]"
+										placeholder="Query" /></span>
+							</div>
+						</div>
+
+						<button type="submit" className="btn-special-spread  py-[10px] px-[30px] 320:px-[10px] 320:w-full my-[15px]  text-[15px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]">Send</button>
+					</form>
+				</div>
+
+			</Modal>
 		</>
 	)
 }

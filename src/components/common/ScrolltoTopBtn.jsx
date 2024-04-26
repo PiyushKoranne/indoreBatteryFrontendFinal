@@ -27,13 +27,9 @@ function ScrollToTopButton() {
   };
 
   return (
-      <figure onClick={scrollToTop} className={`scroll-to-top ${showButton && 'scroll-top-show'}`}>
+      <figure onClick={scrollToTop} className={`z-[101] 320:hidden 1200:block scroll-to-top ${showButton && 'scroll-top-show'}`}>
 				<img src="/images/scrolltop.png" width={50} alt="" />
 			</figure>
-
-			// <figure className="fixed bottom-[100px] right-[30px] bg-white p-0 w-[50px]">
-			// 	<img src="/images/scroll-top-1.png" width={'50px'} alt="" />
-			// </figure>
   );
 }
 

@@ -80,14 +80,14 @@ function OffersPage() {
 
 					<div className="offers-page-content-wr">
 
-						<div className="pb-[5%] mt-[40px]">
+						<div className="pb-[5%]">
 
-							<div className="mb-[50px]">
+							<div className="mb-[50px] mt-[25px]">
 								{sectionHeader?.length < 0 ? (
 									<Skeleton className="mb-[20px] h-[49px] w-[460px]" />
 								) : (
-									<h1 className="font-[800] font-['Oswald'] uppercase text-[34px] pb-[15px]" dangerouslySetInnerHTML={{ __html: sectionHeader[0]?.elementValue }} >
-									</h1>
+									<h3 className="font-[800] font-['Oswald'] uppercase text-[34px] pb-[15px]" dangerouslySetInnerHTML={{ __html: sectionHeader[0]?.elementValue }} >
+									</h3>
 								)}
 
 								{sectionHeader?.length < 0 ? (
@@ -110,12 +110,12 @@ function OffersPage() {
 								</>) : (
 
 									couponData?.map(coupon => (
-										<div className="w-[30%]">
+										<div className="980:w-[35%] 1200:w-[30%] 320:w-full 480:w-[80%] 650:w-[60%] 768:w-[45%]">
 											<figure className="h-[250px] overflow-hidden">
 												<img src={`${backend_url}/images/${coupon?.couponImage}`} className="object-cover w-full h-full" alt="Indore battery offer image" />
 											</figure>
 											<div className="bg-white offer-card-new px-[24px] py-[20px]">
-												<p className="content-para">{coupon?.couponDescription}</p>
+												<p className="content-para" dangerouslySetInnerHTML={{__html: coupon?.couponDescription}}></p>
 												<button onClick={() => openModal(coupon)} className="text-[#fa560b] font-['Sora'] font-[400] text-[16px] leading-[30px] mt-[5px]">Reveal</button>
 											</div>
 										</div>

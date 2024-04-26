@@ -91,7 +91,7 @@ function EnquirySection({ pageData }) {
 								<div className="1440:w-[240px]">
 									<span className="mb-[15px] inline-block mt-[30px] text-[16px] font-[700] uppercase font-['Oswald']">Bike Battery</span>
 									<ul className="w-[200px] 320:text-[14px] 1368:text-[16px]">
-										{bikeBrands?.map((brand, index) => (
+										{bikeBrands?.slice(0,11)?.map((brand, index) => (
 											<li className="cursor-pointer transition-all capitalize" key={index}>
 												<Link to={`/categories/two-wheeler-batteries/models/${encodeURIComponent(brand?.postData?.brandName)}`} state={brand?.postData} >{brand?.postData?.brandName}</Link>
 											</li>
@@ -226,9 +226,9 @@ function EnquirySection({ pageData }) {
 							<div className="w-[90%] 768:w-[50%] 980:w-[200px]  320:w-full mt-[20px] 1368:mt-[50px] 320:ml-0 ml-[30%] 320:p-[20px] 768:pt-[0px] 768:mb-[15px] 980:px-[0px]">
 								<span className="inline-block 320:text-[16px] 980:text-[16px] font-[700] uppercase font-['Oswald'] text-center 980:text-left w-full 980: mb-[25px]">Social Media</span>
 								<ul className="flex gap-[20px] social-icons-list items-center justify-center 980:justify-start">
-									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'twitter')[0]?.elementValue}><i className="fa-brands fa-twitter"></i></a></li>
-									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'instagram')[0]?.elementValue}><i className="fa-brands fa-instagram"></i></a></li>
-									<li className="relative  flex items-center justify-center w-[45px] h-[45px] rounded-full"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'facebook')[0]?.elementValue}><i className="fa-brands fa-facebook-f"></i></a></li>
+									<li className="relative footer-social-icon flex items-center justify-center w-[45px] h-[45px] rounded-full hover:text-white transition-all duration-300 shadow-md"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'twitter')[0]?.elementValue}><i className="fa-brands fa-twitter"></i></a></li>
+									<li className="relative footer-social-icon flex items-center justify-center w-[45px] h-[45px] rounded-full hover:text-white transition-all duration-300 shadow-md"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'instagram')[0]?.elementValue}><i className="fa-brands fa-instagram"></i></a></li>
+									<li className="relative footer-social-icon flex items-center justify-center w-[45px] h-[45px] rounded-full hover:text-white transition-all duration-300 shadow-md"><a href={contactDetails?.sectionContent?.filter(item=>item?.elementAttrName === 'facebook')[0]?.elementValue}><i className="fa-brands fa-facebook-f"></i></a></li>
 								</ul>
 							</div>
 						</div>

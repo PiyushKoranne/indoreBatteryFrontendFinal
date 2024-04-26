@@ -8,6 +8,8 @@ import log from "../../utils/utilityFunctions";
 import toast, { Toaster } from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
 import HeaderNew from "../common/HeaderNew";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { MdAdd } from "react-icons/md";
 
 function Cart() {
 	const navigate = useNavigate();
@@ -138,7 +140,7 @@ function Cart() {
 	function handleOpenDrawer() {
 		const container = document.querySelector(".addr-drawer-drop");
 		container.style.opacity = 1;
-		container.style.height = '500px';
+		container.style.height = 'auto';
 		container.style.visibility = "visible";
 	}
 	function handleCloseDrawer() {
@@ -192,10 +194,28 @@ function Cart() {
 				) : (
 
 					cart?.length > 0 ? (
-						<section className="pt-[100px] bg-[#F7F7F7]">
+						<section className="pt-[100px] 320:pt-[40px] bg-[#F7F7F7]">
 							<div className="center-wr">
 								<div>
-									<table style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="bg-[#fff] w-[90%] my-[0] mx-[auto]">
+									<div className="320:block 650:hidden">
+									{cart?.map(cartItem => (
+										<div className="flex items-start mt-[8px] gap-[10px] py-[4px] bg-white border-r-[4px] border-r-[#ff7637] shadow-[1px_1px_3px_rgba(0,0,0,0.15)]">
+											<figure className="w-[50px]">
+												<img src={`https://batterybackend.react.stagingwebsite.co.in/images/${cartItem?.productImage}`} alt="product image" />
+											</figure>
+											<div className="flex flex-col items-start  w-[calc(100%-50px)]">
+												<p className="p-0 m-0 leading-[15px] mt-[2px] 320:text-[13px] font-['Oswald'] uppercase font-bold pr-[30px]  w-full relative">
+													<span className="font-['Oswald'] text-[#ff7637]">{cartItem?.productName?.split(" ")[0]}&nbsp;</span>{cartItem?.productName?.split(" ")?.slice(1)?.join(" ")}
+													<span className="inline-block absolute right-[10px] font-['Sora'] font-semibold text-[#ff7637] lowercase">x{cartItem?.productQuantity}</span>
+												</p>
+												<div className=" leading-[15px] mt-[12px] 320:text-[13px] relative w-full">SubTotal: <i className='bx bx-rupee'></i>{`${cartItem?.productPrice * cartItem?.productQuantity}`}
+												<button className="absolute right-[10px]" onClick={() => { handleRemoveCartItem(cartItem) }} ><i className='bx bx-trash-alt'></i></button>
+												</div>
+											</div>
+										</div>
+									))}
+									</div>
+									<table style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="bg-[#fff] 650:w-full 1200:w-[90%] my-[0] mx-[auto] 320:hidden 650:table">
 										<tr>
 											<th className="py-[10px] border-solid border-b-[#ddd] border-b-[2px] text-left pl-[12%]">Product</th>
 											<th className="py-[10px] border-solid border-b-[#ddd] border-b-[2px]">Price</th>
@@ -208,10 +228,10 @@ function Cart() {
 												cart?.map(cartItem => (
 													<tr>
 														<td className="flex items-center ">
-															<figure className="w-[100px] p-[18px]"><img src={`https://batterybackend.react.stagingwebsite.co.in/images/${cartItem?.productImage}`} alt="product image" /></figure>
+															<figure className="w-[100px] 320:w-[70px] p-[18px]"><img src={`https://batterybackend.react.stagingwebsite.co.in/images/${cartItem?.productImage}`} alt="product image" /></figure>
 															<span>{cartItem?.productName}</span>
 														</td>
-														<td className="text-center font-['Arial'] text-[16px] font-[500] "><i className='bx bx-rupee'></i>{`${cartItem?.productPrice}`}</td>
+														<td className="text-center font-['Arial'] 320:text-[14px] text-[16px] font-[500] "><i className='bx bx-rupee'></i>{`${cartItem?.productPrice}`}</td>
 														<td className="text-center w-[100px]">
 															<input className="w-[65%] py-[5px] m-[10px] text-center border-[1px] border-solid border-[#0000004d]" disabled type="text" value={cartItem?.productQuantity} />
 														</td>
@@ -225,15 +245,16 @@ function Cart() {
 										</tbody>
 									</table>
 								</div>
-								<div className="w-[90%] mx-auto my-[15px] p-[30px] bg-white shadow-[1px_1px_3px_rgba(0,0,0,0.15)] relative">
-									<div className="flex items-center justify-between">
-										<h3 className="text-[18px] font-[600] font-['Sora']" style={{ color: !showIndicator ? "#000" : "red" }}>Choose an address</h3> <i style={{ visibility: !showIndicator ? "hidden" : "visible" }} className="text-red-400 fa-solid fa-arrow-left absolute indicator-arrow"></i>
-										<button className="p-[10px] font-semibold text-orange-500 text-[14px] border-2 border-orange-500" onClick={handleOpenDrawer}>Add new address</button>
+								<div className="1200:w-[90%] 320:w-full 320:p-[10px] 320:pt-[20px] 320:pb-0 mx-auto my-[15px] 1200:p-[30px] bg-white shadow-[1px_1px_3px_rgba(0,0,0,0.15)] relative">
+									<div className="flex items-center justify-between flex-wrap">
+										<h4 className=" 320:w-fit text-[18px] 320:text-[16px] font-[600] font-['Sora']" style={{ color: !showIndicator ? "#000" : "red" }}>Choose an address</h4> <i style={{ visibility: !showIndicator ? "hidden" : "visible" }} className="text-red-400 fa-solid fa-arrow-left absolute indicator-arrow"></i>
+										<button className="320:hidden 768:block 320:py-[4px]  p-[10px] font-semibold text-orange-500 text-[14px] border-2 border-orange-500" onClick={handleOpenDrawer}>Add new address</button>
+										<button className=" 320:py-[4px] 768:hidden flex items-center p-[10px] font-semibold text-orange-500 text-[14px] border-2 border-orange-500" onClick={handleOpenDrawer}><MdAdd /> New</button>
 									</div>
-									<div className="p-[10px] flex items-center gap-[25px] flex-wrap">
+									<div className="320:p-0 320:py-[10px] p-[10px] flex items-center gap-[25px] flex-wrap">
 										{
 											deliveryAddresses?.map(item => (
-												<label onClick={() => { setChosenAddress(item) }} htmlFor={`${item?.addressName?.toLowerCase() + 'addr-type'}`} className="cursor-pointer addr-label flex flex-col border-2 items-start justify-start relative rounded-[8px] pt-[12px] pb-[25px] px-[15px] w-[255px] h-[120px]">
+												<label onClick={() => { setChosenAddress(item) }} htmlFor={`${item?.addressName?.toLowerCase() + 'addr-type'}`} className="cursor-pointer addr-label flex flex-col border-2 items-start justify-start relative rounded-[8px] pt-[12px] pb-[25px] px-[15px]  768:w-[255px] 320:w-[100%] 320:h-auto h-[120px]">
 													<input id={`${item?.addressName?.toLowerCase() + 'addr-type'}`} className="addr-input absolute top-[15px] right-[15px]" type="radio" name="delivery" checked={item?._id === chosenAddress?._id ? true : false} value={item?._id} aria-labelledby="delivery-0-name" aria-describedby="delivery-0-shipping delivery-0-price" />
 													<div className="flex flex-col gap-[10px]">
 														<span id="delivery-0-name" className="flex items-center gap-[5px]"><i className={`text-[20px] ${item?.addressType === "Home" ? "bx bxs-home-smile" : item?.addressType === "Work" ? "bx bxs-briefcase-alt-2" : "bx bxs-buildings"}`} ></i>{item?.addressName}</span>
@@ -246,7 +267,7 @@ function Cart() {
 									<div ref={drawerRef} className="relative addr-drawer-drop ">
 										<span className="absolute top-[10px] right-[10px] text-[28px] cursor-pointer" onClick={handleCloseDrawer}>&times;</span>
 										<h4 className="font-['Sora'] my-[15px]">Add a new address</h4>
-										<div className="flex items-center gap-[25px] w-[100%] pb-[10px]">
+										<div className="flex items-center flex-wrap gap-[25px] w-[100%] pb-[10px]">
 											<label htmlFor="home-addr-type" className="w-[150px] addr-label flex flex-col	border-2 items-start justify-start relative rounded-[8px] pt-[12px] pb-[12px] px-[15px]">
 												<input id="home-addr-type" onChange={(e) => { setNewAddress(prev => ({ ...prev, addressType: e.target.value })) }} className="addr-input absolute top-[15px] right-[15px]" type="radio" name="addressType" value="Home" aria-labelledby="delivery-0-name" aria-describedby="delivery-0-shipping delivery-0-price" />
 												<div className="flex flex-col gap-[10px]">
@@ -317,12 +338,12 @@ function Cart() {
 										<button onClick={handleAddDeliveryAddress} className="px-[20px] py-[8px] bg-[#ff7637] text-white font-semibold mt-[25px] rounded-[5px]"><i className='bx bxs-paper-plane text-[#fff] pr-[10px]'></i>Add</button>
 									</div>
 								</div>
-								<div className="py-[15px] flex justify-between w-[90%] my-[0] mx-[auto]">
-									<div style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="w-[40%] py-[15px] h-[100%]  pb-[20px] px-[30px] bg-[#fff]">
+								<div className="py-[15px] flex justify-between 1200:w-[90%] 320:w-full 320:flex-wrap my-[0] mx-[auto]">
+									<div style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="320:w-full 768:w-[48%] 1200:w-[40%] py-[15px] h-[100%]  pb-[20px]  320:px-[10px] 1200:px-[30px] bg-[#fff]">
 										<div className="py-[7px]">
-											<h3 className="text-[18px] font-[600] font-['Sora']">Apply Coupon</h3>
+										<h4 className=" 320:w-fit text-[18px] 320:text-[16px] font-[600] font-['Sora']" style={{ color: !showIndicator ? "#000" : "red" }}>Apply Coupon</h4>
 										</div>
-										{couponMessage && <div className="rounded-[8px] p-[15px] bg-red-100 text-red-500">{couponMessage}</div>}
+										{couponMessage && <div className="rounded-[8px] p-[15px] text-red-500">{couponMessage}</div>}
 										<div className="py-[7px] flex items-center justify-between">
 											<input onChange={(e) => { setCouponCode(e.target.value) }} value={couponCode || ""} className="text-[14px] w-[71%] px-[10px] py-[10px] border-[1px] border-solid border-[#0000004d]" type="text" placeholder="Enter Coupon Code" />
 											<button className="text-[14px] bg-[#EEEEEE] w-[27%] py-[10px]  px-[7px] border-[1px] border-solid border-[#0000004d]" onClick={handleApplyCoupon}>Apply</button>
@@ -337,19 +358,19 @@ function Cart() {
 											)
 										}
 									</div>
-									<div style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="text-left w-[38%] border-[1px] border-solid border-[rgba(0,0,0,0.1)] py-[15px] px-[30px] bg-[#fff]">
+									<div style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="text-left 320:w-full 768:w-[48%] 1200:w-[38%] border-[1px] border-solid border-[rgba(0,0,0,0.1)] 1200:py-[15px] 1200:px-[30px] 320:px-[10px] bg-[#fff]">
 										<table style={{ width: "100%" }}>
 											<tr>
-												<td colSpan={2} className="font-['Trebuchet MS'] text-[14px] p-[2px] uppercase font-semibold">Items</td>
+												<td colSpan={2} className="font-['Sora'] text-[14px] p-[2px] uppercase font-semibold">Items</td>
 											</tr>
 											<tr>
 												<td colSpan={2} style={{ padding: '4px 0px' }}>
 													<table style={{ width: "100%" }}>
 														{
 															cart?.map(cartItem => (
-																<tr>
-																	<td className="w-[70%] text-[13px] font-[400] text-[#707070] font-sans pl-[10px] ">{cartItem?.productName}</td>
-																	<td className="w-[30%] text-[13px] font-[400] text-[#707070] font-sans text-end " >{cartItem.productPrice} &times; {cartItem?.productQuantity}</td>
+																<tr className="">
+																	<td className="w-[70%] text-[13px] font-[400] 1024:text-[14px] 1024:font-[500] text-[#000000] font-sans ">{cartItem?.productName}</td>
+																	<td className="w-[30%] text-[13px] font-[400] 1024:text-[14px] 1024:font-[500] text-[#000000] font-sans text-end " >{cartItem.productPrice} &times; {cartItem?.productQuantity}</td>
 																</tr>
 															))
 														}
@@ -358,24 +379,24 @@ function Cart() {
 												</td>
 											</tr>
 											<tr style={{ borderTop: "1px solid rgba(0,0,0,0.4)", borderBottom: "1px solid rgba(0,0,0,0.4)" }}>
-												<td className="w-[30%] font-['Trebuchet MS'] text-[13px] p-[2px] pt-[4px]  font-semibold">Sub Total</td>
-												<td className="w-[70%] font-sans font-semibold text-[14px] text-end"><i className='bx bx-rupee'></i> {cart?.map(item => (item?.productPrice * item.productQuantity)).reduce((acc, currVal) => acc + currVal, 0)} </td>
+												<td className="w-[70%] font-['Sora'] text-[14px] 1024:text-[14px] 1024:font-[500] p-[2px] pt-[4px]  font-[400]">Sub Total</td>
+												<td className="w-[30%] font-sans font-[400] text-[14px] text-end"><i className='bx bx-rupee'></i> {cart?.map(item => (item?.productPrice * item.productQuantity)).reduce((acc, currVal) => acc + currVal, 0)} </td>
 											</tr>
 											<tr>
-												<td className="w-[30%] font-['Trebuchet MS'] text-[13px] font-semibold p-[2px]">Discount (%)</td>
-												<td className="w-[70%] font-sans font-semibold text-[14px] text-end">0 %</td>
+												<td className="w-[70%] font-['Sora'] text-[14px] 1024:text-[14px] 1024:font-[500] font-[400] p-[2px]">Discount (%)</td>
+												<td className="w-[30%] font-sans font-[400] text-[14px] text-end">0 %</td>
 											</tr>
 											<tr>
-												<td className="w-[30%] font-['Trebuchet MS'] text-[13px] font-semibold p-[2px]">Taxes and Misc</td>
-												<td className="w-[70%] font-sans font-semibold text-[14px] text-end"><i className='bx bx-rupee'></i>0.00</td>
+												<td className="w-[70%] font-['Sora'] text-[14px] 1024:text-[14px] 1024:font-[500] font-[400] p-[2px]">Taxes and Misc</td>
+												<td className="w-[30%] font-sans font-[400] text-[14px] text-end"><i className='bx bx-rupee'></i>0.00</td>
 											</tr>
 											{discount && (<tr>
-												<td className="w-[30%] font-['Trebuchet MS'] text-[13px] font-semibold p-[2px]">Coupon Applied</td>
-												<td className="w-[70%] font-sans font-semibold text-[14px] text-end text-red-600"><i className='bx bx-rupee'></i> -{discount}</td>
+												<td className="w-[70%] font-['Sora'] text-[14px] 1024:text-[14px] 1024:font-[500] font-[400] p-[2px]">Coupon Applied</td>
+												<td className="w-[30%] font-sans font-[400] text-[14px] text-end text-red-600"><i className='bx bx-rupee'></i> -{discount}</td>
 											</tr>)}
 											<tr style={{ borderTop: "1px solid rgba(0,0,0,0.4)" }}>
-												<td className="w-[30%] font-['Arial'] text-[14px] font-semibold p-[5px] font-semibold">Order Total</td>
-												<td className="w-[70%] font-sans font-semibold text-[16px] text-end text-emerald-600"><i className='bx bx-rupee'></i> {discount ? cart?.map(item => (item?.productPrice * item.productQuantity)).reduce((acc, currVal) => acc + currVal, 0) - discount : cart?.map(item => (item?.productPrice * item.productQuantity)).reduce((acc, currVal) => acc + currVal, 0)}</td>
+												<td className="w-[70%] font-['Sora'] text-[14px] 1024:text-[14px] 1024:font-[500] p-[5px] font-[400]">Order Total</td>
+												<td className="w-[30%] font-sans font-[400] text-[16px] text-end text-emerald-600"><i className='bx bx-rupee'></i> {discount ? cart?.map(item => (item?.productPrice * item.productQuantity)).reduce((acc, currVal) => acc + currVal, 0) - discount : cart?.map(item => (item?.productPrice * item.productQuantity)).reduce((acc, currVal) => acc + currVal, 0)}</td>
 											</tr>
 										</table>
 										<div className="my-[15px]">

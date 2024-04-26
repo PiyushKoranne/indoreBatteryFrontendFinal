@@ -20,9 +20,7 @@ const NotFound = () => {
 					</div>
 				</div>
 			</section>
-			<div className='mt-[-50px]'>
 			<EnquirySection/>
-			</div>
 			<Footer/>
 		</>
 	)

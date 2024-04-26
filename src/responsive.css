@@ -43,7 +43,7 @@
         padding-top: 1%;
     }.warranty-registeration-pg-wr,
     .offers-page-wr{
-        padding-top: 6%;
+        /* padding-top: 6%; */
     }.offers-page-content-wr h1{
         padding: 2% 0%;
     }
@@ -54,6 +54,9 @@
 }
 /*1440*/
 @media only screen and (max-width:1439px) {
+	.car-brand-grid-container div {
+		border: none;
+	}
     .category-header {
         padding-right: 50px;
         font-size: 16px;
@@ -62,12 +65,6 @@
         padding: 10px 40px;
     }.sticky-header-logo-wr{
         width: 5%;
-    }.car-brand-grid-container div {
-        width: 16%;
-    }.car-brand-grid-wr .brand-item > div{
-        max-width: 126px;
-    }.car-brand-grid-wr .brand-item {
-        width: 331px !important;
     }.under-construction-container{
         padding-top: 8%;
     }
@@ -120,13 +117,11 @@
 }.privacy-policy-pg-wr{
     padding: 7% 0 10% ;
 }.warranty-registeration-pg-wr{
-    padding-top: 7%;
+    /* padding-top: 7%; */
 }.offers-page-content-wr h1 {
     padding: 1% 0% 2%;
 }.offers-cards-wr{
     justify-content: center;
-}.car-brand-grid-wr .brand-item {
-    width: 292px !important;
 }.burger-menu-items .lower-header-cont {
     display: flex;
     flex-direction: column;
@@ -156,23 +151,16 @@
     width: 30%;
 }.products-card-wr > div{
     justify-content: center;
-}.products-card-wr .battery-swiper-card{
-    width: 387px;
 }
 
 }
 /*1200*/
 @media only screen and (max-width:1199px) {
+	
 .banner-slide-img-wr span{
     left: 0;
     width: 90%;
     font-size: 48px;
-} .banner-after-elem-cont{
-    gap: 62px;
-}.banner-after-elem-wr{
-    padding: 20px 0;
-}.banner-after-elem-cont figure{
-    height: 41px;
 }.banner-wr > div:nth-child(1){
     flex-direction: column;
 }.category-header {
@@ -267,16 +255,10 @@
 }.contact-us-wr > div > div:nth-child(2) {
     padding-bottom: 3%;
 }.warranty-registeration-pg-wr {
-    padding-top: 9%;
+    /* padding-top: 9%; */
     padding-bottom: 14%;
 } .offers-page-wr {
     padding-top: 7%;
-}.car-brand-grid-container div {
-    width: 15%;
-    height: auto;
-    padding: 1%;
-}.car-brand-grid-wr .brand-item {
-    width: 250px !important;
 }.all-category-pg-wr > div > div:nth-child(2) {
     padding-top: 3%;
 }.btn-special-spread {
@@ -349,8 +331,6 @@
         width: 50px;
     }.faq-pg-wr{
         padding:8% 0;
-    }.car-brand-grid-wr .brand-item {
-        width: 239px !important;
     }.all-category-pg-wr > div > div:nth-child(2) > a > div {
         width: 200px;
     }.all-category-pg-wr > div > div:nth-child(2) > a  figcaption {
@@ -365,8 +345,6 @@
         left: 0;
     }.banner-form-wr .btn-special-spread {
         width: 22%;
-    }.brands-card-category-wr{
-        width: 100%;
     }.battery-pg-cont{
         flex-direction: column-reverse;
     }.brands-card-category-wr > div{
@@ -376,8 +354,6 @@
         margin: 5% auto;
     }.category-side-form-wr .btn-special-spread {
         width: 20%;
-    }.category-brand-pg{
-        padding-top: 7%;
     }.brand-sidebar{
         width: 40%;
     }
@@ -386,13 +362,11 @@
 }
 /*980*/
 @media only screen and (max-width:979px) {
-     .banner-after-elem-cont {
-        gap: 7px;
-    }.enquiry-section > div > div:nth-child(1) > div:nth-child(1) {
+		.enquiry-section > div > div:nth-child(1) > div:nth-child(1) {
         gap: 9%;
     }.help-section h3,
     .help-section legend{
-        font-size: 28px;
+        font-size: 22px;
     }.help-section span{
         font-size: 20px;
     }.help-section > div > div > div:nth-child(2),
@@ -405,7 +379,6 @@
     }.sticky-header-logo-wr {
         width: 6%;
     }.banner-after-elem.know-more {
-        width: 50%;
         margin: 18px 0;
     }.category-wr > div > div:nth-child(2) ul{
         flex-wrap: wrap;
@@ -418,8 +391,6 @@
         padding-left: 22px;
     }.sticky-header-logo-wr {
         width: 10%;
-    }.banner-after-elem figcaption{
-        font-size: 16px;
     }.banner-form-wr {
         width: 90%;
     }h3,
@@ -471,13 +442,6 @@
     }.offers-page-wr {
         padding-top: 10%;
         padding-bottom: 15%;
-    }.car-brand-grid-wr .brand-item,
-    .car-brand-grid-wr .brand-row:nth-child(1) .brand-item {
-        width: 187px !important;
-        padding: 0 11px;
-        height: 130px !important;
-    }.car-brand-grid-wr .brand-row:nth-child(1) .brand-item {
-        width: 291px !important;
     }.footer-banner-after-elem:not(:last-child)::after {
         content: none;
     }.scroll-to-top {
@@ -496,14 +460,10 @@
         width: 40%;
         top: -10px;
         margin: 0 auto;
-    }.car-brand-grid-container div {
-        width: 16%;
     }.login-form-wr .btn-special-spread {
         width: 40%;
     }.login-form-wr{
         width: 60% ;
-    }.category-brand-pg{
-        padding-top: 10%;
     }.category-side-form-wr {
         width: 80%;
     }.category-side-form-wr .btn-special-spread {
@@ -522,8 +482,6 @@
         width: 80%;
     }.will-remove{
         margin: 0;
-    }.products-card-wr .battery-swiper-card {
-        width: 320px;
     }.responsive.brand-sidebar{
         display: none;
     }.product-filter-btn{
@@ -538,10 +496,6 @@
 @media only screen and (max-width:767px) {
     .enquiry-section > div > div:nth-child(1) > div:nth-child(1) {
         gap: 1%;
-    }.banner-after-elem {
-        width: 30%;
-    }.banner-after-elem-cont {
-        flex-wrap: wrap;
     }.freeToCallStripWr > div > div {
         width: 77%;
     }.help-section span {
@@ -566,17 +520,13 @@
     } .privacy-policy-pg-wr{
         padding:10% 0 15%;
     }.warranty-registeration-pg-wr {
-        padding-top: 11%;
+        /* padding-top: 11%; */
         padding-bottom: 16%;
     }.offers-page-wr {
         padding-top: 12%;
         padding-bottom: 18%;
     }.offers-page-content-wr h1 { 
         padding: 1% 0% 4%; 
-    }.car-brand-grid-container div {
-        width: 16%;
-        height: auto;
-        padding: 3%;
     }.shop-by-manufactures .btn-special-spread-second {
         width: 21%;
     }.shop-by-manufactures .btn-cont{
@@ -590,15 +540,8 @@
         top: 25%;
     }.banner-form-wr div.container form >div:nth-child(4) {
         width: 48%;
-    }.car-brand-grid-wr .brand-row:nth-child(1) .brand-item {
-        width: 187px !important;
     }.car-brand-grid-wr .brand-item{
-        height: 100px !important;
         border: 0 !important;
-    }.car-brand-grid-wr .brand-row:nth-child(1) .brand-item:nth-child(1) {
-        width: 33.4% !important;
-    }.car-brand-grid-wr .brand-row:nth-child(1) .brand-item:nth-child(2) {
-        width: 34% !important;
     }.car-brand-grid-wr .brand-row{
         flex-wrap: wrap;
     }.car-brand-grid-wr{
@@ -621,11 +564,6 @@
         width: 86%;
     }#Loader figure {
         width: 60%;
-    }.car-brand-grid-container div { 
-        width: 20%;
-        height: auto;
-        padding: 2%;
-        border: 0;
     }.car-brand-grid-container{
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 15px;
@@ -659,8 +597,6 @@
         padding-top: 2%;
     }.products-card-wr > div{
         justify-content: center;
-    }.products-card-wr .battery-swiper-card {
-        width: 450px;
     }
     
 }
@@ -726,18 +662,14 @@
     }.warranty-registeration-content-cont .btn-special-spread{
         font-size: 15px;
     }.warranty-registeration-pg-wr {
-        padding-top: 13%;
+        /* padding-top: 13%; */
         padding-bottom: 18%;
     }.testimonial-section{
         margin-bottom: 7%;
     }.help-section{
         margin-bottom: 0%;
-    }.car-brand-grid-container div {
-        padding: 2%;
     }.shop-by-manufactures .btn-cont > a {
         width: 37%;
-    }.car-brand-grid-wr .brand-row:nth-child(1) .brand-item {
-        width: 166px !important;
     }.under-construction-container{
         padding-top: 14%; 
         padding-bottom: 5%;
@@ -752,8 +684,6 @@
     }.banner-form-wr .btn-special-spread {
         width: 32%;
         padding: 2% 3%;
-    }.car-brand-grid-container div {
-        width: 25%;
     }.why-img-cont {
         width: 54%;
     }.scroll-to-top {
@@ -768,8 +698,6 @@
         height: 90px;
     }.category-side-form-wr .btn-special-spread {
         width: 31%;
-    }.category-brand-pg {
-        padding-top: 15%;
     }.car-model-name-card{
         width: 100%;
     }.faq-pg-wr {
@@ -788,16 +716,12 @@
     .banner-slide-img-wr span {
         width: 95%; 
         left: 3%;
-    }.banner-after-elem {
-        margin: 14px 0;
     } .help-section{
         margin-top: 0;
     }.category-wr .upper-content-wr figure{
         width: 50%;
     }.help-section h3{
         text-align: center;
-    }.banner-after-elem-cont{
-        align-items: center;
     }.banner-form-wr{
         margin: 15px auto;
     }.category-wr {
@@ -813,7 +737,7 @@
     }.privacy-policy-pg-wr {
         padding: 13% 0 25%;
         }.warranty-registeration-pg-wr {
-            padding-top: 16%;
+            /* padding-top: 16%; */
             padding-bottom: 25%;
         }.warranty-registeration-content-cont {
         flex-direction: column;
@@ -821,8 +745,6 @@
         width: 97%;
     }.freeToCallStripWr > div > div {
         width: 87%;
-    }.car-brand-grid-wr .brand-row:nth-child(2) .brand-item:nth-child(3), .car-brand-grid-wr .brand-row:nth-child(2) .brand-item:nth-child(4) {
-        width: 187px !important;
     }.car-brand-grid-wr .brand-row {
         justify-content: space-around;
     }.all-category-pg-wr > div > div:nth-child(2) > a > div {
@@ -844,13 +766,11 @@
     }.btn-special-spread-second{
         font-size: 14px;
     }#Loader h1{
-        font-size: 40px;
+        font-size: 34px;
     }.banner-form-wr .btn-special-spread {
         width: 37%;
         padding: 3%;
         font-size: 16px;
-    }.car-brand-grid-container div {
-        width: 31%;
     }.inverter-btry-radio,
     .inverter-btry-little{
         width: 100% !important; 
@@ -877,8 +797,6 @@
     }.product-range-wr figure,.product-range-wr > div{
         width: 90%;
         text-align: center;
-    }.products-card-wr .battery-swiper-card {
-        width: 98%;
     }
 }
 /*480*/
@@ -923,9 +841,6 @@
     }.offers-page-wr {
         padding-top: 17%;
         padding-bottom: 27%;
-    }.car-brand-grid-container div {
-        width: 26%;
-        padding: 4%;
     }.car-brand-grid-container div:nth-child(3n) {
         border-right: none;
     }
@@ -958,17 +873,11 @@
         font-size: 21px;
         left: 0;
         width: 90%;
-    }.car-brand-grid-container div {
-        width: 32% ;
-        padding: 3% 2%;
     }.banner-form-wr .btn-special-spread {
         width: 39%;
     }.wishlist-btn-mrp-wr{
         flex-direction: column;
         gap: 20px;
-    }.brands-card-category-wr > div >div:nth-child(1){
-        margin: 6% 0 9%;
-        border-radius: 0 !important;
     }.category-side-form-wr .btn-special-spread {
         width: 40%;
     }.category-name-strip {
@@ -992,8 +901,6 @@
     }.feel-free-strip{
         flex-direction: column;
         text-align: center;
-    }.banner-after-elem {
-        width: 37%;
     }.btn-special-spread {
         width: 60%;
     }.banner-slide-img-wr span {
@@ -1008,18 +915,10 @@
     }.offers-cards-wr figure {
         padding: 0px 0 0;
         height: auto;   
-    }.car-brand-grid-wr .brand-item, 
-     .car-brand-grid-wr .brand-row:nth-child(1) .brand-item,
-     .car-brand-grid-wr .brand-row:nth-child(2) .brand-item:nth-child(3),
-     .car-brand-grid-wr .brand-row:nth-child(2) .brand-item:nth-child(4),
-     .car-brand-grid-wr .brand-row:nth-child(1) .brand-item:nth-child(1),
-     .car-brand-grid-wr .brand-row:nth-child(1) .brand-item:nth-child(2){
-        width: 167px !important;
-        height: 90px !important;
     }.all-category-pg-wr > div > div:nth-child(2) > a > div {
         width: 170px;
     }#Loader h1 {
-        font-size: 36px; 
+        font-size: 32px; 
     }.banner-slide-img-wr > div {
         top: 85px; 
     }.banner-form-wr .btn-special-spread {
@@ -1039,12 +938,6 @@
         width: 95%;
     }.category-side-form-wr .btn-special-spread {
         width: 49%;
-    }.category-brand-pg {
-        padding-top: 19%;
-    }.category-logo-cont{
-        display: flex;
-        align-items: center;
-        border: 1px solid red;
     }.offer-card {
         width: 100%;
     }.offer-card-content-wr {
@@ -1093,11 +986,9 @@
     .privacy-policy-pg-wr, 
     .warranty-registeration-pg-wr,
     .offers-page-wr {
-        padding:7% 0 5%;
+        /* padding:7% 0 5%; */
     }.enquiry-form-wr .btn-special-spread {
         width: 56%; 
-    }.car-brand-grid-container div {
-        width: 41%;
     }.all-category-pg-wr > div > div:nth-child(2) > a > div {
         width: 250px;
     }.under-construction-container button {
@@ -1105,7 +996,7 @@
     }#Loader figure {
         width: 89%;
     }#Loader h1 {
-        font-size: 34px;
+        font-size: 30px;
     }.shop-by-manufactures .btn-cont > a {
         width: 51%;
     }.banner-slide-img-wr > div {
@@ -1120,8 +1011,6 @@
         padding-top: 50px;
     }.wishlist-btn{
         padding: 10px;
-    }.category-brand-pg {
-        padding-top: 9%;
     }.category-logo-cont{
         display: none;
     }.category-side-form-wr {
@@ -1149,29 +1038,15 @@
         width: 100%;
     }.about-us-pg-wr {
         padding-top: 6%;
-    }.view-details-btn {
-        font-size: 13px;
-        padding: 11px 14px;
     }.products-card-wr .product-name-wr h3{
         /* font-size: 20px !important; */
         text-align: center;
         padding-top: 20px;
     }.products-card-wr .product-name-wr{
         padding: 0 5px;
-    }.products-card-wr figure{
-        height: auto;
     }.products-card-wr .battery-swiper-card .battery-swiper-card {
         flex-direction: column;
         align-items: center;
-    }.products-card-wr .battery-swiper-card {
-        height: 429px;
-    }.products-card-wr figure {
-        width: 66%;
-    }.products-card-wr figure img {
-        width: 100%;
-    }.products-card-wr .battery-swiper-card .battery-swiper-card > div:nth-child(2) {
-        width: 94%;
-        margin: 30px auto;
     }.products-page-wr{
         padding-top: 7%;
     }.products-page-wr > div > div:nth-child(1){
@@ -1266,3 +1141,9 @@
 	}
 }
 
+@media only screen and (min-width:320px) {
+	.banner-after-elem::after {
+		display: none;
+	}
+	
+}

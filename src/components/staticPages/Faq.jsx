@@ -140,8 +140,8 @@ function FaqPage() {
 			</section>
 
 			<section className="bg-[rgba(0,0,0,0.92)] relative z-1 overflow-hidden">
-				<figure className="absolute z-[-1]">
-					<img src="/images/faq-bottom-bg.png" alt="" />
+				<figure className="absolute z-[-1] w-full h-full ">
+					<img src="/images/faq-bottom-bg.png" className="w-full h-full object-cover"  alt="" />
 				</figure>
 				<div className="center-wr">
 					<div className="pt-[80px] pb-[200px] 320:pb-[80px]">

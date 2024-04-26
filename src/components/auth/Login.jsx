@@ -14,6 +14,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { Formik } from "formik";
 import { ColorRing } from "react-loader-spinner";
 import HeaderNew from "../common/HeaderNew";
+import toast, { Toaster } from "react-hot-toast";
 // CSS Styles, adjust according to your needs
 const formStyle = {
 	display: 'flex',
@@ -72,21 +73,26 @@ function Login() {
 
 				// handle redirecting to cart if item was added.
 				let cartData = localStorage.getItem('cart');
+				toast.success("Logged In");
 				if (cartData) {
 					var parsedCartData = JSON.parse(cartData);
 
 					await batteryIndoreDataService.addToCart(parsedCartData.batteryId,
-						parsedCartData['quantity'],
-						parsedCartData.exchangeBattery)
+					parsedCartData['quantity'],
+					parsedCartData.exchangeBattery)
 					localStorage.removeItem('cart');
-					navigate("/cart")
+					setTimeout(()=>{
+						navigate("/cart")
+					}, 1000)
 				} else {
-					navigate("/");
+					setTimeout(()=>{
+						navigate("/");
+					}, 1000)
 				}
 			}
 		} catch (error) {
 			if (error?.response.status === 400 || error?.response.status === 401) {
-				setError("Email and/or password incorrect")
+				setError("Email and/or password incorrect");
 			}
 			if (error.message == "Request failed with status code 403") {
 				setError("Please verify your email first");
@@ -127,9 +133,10 @@ function Login() {
 	return (
 		<>
 			<HeaderNew />
+			<Toaster />
 			<section className="bg-[#fff] pt-[7%]">
 				<div className="center-wr">
-					<div className="bg-[#fff] flex items-center justify-center">
+					<div className="bg-[#fff] flex flex-row-reverse items-center justify-center">
 						<div className="w-[40%] my-[15px] flex items-start justify-start flex-col p-[30px] pt-[100px] login-form-wr">
 							<div className="pt-[20px]">
 								<h3 className="text-[20px] font-[500] leading-[33px] font-['Sora']">Login to your account</h3>

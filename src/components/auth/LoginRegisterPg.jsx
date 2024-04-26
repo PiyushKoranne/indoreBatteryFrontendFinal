@@ -8,6 +8,7 @@ import axios from "axios";
 import { Formik } from "formik";
 const PRINT_LOGS = import.meta.env.PRINT_LOGS === 'error';
 import { indianStatesAndCities } from "../../services/constantsService";
+import toast, { Toaster } from "react-hot-toast";
 
 
 function CmnPg() {
@@ -31,28 +32,36 @@ function CmnPg() {
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 	async function registerUser(values) {
-		const response = await axios.post(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/auth/user-register`, {
-			email: values.email,
-			firstName: values.firstName,
-			lastName: values.lastName,
-			password: values.password,
-			confirmPassword: values.confirmPassword,
-			phone: values.phone,
-			addressLineOne: values.addressLineOne,
-			addressLineTwo: values.addressLineTwo,
-			state: values.state,
-			country: values.country,
-			pinCode: values.pinCode,
-			city: values.city
-		});
-		PRINT_LOGS && console.log(response.status);
-		if (response.status === 200) {
-			navigate("/login")
+		try {
+			const response = await axios.post(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/auth/user-register`, {
+				email: values.email,
+				firstName: values.firstName,
+				lastName: values.lastName,
+				password: values.password,
+				confirmPassword: values.confirmPassword,
+				phone: values.phone,
+				addressLineOne: values.addressLineOne,
+				addressLineTwo: values.addressLineTwo,
+				state: values.state,
+				country: values.country,
+				pinCode: values.pinCode,
+				city: values.city
+			});
+			PRINT_LOGS && console.log(response.status);
+			if (response.status === 200) {
+				toast.success("User Registered Successfully!");
+				setTimeout(()=>{
+					navigate("/login")
+				}, 1000)
+			}
+		} catch (error) {
+			console.log(error);
+			toast.error(error?.response?.data?.message);
 		}
 	}
 
-	const [loginEmail, setLoginEmail] = useState("")
-	const [loginPassword, setLoginPassword] = useState("")
+	const [loginEmail, setLoginEmail] = useState("");
+	const [loginPassword, setLoginPassword] = useState("");
 
 	async function handleUserLogin() {
 		const response = await axios.post(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/auth/user-login`, {
@@ -73,6 +82,7 @@ function CmnPg() {
 	return (
 		<>
 			<section className="bg-[#ffffff] h-screen">
+				<Toaster />
 				<div className="bg-[#ffffff] flex mb-[50px]">
 					<div className="w-[30%] h-screen py-[20px] px-[30px] pl-[90px] bg-[#ff7637] flex items-center justify-center flex-col relative">
 						<Link to={"/"}><img className="cursor-pointer relative left-[-100px]" src="/images/logoCollection.png" alt="" /></Link>
@@ -155,7 +165,7 @@ function CmnPg() {
 										}, 400);
 									}}
 								>
-									{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, ...props }) => {
+									{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, ...prop }) => {
 										console.log("FORMIK REGISTER ERRORS::", errors);
 										console.log("FORMIK REGISTER PROPS::", touched);
 										return (
@@ -173,7 +183,6 @@ function CmnPg() {
 														<span className="flex items-center justify-center w-[15%] text-center grow bg-[#ff7637]" style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }}>
 															<i className='bx bxs-user text-[#fff] ' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }}  ></i></span>
 														<input type="text" className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[85%]" value={values.lastName} onChange={handleChange} onBlur={handleBlur} name="lastName" placeholder="lastName" />
-
 													</div>
 												</div>
 												<div className="w-full flex justify-between">
@@ -188,7 +197,7 @@ function CmnPg() {
 														{touched.phone && errors.phone && <div className="absolute top-[5px] text-[14px] text-red-500 font-medium">{errors.phone && '* ' + errors.phone}</div>}
 														<span className="flex items-center justify-center w-[15%] text-center grow bg-[#ff7637]" style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }}>
 															<i className='bx bxs-phone text-[#fff] ' style={{ borderBottomLeftRadius: "5px", borderTopLeftRadius: "5px" }}  ></i></span>
-														<input type="text" className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[85%]" value={values.phone} onChange={handleChange} onBlur={handleBlur} name="phone" placeholder="Phone" />
+														<input type="text"  className="py-[8px] text-[13px] focus:outline-none px-[10px] border-solid border-[1px] border-[rgba(0,0,0,0.2)] w-[85%]" value={values.phone} onChange={(e)=>{ let num = e.target.value.replace(/\D/g, '')?.slice(0,10); prop.setFieldValue("phone", num)}} onBlur={handleBlur} name="phone" placeholder="Phone" />
 
 													</div>
 												</div>

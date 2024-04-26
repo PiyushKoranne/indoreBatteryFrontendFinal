@@ -22,8 +22,8 @@ function TestimonialSlider(){
 
     return(
         <div className="flex relative w-full items-center">
-			<button onClick={()=>{swiperRef.current.slidePrev()}} className="w-[35px] h-[35px] bg-[#000000] text-white absolute transition-all hover:bg-[#ff7637] flex items-center justify-center left-[0px]"><img src="/images/swiperLefticon.png" alt="" /></button>
-			<button onClick={()=>{swiperRef.current.slideNext()}} className="w-[35px] h-[35px] bg-[#000000] text-white absolute transition-all hover:bg-[#ff7637] flex items-center justify-center right-[0px]"><img src="/images/swiperRighticon.png" alt="" /></button>
+			<button onClick={()=>{swiperRef.current.slidePrev()}} className="z-[100] w-[35px] h-[35px] bg-[#000000] text-white absolute transition-all hover:bg-[#ff7637] flex items-center justify-center left-[0px]"><img src="/images/swiperLefticon.png" alt="" /></button>
+			<button onClick={()=>{swiperRef.current.slideNext()}} className="z-[100] w-[35px] h-[35px] bg-[#000000] text-white absolute transition-all hover:bg-[#ff7637] flex items-center justify-center right-[0px]"><img src="/images/swiperRighticon.png" alt="" /></button>
 			<Swiper
 				spaceBetween={30}
 				slidesPerView={window.innerWidth > 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1} 
