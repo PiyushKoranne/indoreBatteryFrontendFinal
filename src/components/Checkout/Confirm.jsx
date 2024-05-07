@@ -9,6 +9,7 @@ axios.defaults.withCredentials = true;
 import log from "../../utils/utilityFunctions";
 import toast, { Toaster } from "react-hot-toast";
 import HeaderNew from "../common/HeaderNew";
+import Meta from "../common/Meta";
 
 
 function Confirm() {
@@ -21,7 +22,11 @@ function Confirm() {
 	async function fetchOrder() {
 		try {
 			log("fetching order");
-			const response = await axios.get("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-current-order");
+			const response = await axios.get("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-current-order", {
+				headers:{
+					"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+				}
+			});
 			if (response.status === 200) {
 				setOrder(response.data?.order);
 			}
@@ -59,6 +64,10 @@ function Confirm() {
 		const result = await axios.post("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/create-razorpay-order", {
 			orderId: order?.orderId,
 			notes: "Testing Razorpay"
+		}, {
+			headers:{
+				"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+			}
 		});
 
 		if (!result) {
@@ -68,29 +77,21 @@ function Confirm() {
 
 		const { amount, id: order_id, currency } = result.data?.razorpayOrder;
 
-		function preparenotes(itemsArray) {
-			const keys = Object.keys(itemsArray.productName);
-			const value = itemsArray.map(item => (`Price: ${itemsArray.productPrice} , Quantity: ${itemsArray.productQuantity}`));
-			let temp = {};
-			keys.forEach((item, index) => {
-				temp[item] = value[index]
-			})
-			return temp;
-		}
-
-		// const notes = preparenotes(order?.orderItems);
-
 		const options = {
 			key: result.data.key_id,
 			amount: amount.toString(),
 			currency: currency,
-			name: "Conative IT Solutions",
-			description: "Test Transaction",
+			name: "Indore Battery",
+			description: "Purchase Transaction",
 			order_id: order_id,
 			handler: async function (response) {
 				if (response.razorpay_payment_id) {
 					const rzpResponse = await axios.post("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/verify-payment", {
 						response, orderId: order?.orderId
+					}, {
+						headers:{
+							"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+						}
 					});
 
 					if (rzpResponse.status === 200) {
@@ -99,12 +100,13 @@ function Confirm() {
 				}
 			},
 			prefill: {
-				name: "Piyush Koranne",
-				email: "piyushkoranne@example.com",
-				contact: "9999999999",
+				name: order ? `${order?.buyerInformation?.firstName} ${order?.buyerInformation?.lastName}` : '',
+				email: order?.buyerInformation?.email,
+				contact: order?.buyerInformation?.phone,
+				address: `${order?.shippingAddress?.addressLineOne} ${order?.shippingAddress?.addressLineTwo} ${order?.shippingAddress?.city}(${order?.shippingAddress?.pinCode}) ${order?.shippingAddress?.state} - ${order?.shippingAddress?.country}`
 			},
 			notes: {
-				address: "Conative IT Solutions office, Onam Plaza Indore",
+				address: "",
 			},
 			theme: {
 				color: "#ff7637",
@@ -132,6 +134,10 @@ function Confirm() {
 		try {
 			const response = await axios.post("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/delivery-express", {
 				express: e.target.checked
+			}, {
+				headers:{
+					"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+				}
 			});
 			log(response);
 			if (response?.status === 200) {
@@ -148,6 +154,10 @@ function Confirm() {
 			const response = await axios.post("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/place-order", {
 				orderId: order?.orderId,
 				confirmationDetails
+			}, {
+				headers:{
+					"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+				}
 			});
 			if (response?.status === 200) {
 				if (response?.data?.order?.paymentMethod === 'Online') {
@@ -169,8 +179,9 @@ function Confirm() {
 
 	return (
 		<>
+		<Meta title="Confirm Order | Indore Battery" />
 			<HeaderNew />
-			<section className="pt-[4%] pb-[2%] bg-[#F7F7F7]">
+			<section className="pt-[4%] 1200:pb-[200px] bg-[#F7F7F7]">
 				<div className="center-wr">
 					<div className="flex flex-wrap-reverse">
 						<div className="1024:w-[50%] 320:w-full ">
@@ -216,25 +227,26 @@ function Confirm() {
 							</table>
 							<div className="bg-[#fff] w-[100%] my-[0] mx-[auto]">
 								<h3 style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="text-[18px] text-right border-solid border-t-[1px] border-t-[rgba(0,0,0,0.1)] font-[600] px-[18px] py-[10px] font-sans flex items-center justify-between">
-									<span className="text-[#000] text-[16px]">Sub-Total </span><span className="text-[#000] text-[14px]">₹ {order?.subTotal}</span>
+									<span className="text-[#202020] text-[16px]">Sub-Total </span><span className="text-[#202020] text-[14px]">₹ {order?.subTotal}</span>
 								</h3>
 								{
 									order?.coupon && (
 										<h3 style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="text-[18px] text-right border-solid border-t-[1px] border-t-[rgba(0,0,0,0.1)] font-[600] px-[18px] py-[10px] font-sans flex items-center justify-between">
-											<span className="text-[#000] text-[16px]">Total Discount </span><span className="text-red-600 text-[14px]">- ₹ {order?.subTotal * (order.coupon?.couponDiscount / 100)}</span>
+											<span className="text-[#202020] text-[16px]">Total Discount </span>
+											<span className="text-red-600 text-[14px]">- ₹ {order?.subTotal * (order.coupon?.couponDiscount / 100) >= order?.coupon?.maximumAllowedDiscount ? order?.coupon?.maximumAllowedDiscount : order?.subTotal * (order.coupon?.couponDiscount / 100) }</span>
 										</h3>
 									)
 								}
 								{
 									expressDelivery && (
 										<h3 style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="text-[18px] text-right border-solid border-t-[1px] border-t-[rgba(0,0,0,0.1)] font-[600] px-[18px] py-[10px] font-sans flex items-center justify-between">
-											<span className="flex items-center gap-[10px]"><img src="/images/icons8-express-32.png" alt="" />
-												<span className="text-[#000] text-[16px]">Express Delivery</span></span><span className="text-[14px]">+ ₹ {order.quantity * 200}</span>
+											<span className="flex items-center gap-[10px]"><img src="/images/indorebattery-express-delivery.png" alt="" />
+												<span className="text-[#202020] text-[16px]">Express Delivery</span></span><span className="text-[14px]">+ ₹ {order.quantity * 200}</span>
 										</h3>
 									)
 								}
 								<h3 style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="final-bill-amount  text-[18px] text-right bg-[#ff763720] font-[600] text-white px-[18px] py-[10px] font-sans  flex items-center justify-between">
-									<span className="text-[#000] text-[16px]">Order Total </span><span className="text-[#ff7637]">₹ {expressDelivery ? order.quantity * 200 + order?.orderTotal : order?.orderTotal}</span>
+									<span className="text-[#202020] text-[16px]">Order Total </span><span className="text-[#ff7637]">₹ {expressDelivery ? order.quantity * 200 + order?.orderTotal : order?.orderTotal}</span>
 								</h3>
 							</div>
 							<div className="320:px-[10px] 320:pb-[25px]">
@@ -303,8 +315,8 @@ function Confirm() {
 								</div>
 							</div>
 							<div className="1024:w-[90%] 320:w-full my-[10px] bg-[#fff] px-[30px] 320:px-[20px] py-[15px] flex flex-col mx-[auto] shadow-[1px_1px_3px_rgba(0,0,0,0.15)]">
-								<h4 className="font-[500] font-['Oswald'] uppercase text-black pb-[5px] text-[16px] flex items-center gap-[10px]">
-									<img src="/images/icons8-express-32.png" alt="Express Delivery" />
+								<h4 className="font-[500] font-['Oswald'] uppercase text-[#202020] pb-[5px] text-[16px] flex items-center gap-[10px]">
+									<img src="/images/indorebattery-express-delivery.png" alt="Express Delivery" />
 									Express Delivery
 								</h4>
 								<label htmlFor="express-delivery-checkbox" className="mt-[10px]">
@@ -317,7 +329,7 @@ function Confirm() {
 							<div>
 								<div style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} className="relative text-left 320:w-full 1024:w-[90%] my-[10px] mx-[auto] border-[1px] border-solid border-[rgba(0,0,0,0.1)] py-[15px] 320:px-[20px] px-[30px] bg-[#fff]">
 									<h4 className="font-[500] font-['Oswald'] uppercase pb-[5px] text-[16px] flex items-center gap-[10px]">
-										<img src="/images/icons8-payment-30.png" alt="Express Delivery" />
+										<img src="/images/indorebattery-payment-icon.png" alt="Express Delivery" />
 										<span style={{ color: !showIndicator ? "#000" : "red" , fontFamily:'inherit' }}>Payment Method</span><i style={{ visibility: !showIndicator ? "hidden" : "visible" }} className="text-red-400 fa-solid fa-arrow-left absolute indicator-arrow2"></i>
 									</h4>
 									<div className="flex flex-col mt-[15px]">
@@ -337,7 +349,6 @@ function Confirm() {
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</section>

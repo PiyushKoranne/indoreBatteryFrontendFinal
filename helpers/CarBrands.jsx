@@ -27,7 +27,11 @@ function CarBatteries(){
     async function getBatteriesByCarName(){
       const response = await axios.post(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-batteries-by-car-brand`, {
         carBrand: carBrandName
-      });
+      }, {
+				headers:{
+					"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+				}
+			});
       log(response)
       if(response.status === 200){
         setCarBatteriesList(response.data)
@@ -56,7 +60,7 @@ function CarBatteries(){
       		<section className='under-construction-container pt-[100px] flex flex-col items-center justify-center font-["Sora"] tracking-[2px] text-[#484848]'>
       			<h1 className='uppercase text-[48px] font-bold'>Great Things are being built</h1>
       			<img src="/images/under_construction.png" alt="under construction" />
-      			<p className='text-[18px] italic font-[400] font-sans'>Our website is under construction, but we are working hard to launch very soon...</p>
+      			<p className='text-[18px] italic font-[400] font-sans'>Our website is under construction, and we are working hard to launch very soon...</p>
       			<p className='text-[18px] italic font-[400] font-sans'>In the meantime feel free to visit the <Link className='text-[#ff7637]' to='/show-batteries/Amaron'>Products Page</Link> and browse the wide selection of batteries we provide</p>
       			<div className='mt-[25px]'>
       				<input type="text" className='py-[12px] rounded-[4px] pr-[40px] pl-[10px] text-[18px] border-[1px] mr-[10px] border-[#000000]' placeholder='Enter a valid email address' />

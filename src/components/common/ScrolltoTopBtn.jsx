@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaArrowUp } from "react-icons/fa6";
 
 function ScrollToTopButton() {
   const [showButton, setShowButton] = useState(false);
@@ -27,8 +28,8 @@ function ScrollToTopButton() {
   };
 
   return (
-      <figure onClick={scrollToTop} className={`z-[101] 320:hidden 1200:block scroll-to-top ${showButton && 'scroll-top-show'}`}>
-				<img src="/images/scrolltop.png" width={50} alt="" />
+      <figure onClick={scrollToTop} className={`z-[101] p-[10px] rounded-full bg-white border-2 border-[#ff7637] shadow-md 1200:block scroll-to-top ${showButton && 'scroll-top-show'}`}>
+				<FaArrowUp className="text-[#202020] text-[20px]" />
 			</figure>
   );
 }

@@ -9,15 +9,27 @@
 	font-family: 'Sora';
 }
 
+#root{
+	background-color: #ffffff;
+}
+
+input[type=radio] {
+	-moz-appearance:initial;
+}
+
+
+
 p {
 	font-family: 'Sora';
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 30px;
+	color: #202020;
 }
 
 h3 strong {
 	font-family: 'Oswald';
+	color: #202020;
 }
 
 h4 {
@@ -25,6 +37,7 @@ h4 {
 	font-size: 16px;
 	font-weight: 700;
 	line-height: 32px;
+	color: #202020;
 }
 
 tbody tr:nth-child(2n) {
@@ -157,17 +170,7 @@ tbody tr:not(:first-child) {
 	justify-content: center;
 }
 
-.banner-after-elem::after {
-	content: "";
-	position: absolute;
-	top: 50%;
-	right: 0;
-	transform: translateY(-50%);
-	display: block;
-	width: 1px;
-	height: 100px;
-	border-left: 1px solid rgba(0, 0, 0, 0.1)
-}
+
 
 .banner-after-elem.know-more {
 	position: relative;
@@ -227,7 +230,7 @@ tbody tr:not(:first-child) {
 	height: 100px;
 	width: 1px;
 	background-color: rgba(255, 255, 255, 0.2);
-	right: -60px;
+	right: -100px;
 	/* transform: translateX(50%); */
 	top: 10px;
 }
@@ -308,10 +311,11 @@ tbody tr:not(:first-child) {
 
 h1,
 h3 {
-	font-size: 34px;
-	color: #000;
-	font-weight: 800;
 	font-family: 'Oswald';
+	font-size: 34px;
+	font-weight: 700;
+	/* line-height: 68px; */
+	color: #202020;
 }
 
 h1 span,
@@ -368,10 +372,10 @@ h3 strong {
 	font-weight: 500;
 }
 
-.discount-badge {
+.discount-badge, .new-badge {
 	position: absolute;
 	right: -12px;
-	background: linear-gradient(to right, #15803d,#047857, #166534);
+	/* background: ; */
 	padding: 5px 10px;
 	color: #fff;
 }
@@ -386,6 +390,17 @@ h3 strong {
 	clip-path: polygon(0 0, 0% 100%, 100% 0);
 	background-color: #166534;
 	background: linear-gradient(to right, #052e16, #14532d, #166534);
+}
+.new-badge::after {
+	content: "";
+	height: 20px;
+	width: 12.9px;
+	bottom: -20px;
+	right: 1px;
+	position: absolute;
+	clip-path: polygon(0 0, 0% 100%, 100% 0);
+	/* background-color: #166534; */
+	background: linear-gradient(to right, #0ea5e9, #0891b2, #075985);
 }
 
 .battery-card-swiper {
@@ -458,12 +473,12 @@ h3 strong {
 }
 
 input::placeholder, .ant-select-selection-item {
-	color: rgba(0, 0, 0);
+	color: #202020;
 	font-size: 15px;
 	/* background-color: red; */
 }
 textarea::placeholder {
-	color: rgba(0, 0, 0);
+	color: #202020;
 	font-size: 15px;
 }
 
@@ -543,7 +558,6 @@ textarea::placeholder {
 	display: block;
 	width: 20px;
 	height: 20px;
-	/* background-image: url(/images/icons8-tick-box-24.png); */
 	background-color: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -669,7 +683,7 @@ textarea::placeholder {
 .brand-link li,
 .brand-link span.hover {
 	position: relative;
-	color: #000;
+	color: #202020;
 	transition: color 0.2s ease;
 	width: fit-content;
 }
@@ -689,7 +703,7 @@ textarea::placeholder {
 }
 
 .brand-link:hover {
-	color: #000;
+	color: #202020;
 }
 
 .car-brand-grid-container div {
@@ -884,7 +898,7 @@ textarea::placeholder {
 	left: 5px;
 	top: 5px;
 	content: "";
-	background-image: url(/images/icons8-electric-20.png);
+	background-image: url(/images/batteryindore-electric-li.png);
 	display: block;
 	width: 25px;
 	height: 25px;
@@ -919,10 +933,8 @@ textarea::placeholder {
 	padding: 20px 0;
 }
 
-.privacy-policy-content-wr h3 {
-	font-weight: 600;
-	font-size: 19px;
-	padding: 5px 0 15px;
+.login-pattern-bg {
+		background-image: url(/Animated-Shape.svg);
 }
 
 .privacy-policy-content-wr p,
@@ -1134,15 +1146,15 @@ textarea::placeholder {
 }
 
 .warranty-registeration-form-wr input::placeholder {
-	color: #000;
+	color: #202020;
 }
 
 #footer-enquiry-form input::placeholder {
-	color: #000;
+	color: #202020;
 }
 
 #footer-enquiry-form textarea::placeholder {
-	color: #000;
+	color: #202020;
 }
 
 .contact-us {
@@ -1249,7 +1261,7 @@ body .sk-ww-google-reviews .swiper-button-prev {
 
 body .sk-ww-google-reviews .swiper-button-next:hover,
 body .sk-ww-google-reviews .swiper-button-prev:hover {
-	background-color: #000 !important;
+	background-color: #202020 !important;
 }
 
 body .sk-ww-google-reviews .sk-arrow {
@@ -1265,7 +1277,7 @@ body .sk-ww-google-reviews .swiper-button-prev .sk-arrow {
 }
 
 .sk-reviewer-name-action a strong {
-	color: #000;
+	color: #202020;
 }
 
 .sk-ww-google-reviews-content {
@@ -1273,7 +1285,7 @@ body .sk-ww-google-reviews .swiper-button-prev .sk-arrow {
 }
 
 .industries-box-heading span {
-	color: #000;
+	color: #202020;
 	cursor: pointer;
 	display: inline-block;
 	padding: 0;
@@ -1344,7 +1356,7 @@ footer .cursive {
 }
 
 .sk-ww-google-reviews-content-container .sk-google-review-button-more {
-	color: #000 !important;
+	color: #202020 !important;
 }
 
 .sk-ww-google-reviews-review-text-content div {
@@ -1575,17 +1587,17 @@ nav.fill ul li a:hover:after {
 }
 
 .warranty-date-picker .ant-picker .ant-picker-suffix {
-	color: #000000;
+	color: #202020;
 }
 
 .warranty-date-picker .ant-picker .ant-picker-input input::placeholder {
-	color: #000;
+	color: #202020;
 	font-size: 15px;
 }
 
 .about-content span {
 	font-size: 18px;
-	color: #000;
+	color: #202020;
 	font-weight: 800;
 	font-family: 'Oswald';
 	margin-bottom: 15px;
@@ -1719,9 +1731,9 @@ fieldset>legend {
 
 .scroll-to-top {
 	color: #ff7637;
-	right: -50px;
-	bottom: 50%;
-	transform: translateY(50%);
+	right: 30px;
+	bottom: 20px;
+	/* transform: translateY(50%); */
 	position: fixed;
 	transition: all 500ms ease;
 	/* animation: Scroll 1s infinite ease-in-out forwards; */
@@ -1729,7 +1741,7 @@ fieldset>legend {
 }
 
 .scroll-to-top.scroll-top-show {
-	right: 0px;
+	bottom: 90px;
 }
 
 @keyframes Scroll {
@@ -1876,7 +1888,7 @@ fieldset>legend {
 }.login-wr-dropdown::before{
 	position: absolute;
 	content: "";
-	background-image: url("/images/icons8-triangle-16.png");
+	background-image: url("/images/triangle_16.png");
 	top: -21.5%;
 	left: 37%;
 	height: 24px;
@@ -1986,7 +1998,7 @@ fieldset>legend {
 .car-brands-manu .swiper-pagination-bullet, .know-more-swiper .swiper-pagination-bullet{
 	border-radius: 10px;
 	transition: all 300ms ease;
-	background-color: #000;
+	background-color: #202020;
 	opacity: 0.65;
 }
 .swiper-pagination-bullet.swiper-pagination-bullet-active{
@@ -2017,16 +2029,62 @@ fieldset>legend {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .ant-menu-item.ant-menu-item-selected.ant-menu-item-only-child{
-	color: #000;
+	color: #202020;
 	background-color: #f7f7f5;
 }
 .marqee-para span{
 	font-weight: 600;
-	color: #000000;
+	color: #202020;
 }
 .ant-menu-light .ant-menu-submenu-selected >.ant-menu-submenu-title {
 	color: #ff7637;
 }
 .ant-menu-submenu.ant-menu-submenu-inline{
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+.exception.core-heading h3 {
+	text-align: center;
+}
+
+.faq-collapse .ant-collapse .ant-collapse-item .ant-collapse-content .ant-collapse-content-box {
+	padding: 5px 36px 18px 18px;
+}
+
+@-moz-document url-prefix() {
+	/* Add CSS here */
+	
+.battery-price-picker input {
+	position: relative;
+}
+
+.battery-price-picker input::before {
+	position: absolute;
+	content: "";
+	display: block;
+	width: 20px;
+	height: 20px;
+	top: -10px;
+	left: -14px;
+	background-color: #ffffff;
+	border: 5px solid rgba(0, 0, 0, 0.2);
+	border-radius: 50%;
+	transition: all 300ms ease;
+}
+
+.battery-price-picker input:checked::before {
+	border-color: #ff7637;
+}
+}
+#about-us-swiper-320 .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+	bottom: 0px;
+	padding-right: 0px;
+	text-align: center;
+}
+.warranty-reg-date-pick.ant-picker.ant-picker-borderless {
+	border: 1px solid transparent;
+	border-radius: 0px;
+}
+
+.warranty-reg-date-pick.ant-picker.ant-picker-borderless.error{
+	border-color: #dc2626;
 }

@@ -12,6 +12,12 @@ import { ColorRing } from "react-loader-spinner";
 import log from "../utils/utilityFunctions";
 import BatteryCard from "./common/BatteryCard";
 import HeaderNew from "./common/HeaderNew";
+import { Drawer } from "antd";
+import { RxCross2 } from "react-icons/rx";
+import { FaFilter } from "react-icons/fa6";
+import { CiFilter } from "react-icons/ci";
+import { MdFilterList } from "react-icons/md";
+import Meta from "./common/Meta";
 
 const initialFilter = {
 	brand: [],
@@ -37,11 +43,18 @@ function Products() {
 	const [brandModelName, setBrandModelName] = useState("")
 	const [filteredPage, setFilteredPage] = useState(false)
 	const [openFilterSidebar, setOpenFilterSidebar] = useState(false)
+	const [open, setOpen] = useState(false);
+
+	const showDrawer = () => {
+		setOpen(true);
+	};
+	const onClose = () => {
+		setOpen(false);
+	};
 
 
 	const [filters, setFilters] = useState(initialFilter)
 
-	log("Rendering Products");
 	function fetchUrlData() {
 		let url;
 		url = window.location.href
@@ -50,7 +63,7 @@ function Products() {
 			const parts = url.split("/")
 			const lastPart = parts.pop();
 			const decodedString = decodeURIComponent(lastPart);
-			console.log("OUR URL", decodedString)
+			log("OUR URL", decodedString)
 			setBrandModelName(decodedString)
 		}
 	}
@@ -175,13 +188,14 @@ function Products() {
 
 	useEffect(() => {
 		fetchBatteriesByBrand();
-		if (brandName === 'filter' || batteryCategory === 'inverter-batteries') {
-			setFilters(prev => ({ ...prev, brand: [state?.brand?.toLowerCase() || 'all brands'] }))
+		if (brandName === 'filter' || batteryCategory === 'inverter-batteries' || batteryCategory === 'inverter-plus-battery-combo') {
+			setFilters(prev => ({ ...initialFilter, brand: [state?.brand?.toLowerCase() || 'all brands'] }))
 		} else {
-			setFilters(prev => ({ ...prev, brand: [brandName?.toLowerCase()] }))
+			setFilters(prev => ({ ...initialFilter, brand: [brandName?.toLowerCase()] }))
 		}
 	}, [brandName, pathname, batteryCategory])
 
+	
 	useEffect(() => {
 		filterBatteries()
 	}, [filters?.brand, filters?.capacity, filters?.subbrand, filters.priceRange.low, filters.priceRange.high, filters.warranty, filteredBatteries?.length, allBatteries?.length]);
@@ -271,7 +285,12 @@ function Products() {
 			const response = await batteryIndoreDataService.getVrlaSmfBatteries(brandName);
 			setAllBatteries(response?.data?.products);
 			setFilteredBatteries(response?.data?.products);
-		} else if (batteryCategory === 'inverter-plus-battery-combo') {
+		} else if (batteryCategory === 'inverter-plus-battery-combo' && brandName === 'find') {
+			const response = await batteryIndoreDataService.findInverterAndBatteryCombos(state);
+			log("##### GETTING INVERTER+BATTERY COMBOS #####\n\n", response);
+			setAllBatteries(response?.data?.products);
+			setFilteredBatteries(response?.data?.products);
+		} else if (batteryCategory === 'inverter-plus-battery-combo' ) {
 			const response = await batteryIndoreDataService.getInverterBatteryCombos(brandName);
 			setAllBatteries(response?.data?.products);
 			setFilteredBatteries(response?.data?.products);
@@ -297,7 +316,7 @@ function Products() {
 
 	const renderBatteryCards = () => {
 		const itemsPerRow = 2;
-		console.log("FILTERED BATTERIES::", filteredBatteries)
+		log("FILTERED BATTERIES::", filteredBatteries)
 		if (!Array?.isArray(filteredBatteries) || filteredBatteries?.length === 0) {
 			return (
 				<>
@@ -321,6 +340,7 @@ function Products() {
 
 	return (
 		<>
+			<Meta title={batteryCategory === 'show-batteries' ? brandName : batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")} />
 			<HeaderNew />
 			<Toaster position="bottom-center" toastOptions={{
 				className: '',
@@ -337,25 +357,177 @@ function Products() {
 					},
 				},
 			}} />
-			<section className="products-page-wr bg-[#F5f5f5] pb-[100px]">
+			<section className="products-page-wr bg-[#F5f5f5] pt-[65px] pb-[65px] 1200:pb-[200px]">
 				<div className="center-wr">
-					<div className="flex pt-[40px] mb-[30px] justify-between">
-
-						<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">
-							<span><Link to={"/"} className="hover:text-[#ff7637]">Home</Link></span> &gt;
+					<div className="flex mb-[30px] justify-between">
+						<div className="flex bg-[#F5F5F5] items-center gap-[7px]">
+							<span className="leading-[20px] font-[600] 320:text-[14px] 1200:text-[16px]">
+								<Link to={"/"} className="hover:text-[#ff7637]">Home</Link>
+							</span>
+							<span className="inline-block py-[1px] ">
+								<img src="/images/bar.png" className="" alt="" />
+							</span>
 							{
-								batteryCategory === 'show-batteries' ? <span className="text-[#ff7637] font-[600]">{brandName}</span> : <span className="text-[#ff7637] font-[600]">
+								batteryCategory === 'show-batteries' ? <span className="text-[#ff7637] leading-[20px] font-[600] 320:text-[14px] 1200:text-[16px]">{brandName}</span> : <span className="text-[#ff7637] leading-[20px] font-[600] 320:text-[14px] 1200:text-[16px]">
 									{batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}
 								</span>
 							}
 						</div>
-
-
+						<button onClick={showDrawer} className="320:flex 980:hidden ml-[10px] rounded-[10px] bg-white px-[20px] py-[8px] flex items-center w-fit border-[1px] border-[rgba(0,0,0,0.2)] shadow-md 320:text-[14px] ">Filter&nbsp;
+							<MdFilterList size={22} className="ml-[10px] text-[#202020]" />
+						</button>
 					</div>
 
 					<div className="flex">
+						{/* SIDEBAR DRAWER */}
+						<div className="320:block ">
+							<Drawer
+								closeIcon={false}
+								title={
+									<div className="flex items-center relative">
+										<Link to="/">
+											<figure>
+												<img src="/images/logo.svg" className="w-[30px]" alt="" />
+											</figure>
+										</Link>
+										<Link to="/">
+											<h3 className="text-[22px] ml-[10px] mb-[0px]">Indore Battery</h3>
+										</Link>
+										<div onClick={onClose} className="hover:bg-slate-100 transition-all w-fit px-[10px] py-[4px] border-[1px] border-[rgba(0,0,0,0.2)] text-gray-600 absolute right-[10px] flex items-center">
+											<span className="text-[12px] text-[#202020] font-semibold mr-[5px]">Close</span>
+											<RxCross2 className="text-[12px]" />
+										</div>
+									</div>
+								}
+								onClose={onClose} open={open} placement="right">
+								<div className=" w-[100%] bg-[#fff] px-[20px] h-[910px] py-[15px] pb-[30px]" style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)" }} >
+									<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
+										<div className="py-[15px] text-center"><button onClick={() => { setFilters(initialFilter) }} className="border-2 border-[#ff7637] px-[20px] py-[5px] text-[#ff7637]">Clear Filters</button></div>
+										<div>
+											<h4 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Price</h4>
+										</div>
+										<div className="text-[#7a7a7a]">
+											<p className="text-[15px] font-semibold font-sans mb-[10px]">₹{filters.priceRange.low} - ₹{filters.priceRange.high}</p>
+											<Slider
+												step={100}
+												range
+												min={1000}
+												max={75000}
+												onChange={(val) => { setFilters(prev => ({ ...prev, priceRange: { low: val[0], high: val[1] } })) }}
+												allowCross={false}
+												defaultValue={[1000, 75000]}
+												styles={{
+													track: {
+														backgroundColor: '#ff7637',
+														height: '10px'
+													},
+													handle: {
+														border: "5px solid #e45c1d",
+														boxShadow: "2px 2px 24px 0px rgba(0,0,0,0.4)",
+														backgroundColor: "#e45c1d",
+														top: '6px',
+														opacity: '1',
+														width: '18px',
+														height: '18px',
+														borderRadius: '1px'
+													},
+													rail: {
+														height: '10px'
+													}
+												}}
+											/>
+										</div>
+									</div>
+									<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
+										<div>
+											<h4 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Brands</h4>
+										</div>
+										<div className="text-[#7a7a7a]">
+											<label className="mt-[10px] flex items-start" name={`AllBrands`}>
+												<input className="border-[#7a7a7a] mt-[2px]" checked={filters?.brand.includes('all brands')} onChange={handleBrandFiltering} value={'all brands'} type="checkbox" />
+												<span className="px-[10px] text-[15px]">All Brands</span>
+											</label>
+											{
+												Array.from(new Set(allBatteries?.map(item => item?.postData?.brand)?.map(item => item?.toLowerCase()))).map(item => (
+													<label key={item} className="mt-[10px] flex items-start" name={`${item}`}>
+														<input className="border-[#7a7a7a] mt-[2px]" checked={filters?.brand.includes(item)} onChange={handleBrandFiltering} value={item} type="checkbox" />
+														<span className="px-[10px] text-[15px]" >
+															{item?.substring(0, 1).toUpperCase() + item?.slice(1)}</span>
+													</label>
+												))
+											}
+										</div>
+									</div>
+									{allBatteries?.length > 0 && <div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
+										<div>
+											<h4 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Sub-Brands</h4>
+										</div>
+										<div className="text-[#7a7a7a]">
+											{
+												Array.from(new Set(allBatteries?.map(item => item?.postData?.subbrand && item?.postData?.subbrand?.toLowerCase()))).map(item => item && (
+													<label key={item} className="mt-[10px] flex items-start" name={`${item}`}>
+														<input className="border-[#7a7a7a] mt-[2px]" checked={filters?.subbrand.includes(item)} onChange={handleSubBrandFiltering} value={item} type="checkbox" />
+														<span className="px-[10px] text-[15px]">
+															{item?.substring(0, 1).toUpperCase() + item.slice(1)}
+														</span>
+													</label>
+												))
+											}
+										</div>
+									</div>}
+									{allBatteries?.length > 0 &&
+										<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
+											<div>
+												<h4 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Capacity</h4>
+											</div>
+											<div className="text-[#7a7a7a]">
+												{
+													Array.from(new Set(allBatteries?.map(item => (item?.postData?.capacity)))).map(item => (
+														<label key={item} className="mt-[10px] flex items-start">
+															<input className="border-[#7a7a7a] mt-[2px]" value={item} checked={filters.capacity.includes(item)} onChange={handleCapacityFiltering} type="checkbox" />
+															<span className="px-[10px] text-[15px]">{`${item} AH`}</span>
+														</label>
+													))
+												}
+											</div>
+										</div>
+									}
+									<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
+										<div>
+											<h4 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Type</h4>
+										</div>
+										<div className="text-[#7a7a7a]">
+											{typeArray}
+										</div>
+									</div>
+									<div>
+										<div>
+											<h4 className="text-[#ff7637] text-[14px] font-[600] py-[15px] font-['Oswald'] uppercase">Warranty</h4>
+										</div>
+										<div className="text-[#7a7a7a]">
+											{allBatteries?.length > 0 ?
+												Array.from(new Set(allBatteries?.map(item => ({ totalWarranty: item?.postData?.totalWarranty, fullReplacementWarranty: item?.postData?.fullReplacementWarranty, proRataWarranty: item?.postData?.proRataWarranty }))))?.map((item, idx) => (
+													<label key={idx} className="mt-[10px] flex items-start">
+														<input className="border-[#7a7a7a] mt-[2px]" value={`${item?.totalWarranty}__${item?.fullReplacementWarranty}__${item?.proRataWarranty}`} checked={filters.warranty.includes(`${item?.totalWarranty}__${item?.fullReplacementWarranty}__${item?.proRataWarranty}`)} onChange={handleWarrantyFiltering} type="checkbox" />
+														<span className="px-[10px] text-[15px]">{`${item?.totalWarranty} Months ( ${item?.fullReplacementWarranty} Months Full Replacement + ${item?.proRataWarranty} Months Pro Rata)`}</span>
+													</label>
+												))
+												:
+												warrantyArr.map((item, idx) => (
+													<label key={idx} className="mt-[10px] flex items-start">
+														<input className="border-[#7a7a7a] mt-[2px]" type="checkbox" />
+														<span className="px-[10px] text-[15px]">{item.name}</span>
+													</label>
+												))
+											}
+										</div>
+									</div>
+								</div>
+							</Drawer>
+						</div>
+
 						{/* sidebar */}
-						<div className="responsive brand-sidebar w-[20%] bg-[#fff] px-[20px] mx-[20px] h-[910px] py-[15px] pb-[30px] sticky top-[100px]" style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)", overflowY: "auto" }} >
+						<div className="320:hidden 980:block responsive brand-sidebar w-[20%] bg-[#fff] px-[20px] mx-[20px] h-[910px] py-[15px] pb-[30px] sticky top-[100px]" style={{ boxShadow: "1px 1px 3px rgba(0,0,0,.15)", overflowY: "auto" }} >
 							<div className="border-b-[1px] border-solid border-b-[rgba(0,0,0,0.1)] pb-[20px]">
 								<div className="py-[15px] text-center"><button onClick={() => { setFilters(initialFilter) }} className="border-2 border-[#ff7637] px-[20px] py-[5px] text-[#ff7637]">Clear Filters</button></div>
 								<div>
@@ -480,8 +652,8 @@ function Products() {
 						</div>
 						{/* content */}
 
-						<div className="flex flex-col w-[100%] products-card-wr bg-[80%]">
-
+						<div className="flex flex-col w-[100%] products-card-wr ">
+							
 							{(filteredPage) ? (
 								<>
 									{/* top card */}
@@ -489,8 +661,8 @@ function Products() {
 										<div className='text-center w-[86%]'>
 											<h4 className='320:text-[16px] 980:text-[22px] uppercase'>{brandModelName} {batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}</h4>
 										</div>
-										<figure className='px-[15px] py-[10px] 320:p-[8px] rounded-[50%] border-[1px] border-[rgba(0,0,0,0.15)] mr-[11px] h-[89px] 320:h-[80px] 320:w-[80px] flex items-center justify-center'>
-											<img src={`https://batterybackend.react.stagingwebsite.co.in/images/${state?.gettingPassedData?.brandLogo}`} className='w-[60px]' alt="bike category logo" />
+										<figure className=' rounded-[50%] border-[1px] border-[rgba(0,0,0,0.15)] mr-[11px] h-[89px] w-[89px] flex items-center justify-center'>
+											<img src={`https://batterybackend.react.stagingwebsite.co.in/images/${state?.gettingPassedData?.brandLogo}`} className='w-[82%]' alt="bike category logo" />
 										</figure>
 									</div>
 								</>

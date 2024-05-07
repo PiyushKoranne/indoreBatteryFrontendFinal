@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import HeaderNew from "../common/HeaderNew";
+import Meta from "../common/Meta";
+import log from "../../utils/utilityFunctions";
 
 function TrackOrder() {
 
@@ -30,11 +32,15 @@ function TrackOrder() {
 
 		const response = await axios.post("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/track-package", {
 			orderId: orderId,
+		}, {
+			headers:{
+				"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+			}
 		})
 		if (response?.data?.orderItems) {
 			const foundOrderItem = response.data.orderItems.find(item => item.productId === productId);
 			setProdcutDetails(foundOrderItem);
-			console.log("Found Order Item:", response?.data?.deliveryStatus);
+			log("Found Order Item:", response?.data?.deliveryStatus);
 		}
 		setOrderDetails(response?.data)
 		if (response?.data?.deliveryStatus === "Pending") {
@@ -62,6 +68,7 @@ function TrackOrder() {
 
 	return (
 		<>
+			<Meta title={"Track Order | Indore Battery"} />
 			<HeaderNew />
 			<section className="order-details-w bg-[#F7F7F7] py-[5%] pb-[10%]">
 				<div className="max-w-[628px] mx-[auto]">
@@ -75,7 +82,7 @@ function TrackOrder() {
 
 						</div>
 						<div>
-							<h3 className="pb-[15px] font-[600] text-[24px] font-['Sora']">Order <span className="block text-[16px] text-[#000]"># {orderDetails?.orderId}</span></h3>
+							<h3 className="pb-[15px] font-[600] text-[24px] font-['Sora']">Order <span className="block text-[16px] text-[#202020]"># {orderDetails?.orderId}</span></h3>
 
 							<div className="flex justify-between">
 								<div className=" flex flex-col pb-[25px]">
@@ -84,7 +91,7 @@ function TrackOrder() {
 								</div>
 								<div className=" flex flex-col">
 									<span className="text-[14px] font-[500] text-[#999999]">Courier</span>
-									<span className="text-[14px] font-[500]">UPS, R. Gosling</span>
+									<span className="text-[14px] font-[500]">INPS, R. Indore</span>
 								</div>
 							</div>
 
@@ -128,10 +135,10 @@ function TrackOrder() {
 														<span>
 															Order Packaging
 														</span>
-														<span className="text-[#ff7637] font-[500] text-[14px]">See Details</span>
+														{/* <span className="text-[#ff7637] font-[500] text-[14px]">See Details</span> */}
 													</span>
 													<span className="font-[400] text-[12px] text-[#999999]">
-														13/02/2024 5:23pm
+														{new Date().toDateString()}
 													</span>
 
 													<span className="pt-[10px] text-[12px]">
@@ -139,7 +146,7 @@ function TrackOrder() {
 															We maintain a high standard of packaging to ensure our products reach you safely and in optimal condition.
 														</span>
 														<span className="block font-[500] text-[#484848] mt-[5px] pb-[20px]">
-															Estimated Delivery Date: 10/04/2024
+															Estimated Delivery Date: --
 														</span>
 													</span>
 												</span>
@@ -160,12 +167,12 @@ function TrackOrder() {
 														<span>
 															Order Shipped
 														</span>
-														<span className="text-[#ff7637] font-[500] text-[14px]">See Details</span>
+														{/* <span className="text-[#ff7637] font-[500] text-[14px]">See Details</span> */}
 
 
 													</span>
 													<span className="font-[400] text-[12px] text-[#999999]">
-														13/02/2024 5:23pm
+														--
 													</span>
 
 													<span className="pt-[10px] text-[12px]">
@@ -173,7 +180,7 @@ function TrackOrder() {
 															{trackerState.orderShipped ? 'Order has been shipped.' : 'Your shipping details will be sent to you via email once the order has been shipped'}
 														</span>
 														<span className="block font-[500] text-[#484848] mt-[5px] pb-[20px]">
-															Estimated Delivery Date: 10/04/2024
+															Estimated Delivery Date: --
 														</span>
 													</span>
 												</span>
@@ -194,12 +201,12 @@ function TrackOrder() {
 														<span>
 															Out For Delivery
 														</span>
-														<span className="text-[#ff7637] font-[500] text-[14px]">See Details</span>
+														{/* <span className="text-[#ff7637] font-[500] text-[14px]">See Details</span> */}
 
 
 													</span>
 													<span className="font-[400] text-[12px] text-[#999999]">
-														13/02/2024 5:23pm
+														--
 													</span>
 
 													<span className="pt-[10px] text-[12px]">
@@ -207,7 +214,7 @@ function TrackOrder() {
 															{trackerState.orderOutForDelivery ? 'Order is out for delivery. Our delivery partner will contact you shortly.' : 'Order is currently being shipped. Order status will be updated once it is out for delivery.'}
 														</span>
 														<span className="block font-[500] text-[#484848] mt-[5px] pb-[20px]">
-															Estimated Delivery Date: 10/04/2024
+															Estimated Delivery Date: --
 														</span>
 													</span>
 												</span>
@@ -228,12 +235,12 @@ function TrackOrder() {
 														<span>
 															Order Delivered
 														</span>
-														<span className="text-[#ff7637] font-[500] text-[14px]">See Details</span>
+														{/* <span className="text-[#ff7637] font-[500] text-[14px]">See Details</span> */}
 
 
 													</span>
 													<span className="font-[400] text-[12px] text-[#999999]">
-														13/02/2024 5:23pm
+														--
 													</span>
 
 													<span className="pt-[10px] text-[12px]">
@@ -241,7 +248,7 @@ function TrackOrder() {
 															{trackerState?.orderDelivered ? 'Your order will has been delivered.' : 'Your order is in transit, you can check the order status above.'}
 														</span>
 														<span className="block font-[500] text-[#484848] mt-[5px] pb-[20px]">
-															Delivered on: 10/04/2024
+															Delivered on: --
 														</span>
 													</span>
 												</span>

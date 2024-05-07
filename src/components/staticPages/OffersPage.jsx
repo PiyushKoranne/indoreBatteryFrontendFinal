@@ -10,6 +10,8 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FaTag } from "react-icons/fa6";
 import HeaderNew from "../common/HeaderNew";
+import Meta from "../common/Meta";
+import log from "../../utils/utilityFunctions";
 
 function OffersPage() {
 
@@ -21,22 +23,28 @@ function OffersPage() {
 	const [couponCode, setCouponCode] = useState("")
 
 	async function getPageData() {
-		const response = await axios.get("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-page-content?pagename=special-offers")
-		console.log("this is data", response?.data?.pageData?.sections[1]?.sectionContent[2]?.elementItems)
+		const response = await axios.get("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-page-content?pagename=special-offers", {
+			headers:{
+				"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+			}
+		})
+		log("this is data", response?.data?.pageData?.sections[1]?.sectionContent[2]?.elementItems)
 		setSectionHeader(response?.data?.pageData?.sections[1]?.sectionContent)
 		setOfferList(response?.data?.pageData?.sections[1]?.sectionContent[2]?.elementItems)
 
 	}
 
-
-
 	async function fetchCoupons() {
-		const response = await axios.get("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-coupons")
+		const response = await axios.get("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-coupons", {
+			headers:{
+				"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+			}
+		})
 		setCouponData(response?.data)
 	}
 
 	function openModal(coupon) {
-		console.log("this is coupon data >>>>>>>>	", coupon)
+		log("this is coupon data >>>>>>>>	", coupon)
 		setOpenCouponModal(true)
 		setCouponCode(coupon?.couponCode)
 		setCouponDescription(coupon?.couponDescription)
@@ -71,11 +79,18 @@ function OffersPage() {
 
 	return (
 		<>
+			<Meta title="Special Offers | Indore Battery" />
 			<HeaderNew />
 			<section className="offers-page-wr bg-[#F7F7F7] py-[40px] pb-[7%]">
 				<div className="center-wr">
-					<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px]">
-						<span><Link to={"/"} className="hover:text-[#ff7637]">Home</Link></span> &gt; <span className="text-[#FF7637] font-[600]">Offers</span>
+					<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px] items-center">
+						<span className="text-[16px] font-[600] leading-[20px]" >
+							<Link to={"/"} className="hover:text-[#ff7637]">Home Page</Link>
+						</span> 
+						<span className="inline-block py-[1px] ">
+							<img src="/images/bar.png" className="" alt="" />
+						</span>
+						<span className="text-[#FF7637] text-[16px] font-[600] leading-[20px]">Offers</span>
 					</div>
 
 					<div className="offers-page-content-wr">
@@ -135,23 +150,18 @@ function OffersPage() {
 			
 				<div className="w-[450px] rounded-[15px] mx-[auto] translate-y-[20%] offer-expanded-view">
 					<div className="border-[1px] border-[rgba(0,0,0,0.15)] bg-[#fff]" style={{ borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px", borderTopRightRadius: "5px", borderTopLeftRadius: "5px" }}>
-					<i onClick={closeModal} className="fa-solid fa-circle-xmark text-[red] bg-[#fff] text-[25px] shadow-lg absolute right-[5%] top-[3%] z-[100] rounded-[50%] cursor-pointer" style={{ boxShadow: "1px 2px 5px rgba(0,0,0,0.5)" }}></i>
-						<div style={{ transition: "all 0.4s ease", height: !openCopuonModal ? "0px" : "131px" }} className="p-[20px] border-l-[#ff7637] border-l-[5px] my-[15px] font-[Sora] bg-[#fff]">
+					<i onClick={closeModal} className="fa-solid fa-circle-xmark text-red-600 bg-[#fff] text-[25px] shadow-lg absolute right-[5%] top-[3%] z-[100] rounded-[50%] cursor-pointer" style={{ boxShadow: "1px 2px 5px rgba(0,0,0,0.5)" }}></i>
+						<div style={{ transition: "all 0.4s ease"}} className="p-[20px] border-l-[#ff7637] border-l-[5px] mt-[15px] font-[Sora] bg-[#fff]">
 							<h3 className="font-[Sora] font-[400]">Hi</h3>
 							<span className="text-[rgba(0,0,0,0.5)]">You've unlocked an exclusive reward.</span>
 						</div>
 
-						<div className="p-[20px] text-center" style={{ transition: "all 0.4s ease", height: !openCopuonModal ? "0px" : "115px" }}>
-							<span className="font-[Sora] block font-[400] text-[18px] pb-[15px]">Here:</span>
-							<span className="font-[Sora] block text-[rgba(0,0,0,0.3)] font-[300] text-[16px]">{couponDescription}</span>
-						</div>
-
-						<div className="my-[15px] py-[15px] mx-[30px] text-center border-y-[1px] for-mt border-dashed border-[rgba(0,0,0,0.35)]" style={{ transition: "all 0.4s ease", height: !openCopuonModal ? "0px" : "75px" }}>
+						<div className="my-[0px] py-[15px] mx-[30px] text-center border-y-[1px] for-mt border-dashed border-[rgba(0,0,0,0.35)] flex flex-col items-center justify-center" style={{ transition: "all 0.4s ease"}}>
 							<span className="text-[16px] font-[Sora]">Coupon Code : <span className="uppercase font-[600]"> {couponCode}</span> <i onClick={() => handleCopyCoupon(`${couponCode}`)} className="fa-regular fa-copy text-[#ff7637] cursor-pointer"></i></span>
 						</div>
-						<div className="my-[15px] py-[15px] mx-[30px]  flex items-end flex-col" style={{ transition: "all 0.4s ease", height: !openCopuonModal ? "0px" : "110px" }}>
-							<span className="text-[14px] font-[Sora] pb-[15px] w-[100%] text-right border-b-[1px] border-yellow-400 ">valid only for <strong>Single Use</strong> </span>
-							<span className="text-[14px] font-[Sora] pt-[15px] text-[#ff7637]">Terms & Conditions</span>
+						<div className="my-[0px] py-[15px] mx-[30px]  flex items-end flex-col" style={{ transition: "all 0.4s ease"}}>
+							
+							<span className="text-[14px] font-[Sora] text-[#ff7637]">Terms & Conditions</span>
 						</div>
 					</div>
 					<div className="bg-[#fff] p-[20px] pb-[0] border-[1px] border-[rgba(0,0,0,0.15)] border-t-[1px]  border-t-[#ff7637]" style={{ borderTopStyle: "dashed", borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px", borderTopRightRadius: "5px", borderTopLeftRadius: "5px", transition: "all 0.4s ease", height: !openCopuonModal ? "0px" : "155px" }}>
@@ -165,3 +175,4 @@ function OffersPage() {
 }
 
 export default OffersPage;
+	

@@ -10,6 +10,8 @@ import HeaderNew from './HeaderNew';
 import { Formik } from 'formik';
 import { PiCaretDownBold } from 'react-icons/pi';
 import { Select } from 'antd';
+import Meta from './Meta';
+import log from '../../utils/utilityFunctions';
 
 const CategoryModels = () => {
 	const { state } = useLocation();
@@ -31,12 +33,13 @@ const CategoryModels = () => {
 	const [carModelErr, setCarModelErr] = useState("")
 	const [capacityErr, setCapactityErr] = useState("")
 	const [gettingPassedData, setGettingPassedData] = useState("")
+	const indianStatesAndCities = ConstantService.indianStatesAndCities
 
-	console.log("THIS IS STATE::>...............", carBrands);
 	const handleBatteryChange = (type) => {
 		setBatteryType(type);
 	};
-	const indianStatesAndCities = ConstantService.indianStatesAndCities
+
+
 	const handleStateChange = (event) => {
 		setSelectedState(event.target.value);
 	};
@@ -46,27 +49,31 @@ const CategoryModels = () => {
 
 	async function fetchCarBrands() {
 		const response = await batteryIndoreDataService.getAllCarBrands();
-		setCarBrands(response?.data)
-
+		setCarBrands(response?.data);
 	}
+
 	async function fetchBatteryBrands() {
 		const response = await batteryIndoreDataService.getAllCarBatteryBrands();
-		setBatteryBrands(response?.data?.data?.filter(item => Object.keys(item)?.length > 0))
+		setBatteryBrands(response?.data?.data?.filter(item => Object.keys(item)?.length > 0));
 	}
 
 	async function findCarBattery(values) {
 		if (batteryType === 'car') {
-			console.log(carBrands);
+			log(carBrands);
 			const carModelData = carBrands?.filter(item => item?.postData?.brandName === values.carBrand)[0]?.postData?.linkedEquipments.find(item => item.value?.split("__")[1] === values.carModel)
 
-			navigate(`/categories/car-batteries/filter/${encodeURIComponent(values.carBrand)}/${encodeURIComponent(carModelData?.value?.split('__')[0])}`, { state: { ...carModelData, brand: values.batteryBrand, locationData: { state: values.state, city: values.city } } })
+			navigate(`/categories/car-batteries/filter/${encodeURIComponent(values.carBrand)}/${encodeURIComponent(carModelData?.value?.split('__')[0])}`, { state: { ...carModelData, brand: values.batteryBrand, locationData: { state: values.state, city: values.city } } });
 
 		} else if (batteryType === 'inverter') {
-			console.log("INVERTER FORM", values);
-			navigate(`/categories/inverter-batteries/find/${values.batteryBrand}`, { state: { category: values.category, capacity: values.capacity?.toString(), brand: values.batteryBrand } });
+			if (values.category === "Inverter+Battery Combo") {
+				navigate(`/categories/inverter-plus-battery-combo/find/${values.batteryBrand}`, { state: { category: values.category, capacity: values.capacity?.toString(), brand: values.batteryBrand } });
+			} else {
+				log("INVERTER FORM", values);
+				navigate(`/categories/inverter-batteries/find/${values.batteryBrand}`, { state: { category: values.category, capacity: values.capacity?.toString(), brand: values.batteryBrand } });
+			}
 		}
 	}
-	
+
 	useEffect(() => {
 		fetchCarBrands()
 		fetchBatteryBrands()
@@ -75,33 +82,40 @@ const CategoryModels = () => {
 
 	return (
 		<>
+			<Meta title={state.brandName + " " + batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")} />
 			<HeaderNew />
-			<section className="category-brand-pg bg-[#F7F7F7] 320:py-[25px] 980:py-[50px] pb-[10%]">
+			<section className="category-brand-pg bg-[#F7F7F7] pt-[65px] pb-[65px] 1200:pb-[200px]">
 				<div className="center-wr">
-					<div className="flex p-[8px] bg-[#F5F5F5] gap-[7px] mb-[25px]">
-						<span><Link to={"/"} className='hover:text-[#ff7637]'>Home</Link></span> &gt;
-						<span onClick={() => { navigate(`/categories/${batteryCategory}`) }} className='hover:text-[#ff7637] cursor-pointer'>
-							{batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")} &gt;
+					<div className="flex mb-[35px] gap-[7px] items-center">
+						<span className='leading-[20px] font-[600] 320:text-[14px] 1200:text-[16px]'><Link to={"/"} className='hover:text-[#ff7637]'>Home</Link></span>
+						<span className="inline-block py-[1px] ">
+							<img src="/images/bar.png" className="" alt="" />
 						</span>
-						<span className="text-[#ff7637] font-[600]">{state.brandName}</span>
+						<span onClick={() => { navigate(`/categories/${batteryCategory}`) }} className='hover:text-[#ff7637] cursor-pointer leading-[20px] font-[600] 320:text-[14px] 1200:text-[16px]'>
+							{batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}
+						</span>
+						<span className="inline-block py-[1px] ">
+							<img src="/images/bar.png" className="" alt="" />
+						</span>
+						<span className="text-[#ff7637] font-[600] leading-[20px] 320:text-[14px] 1200:text-[16px]">{state.brandName}</span>
 					</div>
-					<div className="flex battery-pg-cont flex-wrap">
+					<div className="flex battery-pg-cont flex-wrap-reverse">
 						{/* sideform */}
 						<div className="320:w-full 1200:w-[31%] ">
 							<div className="320:mt-[0px] 1200:mt-[0%] bg-white">
-								<div className=" text-[#000] p-[24px] 1200:w-full 768:mx-auto 768:w-[75%] 980:w-[60%]">
+								<div className=" text-[#202020] p-[24px] 1200:w-full 768:mx-auto 768:w-[75%] 980:w-[60%]">
 									<div className="mb-4">
 										<h3 className="pb-[10px] pt-[10px] text-[22px] font-[800]">FIND YOUR BATTERY QUICKLY</h3>
 										<div className="flex h-[40px]">
-											<button className={`p-[7px] w-[45%] border-[1px] solid border-[rgba(0,0,0,0.2)] text-[14px] 320:text-[12px] font-[600] mr-4 focus:outline-none ${batteryType === 'car' ? 'bg-[#ff7637] text-white form-btn-active' : 'bg-[transparent]'}`}
+											<button className={`p-[7px] w-[45%] border-[1px] solid border-[rgba(0,0,0,0.2)] 650:text-[14px] 1200:text-[16px] 320:text-[12px] font-[600] mr-4 focus:outline-none ${batteryType === 'car' ? 'bg-[#ff7637] text-white form-btn-active' : 'bg-[transparent]'}`}
 												onClick={() => handleBatteryChange('car')}
 											>
-												CAR BATTERY
+												Car Battery
 											</button>
-											<button className={`p-[5px] w-[56%] border-[1px] solid border-[rgba(0,0,0,0.2)] text-[14px] 320:text-[12px] font-[600] focus:outline-none ${batteryType === 'inverter' ? 'bg-[#ff7637] text-white form-btn-active' : 'bg-[transparent]'}`}
+											<button className={`p-[5px] w-[56%] border-[1px] solid border-[rgba(0,0,0,0.2)] 650:text-[14px] 1200:text-[16px] 320:text-[12px] font-[600] focus:outline-none ${batteryType === 'inverter' ? 'bg-[#ff7637] text-white form-btn-active' : 'bg-[transparent]'}`}
 												onClick={() => handleBatteryChange('inverter')}
 											>
-												INVERTER BATTERY
+												Inverter Battery
 											</button>
 										</div>
 									</div>
@@ -116,9 +130,10 @@ const CategoryModels = () => {
 													if (!values.batteryBrand) errors.batteryBrand = 'Please choose a battery brand';
 													return errors;
 												}}
-												onSubmit={(values, { setSubmitting }) => {
+												onSubmit={(values, { setSubmitting, resetForm }) => {
 													findCarBattery(values);
 													setSubmitting(false);
+													resetForm(true)
 												}}
 											>
 												{({ values, errors, touched, dirty, handleChange, handleBlur, handleReset, setFieldValue, handleSubmit }) => (
@@ -127,7 +142,7 @@ const CategoryModels = () => {
 															<label className="block text-sm font-semibold mb-2 320:mb-[12px] relative">{'Car Brand'}</label>
 															{touched.carBrand && errors.carBrand && <span className="font-medium text-red-600 text-[14px] absolute right-0 top-[0px] 320:left-0 320:top-[15px] 320:text-[12px]" >{errors.carBrand}</span>}
 															<Select
-																suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																variant="borderless"
 																onBlur={handleBlur}
 																name="carBrand"
@@ -141,7 +156,7 @@ const CategoryModels = () => {
 															<label className="block text-sm font-semibold mb-2 320:mb-[12px]">  Car Model</label>
 															{touched.carModel && errors.carModel && <span className="font-medium text-red-600 text-[14px] absolute right-0 top-[0px] 320:left-0 320:top-[15px] 320:text-[12px]" >{errors.carModel}</span>}
 															<Select
-																suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																variant="borderless"
 																onBlur={handleBlur}
 																name="carModel"
@@ -157,7 +172,7 @@ const CategoryModels = () => {
 															<label className="block text-sm font-semibold mb-2 320:mb-[12px]"> Battery Brand </label>
 															{touched.batteryBrand && errors.batteryBrand && <span className="font-medium text-red-600 text-[14px] absolute right-0 top-[0px] 320:left-0 320:top-[15px] 320:text-[12px]" >{errors.batteryBrand}</span>}
 															<Select
-																suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																variant="borderless"
 																onBlur={handleBlur}
 																name="batteryBrand"
@@ -170,9 +185,9 @@ const CategoryModels = () => {
 														<div className="flex 320:flex-wrap 320:justify-start 560:justify-between gap-[20px] 320:gap-0 ">
 
 															<div className="mb-4 w-[50%] 320:w-full 560:w-[45%]">
-																<label className="block text-sm font-semibold mb-2 320:mb-[12px]">State </label>
+																<label className="block text-sm font-semibold mb-2 320:mb-[12px]">State</label>
 																<Select
-																	suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																	suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																	variant="borderless"
 																	defaultValue=""
 																	className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
@@ -183,9 +198,9 @@ const CategoryModels = () => {
 																/>
 															</div>
 															<div className="mb-4 w-[50%] 320:w-full 560:w-[45%]">
-																<label className="block text-sm font-semibold mb-2 320:mb-[12px]">  City </label>
+																<label className="block text-sm font-semibold mb-2 320:mb-[12px]">City</label>
 																<Select
-																	suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																	suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																	variant="borderless"
 																	defaultValue=""
 																	className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
@@ -198,7 +213,7 @@ const CategoryModels = () => {
 														</div>
 														<button
 															type="submit"
-															className="btn-special-spread 320:p-[8px] 320:mt-[10px] 1200:p-[7px] 1440:p-[10px] 1749:p-[15px] w-[46%] 1440:text-[16px] 1749:text-[18px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]">
+															className="btn-special-spread 320:p-[8px] 320:mt-[10px] 1200:p-[7px] 1440:p-[10px] 1749:p-[10px] w-[46%] 1440:text-[16px] 1749:text-[16px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]">
 															Find Battery
 														</button>
 													</form>
@@ -218,9 +233,10 @@ const CategoryModels = () => {
 													if (!values.batteryBrand) errors.batteryBrand = 'Please choose a battery brand';
 													return errors;
 												}}
-												onSubmit={(values, { setSubmitting }) => {
+												onSubmit={(values, { setSubmitting, resetForm }) => {
 													findCarBattery(values);
 													setSubmitting(false);
+													resetForm(true)
 												}}
 											>
 												{({ values, dirty, touched, handleBlur, handleChange, handleReset, handleSubmit, errors, setFieldError, setFieldValue }) => (
@@ -229,14 +245,24 @@ const CategoryModels = () => {
 														<div className="mb-4 inverter-btry-radio">
 															<label className="block text-sm font-semibold mb-2">I am looking for</label>
 															<div className="flex">
-																<div className="mx-[5px]">
-																	<input checked type="radio" id="inverterBattery" onChange={handleChange} onBlur={handleBlur} value={"Inverter Batteries"} name="category" />
-																	<label htmlFor="inverterBattery" className="ml-2">Battery</label>
-																</div>
-																<div className="mx-[5px]">
-																	<input type="radio" id="inverterCombo" onChange={handleChange} onBlur={handleBlur} value={"Inverter+Battery Combo"} name="category" />
-																	<label htmlFor="inverterCombo" className="ml-2">Battery+inverter</label>
-																</div>
+
+																<label htmlFor="inverterBattery" className="battery-price-picker flex justify-between px-[15px] 320:px-0 320:w-full 1368:w-fit 1368:px-[15px]">
+																	<div className="flex items-center gap-[10px]">
+																		<input
+																			checked={values.category === "Inverter Batteries"} type="radio" id="inverterBattery" onChange={handleChange} onBlur={handleBlur} value={"Inverter Batteries"} name="category"
+																		/>
+																		<span className="text-[14px]">Inverter </span>
+																	</div>
+																</label>
+
+																<label htmlFor="inverterCombo" className="battery-price-picker flex justify-between px-[15px] 320:px-0 320:w-full 1368:w-fit 1368:px-[15px]">
+																	<div className="flex items-center gap-[10px]">
+																		<input
+																			checked={values.category === "Inverter+Battery Combo"} type="radio" id="inverterCombo" onChange={handleChange} onBlur={handleBlur} value={"Inverter+Battery Combo"} name="category"
+																		/>
+																		<span className="text-[14px]">Battery+Inverter </span>
+																	</div>
+																</label>
 
 															</div>
 														</div>
@@ -247,7 +273,7 @@ const CategoryModels = () => {
 															<label className="block text-sm font-semibold mb-2 320:mb-[12px]">  Capacity </label>
 															{touched.capacity && errors.capacity && <span className="font-medium text-red-600 text-[14px] absolute right-0 top-[0px] 320:left-0 320:top-[15px] 320:text-[12px] " >{errors.capacity}</span>}
 															<Select
-																suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																variant="borderless"
 																defaultValue={0}
 																className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
@@ -281,7 +307,7 @@ const CategoryModels = () => {
 															<label className="block text-sm font-semibold mb-2 320:mb-[12px]">  Battery Brand </label>
 															{touched.batteryBrand && errors.batteryBrand && <span className="font-medium text-red-600 text-[14px] absolute right-0 top-[0px] 320:left-0 320:top-[15px] 320:text-[12px] " >{errors.batteryBrand}</span>}
 															<Select
-																suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																variant="borderless"
 																defaultValue=""
 																className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
@@ -303,7 +329,7 @@ const CategoryModels = () => {
 															<div className="mb-4 560:w-[45%] 320:w-full">
 																<label className="block text-sm font-semibold mb-2">State</label>
 																<Select
-																	suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																	suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																	variant="borderless"
 																	defaultValue=""
 																	className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
@@ -316,7 +342,7 @@ const CategoryModels = () => {
 															<div className="mb-4 560:w-[45%] 320:w-full">
 																<label className="block text-sm font-semibold mb-2">  City </label>
 																<Select
-																	suffixIcon={<PiCaretDownBold className="text-[#000000] text-[16px] font-bold" />}
+																	suffixIcon={<PiCaretDownBold className="text-[#202020] text-[16px] font-bold" />}
 																	variant="borderless"
 																	defaultValue=""
 																	className="w-full p-[4px]  border border-[rgba(0,0,0,0.2)] rounded-md focus:outline-none  bg-[transparent] batt-form-select"
@@ -328,8 +354,7 @@ const CategoryModels = () => {
 															</div>
 														</div>
 														<button
-															className="btn-special-spread 320:p-[8px] 320:mt-[10px] 1440:p-[10px] 1749:p-[15px] w-[46%] 1440:text-[16px] 1749:text-[18px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]
-              ">
+															className="btn-special-spread 320:p-[8px] 320:mt-[10px] 1440:p-[10px] 1749:p-[10px] w-[46%] 1440:text-[16px] 1749:text-[16px] font-[600] focus:outline-none bg-[#ff7637] text-white border-l-[8px] solid border-l-[#000]">
 															Find Battery
 														</button>
 													</form>
@@ -347,20 +372,19 @@ const CategoryModels = () => {
 
 								<div style={{ borderRadius: "0 60px 60px 0" }} className="1200:bg-[#fff] 320:bg-transparent 320:border-none 1200:border-solid flex items-center justify-between py-[15px] mb-[20px] 1200:border-[#FF7637] 1200:border-[1px]">
 									<div className='text-center w-[86%] category-name-strip 320:mx-auto'>
-										<h3 className='text-[22px] uppercase 320:text-center'>{batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}</h3>
-										<h4 className='text-[15px] font-[200] font-[Sora] 320:leading-[20px] 320:font-normal 320:mt-[10px] 320:text-center'>Indore Battery offering {batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}  at Best Price</h4>
+										<h3 className='text-[24px] font-[700] leading-[35.5px] uppercase 320:text-center'>{state.brandName + " " + batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}</h3>
+										<h4 className='320:text-[14px] 1200:text-[16px] font-[200] 1200:leading-[30px] text-[#202020] font-[Sora] 320:leading-[20px] 320:font-normal 320:mt-[10px] 320:text-center'>Indore Battery offering {batteryCategory?.split("-")?.map(item => item.substring(0, 1)?.toLocaleUpperCase() + item.slice(1))?.join(" ")}  at Best Price</h4>
 									</div>
-									<figure className='320:hidden px-[15px] py-[10px] rounded-[50%] border-[1px] border-[rgba(0,0,0,0.15)] mr-[11px] h-[89px] category-logo-cont'>
-										<img src="/images/bikeCategoryLogo.png" alt="bike category logo" />
+									<figure className='flex items-center justify-center w-[89px] rounded-[50%] border-[1px] border-[rgba(0,0,0,0.15)] mr-[11px] h-[89px] category-logo-cont'>
+										<img src={`${import.meta.env.VITE_BACKEND_URL}/images/${state?.brandLogo}`} className='w-[82%]' alt="bike category logo" />
 									</figure>
 								</div>
 
 								<div>
-									<ul className="my-[10px] flex flex-wrap items-start justify-center">
+									<ul className="my-[10px] flex flex-wrap items-start 320:justify-center 1200:justify-start">
 										{state?.linkedEquipments?.map((item, index) => (
-
-											<li onClick={() => { navigate(`/categories/${batteryCategory}/filter/${encodeURIComponent(state.brandName)}/${encodeURIComponent(item?.value?.split('__')[0])}`, { state: { ...item, brand: "All Brands", gettingPassedData } }) }} key={item?.id} className="my-[8px] bg-[#fff] mx-[5px] 320:py-[7px] py-[15px] font-[600] px-[10px] pl-[20px]  border-[1px] border-l-[8px] border-[rgba(0,0,0,0.15)] border-l-[rgba(0,0,0,0.09)] 320:border-l-[#ff7637] hover:border-[#FF7637] transition-all cursor-pointer 650:w-[45%] 320:w-full car-model-name-card" >
-												<span className='320:text-[14px]'>{item?.value?.split("__")[0]}</span>
+											<li onClick={() => { navigate(`/categories/${batteryCategory}/filter/${encodeURIComponent(state.brandName)}/${encodeURIComponent(item?.value?.split('__')[0])}`, { state: { ...item, brand: "All Brands", gettingPassedData } }) }} key={item?.id} className="my-[8px] bg-[#fff] mx-[5px] 320:py-[7px] 1200:py-[12px] font-[600] px-[10px] pl-[20px]  border-[1px] border-l-[8px] border-[rgba(0,0,0,0.15)] 1200:border-l-[rgba(0,0,0,0.09)] 320:border-l-[#ff7637] hover:border-[#FF7637] transition-all cursor-pointer 650:w-[45%] 320:w-full car-model-name-card" >
+												<span className='320:text-[14px] 1200:text-[16px] text-[#202020]'>{item?.value?.split("__")[0]}</span>
 											</li>
 										))}
 									</ul>

@@ -15,19 +15,19 @@ function KnowMore({ pageData }) {
 	const navigate = useNavigate();
 	const backend_url = import.meta.env.VITE_BACKEND_URL;
 	return (
-		<section className="category-wr mb-[50px] mt-[100px]">
+		<section className="category-wr 1200:320:mt-[35px] 560:mt-[60px] 1024:mt-[75px] 1200:mt-[100px] 320:mt-[40px]">
 			<div className="center-wr">
-				<div className="upper-content-wr flex items-center mb-[50px] ]">
+				<div className="upper-content-wr flex items-center mb-[50px]">
 					<figure className="w-[40%]">
 						{pageData?.sectionContent[0]?.elementAttrSrcImg === "" ? <Skeleton className="h-[500px] w-[100%]" /> : <img src={`${backend_url}/images/${pageData?.sectionContent[0]?.elementAttrSrcImg}`} alt="Online Battery Store - Car & Inverter Batteries Online image" />}
 					</figure>
 					<div className="know-more-wr w-[66%] 1200:mx-[60px] ml-[61px] mr-[61px] 1200:pt-[60px] 320:pt-[0px] 320:mx-auto 320:text-center 1200:text-left">
-						{pageData?.sectionContent[2]?.elementValue === "" ? <Skeleton className="mb-[40px] h-[30px]" /> : <h3 dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[2]?.elementValue }}></h3>}
+						{pageData?.sectionContent[2]?.elementValue === "" ? <Skeleton className="mb-[40px] h-[30px]" /> : <h3 className="320:text-center 1200:text-left" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[2]?.elementValue }}></h3>}
 						{pageData?.sectionContent[3]?.elementValue === "" ? <Skeleton count={5} /> : <div dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[3]?.elementValue }}></div>}
 						<Link to={"/about-us"}><button className="btn-special-spread-second bg-[#1B283A]">{pageData?.sectionContent[1]?.elementValue}</button></Link>
 					</div>
 				</div>
-				<div className="know-more-swiper 980:py-[40px] 320:py-[10px] border-[1px] border-[rgba(0,0,0,0.15)] rounded-[8px] mt-[100px] mb-[100px] solid text-[#202020] text-center">
+				<div className="know-more-swiper 980:py-[40px] 320:py-[10px] border-[1px] border-[rgba(0,0,0,0.1)] rounded-[8px] 320:mt-[35px] 560:mt-[60px] 1024:mt-[75px] 1200:mt-[100px] solid text-[#202020] text-center">
 					<Swiper 
 						id={'know-more-swiper-320'}
 						key={'know-more-swiper-320'}
@@ -88,7 +88,7 @@ function KnowMore({ pageData }) {
 									<figure className=" 1200:w-[60px] 320:w-[40px] 320:h-auto h-[58px] flex items-center justify-center mb-[10px]">
 										<img src="/images/invertors.png" alt="indore battery feature image" />
 									</figure>
-									<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1200:text-[16px] transition-all 768:w-[200px] 1024:w-fit ">Invertors & Batteries</figcaption></Link>
+									<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1200:text-[16px] transition-all 768:w-[200px] 1024:w-fit ">Inverters & Batteries</figcaption></Link>
 							</li>
 						</SwiperSlide>
 						<SwiperSlide>
@@ -110,57 +110,59 @@ function KnowMore({ pageData }) {
 							</li>
 						</SwiperSlide>
 					</Swiper>
-					<ul className="flex items-center justify-center 980:flex 320:hidden flex-wrap 850:gap-[40px] 1200:justify-evenly">
-						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-fit know-more cursor-pointer">
+					<ul className="flex 320:item-start 1200:items-stretch 1368:items-start justify-center 980:flex 320:hidden flex-wrap 850:gap-[40px] 1200:gap-0 1368:gap-[40px] 1200:justify-evenly">
+						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-[14.28%] 1200:border-r-[1px] 1200:border-[rgba(0,0,0,0.1)] 1368:border-none 1368:w-fit know-more cursor-pointer">
 							<Link to={"/categories/two-wheeler-batteries"} className="flex items-center justify-center flex-col">
-								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto h-[58px] mb-[10px]">
+								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto 1368:h-[50px] h-[58px] mb-[10px]">
 									<img src="/images/twoWheelers.png" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1368:text-[16px] transition-all 768:w-[200px] 1024:w-fit">Two Wheelers</figcaption>
+								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] leading-[20px] text-[#202020] transition-all 768:w-[200px] 1024:w-fit 1368:w-[80px]">Two Wheelers</figcaption>
 							</Link>
 						</li>
-						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-fit know-more cursor-pointer">
-
+						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-[14.28%] 1200:border-r-[1px] 1200:border-[rgba(0,0,0,0.1)] 1368:border-none 1368:w-fit know-more cursor-pointer">
 							<Link to={"/categories/three-wheeler-batteries"} className="flex items-center justify-center flex-col">
-								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto h-[58px] flex items-center justify-center mb-[10px]">
+								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto 1368:h-[50px]  flex items-center justify-center mb-[10px]">
 									<img src="/images/threeWheelers.png" alt="indore battery feature image" />
-								</figure><figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1368:text-[16px] transition-all 768:w-[200px] 1024:w-fit">Three Wheelers</figcaption></Link>
+								</figure>
+								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] leading-[20px] text-[#202020] transition-all 768:w-[200px] 1024:w-fit 1368:w-[80px]">Three Wheelers</figcaption>
+							</Link>
 						</li>
-						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-fit know-more cursor-pointer">
+						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-[14.28%] 1200:border-r-[1px] 1200:border-[rgba(0,0,0,0.1)] 1368:border-none 1368:w-fit know-more cursor-pointer">
 							<Link to={"/categories/car-batteries"} className="flex items-center justify-center flex-col">
-								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto h-[58px] flex items-center justify-center mb-[10px]">
+								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto 1368:h-[50px] h-[58px] flex items-center justify-center mb-[10px]">
 									<img src="/images/passengerVechile.png" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1368:text-[16px] transition-all 768:w-[200px] 1024:w-fit ">Passenger Vehicles</figcaption></Link>
+								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] leading-[20px] text-[#202020] transition-all 768:w-[200px] 1024:w-fit 1368:w-[80px] ">Passenger Vehicles</figcaption>
+							</Link>
 						</li>
-						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-fit know-more cursor-pointer">
+						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-[14.28%] 1200:border-r-[1px] 1200:border-[rgba(0,0,0,0.1)] 1368:border-none 1368:w-fit know-more cursor-pointer">
 							<Link to={"/categories/truck-batteries"} className="flex items-center justify-center flex-col">
-								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto h-[58px] flex items-center justify-center mb-[10px]">
+								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto 1368:h-[50px] h-[58px] flex items-center justify-center mb-[10px]">
 									<img src="/images/commercialVechile.png" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1368:text-[16px] transition-all 768:w-[200px] 1024:w-fit ">Commercial Vehicles</figcaption></Link>
+								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] leading-[20px] text-[#202020] transition-all 768:w-[200px] 1024:w-fit 1368:w-[80px] ">Commercial Vehicles</figcaption></Link>
 						</li>
-						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-fit know-more cursor-pointer">
+						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-[14.28%] 1200:border-r-[1px] 1200:border-[rgba(0,0,0,0.1)] 1368:border-none 1368:w-fit know-more cursor-pointer">
 							<Link to={"/categories/inverter-batteries"} className="flex items-center justify-center flex-col">
-								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto h-[58px] flex items-center justify-center mb-[10px]">
+								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto 1368:h-[50px] h-[58px] flex items-center justify-center mb-[10px]">
 									<img src="/images/invertors.png" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1368:text-[16px] transition-all 768:w-[200px] 1024:w-fit ">Invertors & Batteries</figcaption></Link>
+								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] leading-[20px] text-[#202020] transition-all 768:w-[200px] 1024:w-fit 1368:w-[80px] ">Inverters & Batteries</figcaption></Link>
 						</li>
 
-						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-fit know-more cursor-pointer">
+						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-[14.28%] 1200:border-r-[1px] 1200:border-[rgba(0,0,0,0.1)] 1368:border-none 1368:w-fit know-more cursor-pointer">
 							<Link to={"/categories/e-vehicle-batteries"} className="flex items-center justify-center flex-col">
-								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto h-[58px] flex items-center justify-center mb-[10px]">
+								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto 1368:h-[50px] h-[58px] flex items-center justify-center mb-[10px]">
 									<img src="/images/eVehicles.png" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1368:text-[16px] transition-all 768:w-[200px] 1024:w-fit ">E-Vehicles</figcaption></Link>
+								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] leading-[20px] text-[#202020] transition-all 768:w-[200px] 1024:w-fit 1368:w-[80px] ">E-Vehicles</figcaption></Link>
 						</li>
-						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-fit know-more cursor-pointer">
+						<li className="banner-after-elem w-[14.28%] 320:w-1/2  850:w-[30%] 1200:w-[14.28%] 1368:w-fit know-more cursor-pointer">
 							<Link to={"/categories/e-vehicle-batteries"} className="flex items-center justify-center flex-col">
-								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto h-[58px] flex items-center justify-center mb-[10px]">
+								<figure className=" 1368:w-[60px] 320:w-[40px] 320:h-auto 1368:h-[50px] h-[58px] flex items-center justify-center mb-[10px]">
 									<img src="/images/otherApplications.png" alt="indore battery feature image" />
 								</figure>
-								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] 1368:text-[16px] transition-all 768:w-[200px] 1024:w-fit ">Other Applications</figcaption></Link>
+								<figcaption className="w-[100px] text-center font-[400] font-['Sora'] 320:text-[12px] 560:text-[14px] leading-[20px] text-[#202020] transition-all 768:w-[200px] 1024:w-fit 1368:w-[80px] ">Other Applications</figcaption></Link>
 						</li>
 					</ul>
 				</div>

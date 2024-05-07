@@ -6,6 +6,7 @@ import { batteryIndoreDataService } from "../services/dataService";
 import { Link } from "react-router-dom";
 import log from "../utils/utilityFunctions";
 import HeaderNew from "./common/HeaderNew";
+import Meta from "./common/Meta";
 
 
 function Categories(){
@@ -32,6 +33,7 @@ function Categories(){
 
     return(
         <>
+				<Meta title="Categories | Indore Battery" />
         <HeaderNew />
         <section className="all-category-pg-wr bg-[#F7F7F7] py-[5%]">
 			<div className="center-wr">

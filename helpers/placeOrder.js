@@ -12,7 +12,11 @@ export async function displayRazorpay() {
     }
 
     // creating a new order
-    const result = await axios.post("https://batterybackend.react.stagingwebsite.co.in/payment/orders");
+    const result = await axios.post("https://batterybackend.react.stagingwebsite.co.in/payment/orders", {
+			headers:{
+				"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+			}
+		});
 
     if (!result) {
         alert("Server error. Are you online?");
@@ -37,7 +41,11 @@ export async function displayRazorpay() {
                 razorpaySignature: response.razorpay_signature,
             };
 
-            const result = await axios.post("https://batterybackend.react.stagingwebsite.co.in/payment/orders/success", data);
+            const result = await axios.post("https://batterybackend.react.stagingwebsite.co.in/payment/orders/success", data, {
+							headers:{
+								"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+							}
+						});
 
             alert(result.data.msg);
         },

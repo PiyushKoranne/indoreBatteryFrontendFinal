@@ -74,7 +74,11 @@ function BuyBattery() {
     };
 
     async function getBatteryData() {
-        const response = await axios.get(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-battery/${batteryName}`)
+        const response = await axios.get(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-battery/${batteryName}`, {
+					headers:{
+						"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+					}
+				})
         setBatteryId(response?.data?.data?._id)
         setPostData(response?.data?.data?.postData)
         setSpecialPrice(response?.data?.data?.postData?.pricewitholdbattery)
@@ -91,7 +95,11 @@ function BuyBattery() {
 			reviewScore: ratingNum,
 			reviewerName: reviewerName,
 			reviewContent: reviewContent
-        })
+        }, {
+					headers:{
+						"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+					}
+				})
         if(response.status === 200){
             swal({
                 icon: "success",
@@ -113,7 +121,11 @@ function BuyBattery() {
 			contactNum: contactNum,
 			city: city,
 			enquiry: enquiry
-        })
+        }, {
+					headers:{
+						"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+					}
+				})
         if(response.status === 200){
             setShowCallbackModal(false)
             swal({
@@ -141,7 +153,11 @@ function BuyBattery() {
             companyName:companyName,
 			city: city,
             query:query
-        })
+        }, {
+					headers:{
+						"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+					}
+				})
         if(response.status === 200){
             setShowQuotationModal(false)
             swal({
@@ -165,7 +181,11 @@ function BuyBattery() {
             batteryId: batteryId,
             quantity: quantity,
             exchangeOldBattery: exchangeBattery
-        })
+        }, {
+					headers:{
+						"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+					}
+				})
         log(response)
         if (response.status === 200) {
             navigate("/cart")

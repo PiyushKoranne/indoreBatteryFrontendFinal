@@ -13,6 +13,7 @@ import { batteryIndoreDataService } from "../services/dataService";
 import NeedAnyHelpStrip from "./homeComponents/NeedAnyHelpStrip";
 import Loader from "./Loader";
 import HeaderNew from "./common/HeaderNew";
+import Meta from "./common/Meta";
 
 function Home() {
 
@@ -42,9 +43,9 @@ function Home() {
 		setPageData(response.data.pageData)
 	}
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	})
+	// useEffect(() => {
+	// 	window.scrollTo(0, 0);
+	// })
 
 	function sleep(ms) {
 		return new Promise((resolve, reject) => {
@@ -84,6 +85,7 @@ function Home() {
 	return (
 		<>
 			{showLoader && <Loader />}
+			<Meta title="Indore Battery" />
 			<HeaderNew pageData={pageData?.sections?.filter(section => section.sectionName === "Contact Details Section")[0]} />
 			<Banner pageData={pageData?.sections?.filter(section => section.sectionName === "Hero Section")[0]} />
 			<KnowMore pageData={pageData?.sections?.filter(section => section.sectionName === "Know More Section")[0]} />

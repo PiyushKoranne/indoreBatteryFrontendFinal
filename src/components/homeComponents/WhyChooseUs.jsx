@@ -16,12 +16,12 @@ function WhyChooseUs({ pageData }) {
 
 
 	return (
-		<section className="shop-by-manufactures 320:hidden 1024:block 320:py-[35px] 650:py-[0px]">
+		<section className="shop-by-manufactures 320:hidden 1024:block 320:py-[35px] 650:py-[0px] 320:mt-[35px] 560:mt-[60px] 1024:mt-[75px] 1200:mt-[100px]  ">
 			<div className="center-wr">
 				{
 					pageData?.sectionContent[3]?.elementValue === "" ?
 					<Skeleton className="h-[30px] mb-[30px]"/> 
-					: <h3 className="w-[100%] mt-[10%] text-[34px] pb-[25px] text-[#000] font-[800] uppercase 320:text-center 480:text-left" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[3]?.elementValue }}></h3>
+					: <h3 className="w-[100%] text-[34px] pb-[25px] text-[#202020] font-[800] uppercase 320:text-center 480:text-left" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[3]?.elementValue }}></h3>
 
 				}
 				<div className="flex for-alignment">

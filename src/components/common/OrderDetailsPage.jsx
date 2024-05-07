@@ -4,9 +4,11 @@ import EnquirySection from "./EnquirySection";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import HeaderNew from "./HeaderNew";
+import Meta from "./Meta";
 function OrderDetailsPage(){
     return(
         <>
+				<Meta title="Order Details | Indore Battery"  />
         <HeaderNew />
         <section className="order-details-w bg-[#F7F7F7] py-[5%] pb-[10%]">
         <div className="max-w-[628px] mx-[auto]">

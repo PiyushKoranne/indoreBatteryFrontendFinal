@@ -103,7 +103,6 @@ tbody tr:not(:first-child){
 }
 
 
-
 .girl-img{
     position: relative;
 }.girl-img::after{
@@ -386,12 +385,11 @@ tbody tr:not(:first-child){
 	display: block;
 	width: 20px;
 	height: 20px;
-	/* background-image: url(/images/icons8-tick-box-24.png); */
 	background-color: #fff;
 	border: 1px solid rgba(0,0,0,0.2);
 }
 .express-delivery-checkbox:checked::before{
-	background-image: url(/images/icons8-tick-box-24.png); 
+	background-image: url(/images/tick-box.png); 
 	background-size: 24px;
     background-position: -3px -3px;
 	/* background-position: center;

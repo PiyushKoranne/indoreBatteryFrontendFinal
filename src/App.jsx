@@ -45,6 +45,7 @@ ReactGA.initialize("G-T1BELDPMQH");
 
 function App(){
 	const [loginStatus, setLoginStatus] = useState(null);
+	const [showCartBadge, setShowCartBadge] = useState(false);
 
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -75,7 +76,7 @@ function App(){
 
   return(
 	<>
-	  <LoginContext.Provider value={{loginStatus, setLoginStatus}}>
+	  <LoginContext.Provider value={{loginStatus, setLoginStatus, showCartBadge, setShowCartBadge}}>
 		<GoogleOAuthProvider clientId="477883532415-refshp5bua8ecnrjmqd4ocgfvnmb6v0e.apps.googleusercontent.com">
 		<Router>
 			<ScrollToTop/>
@@ -107,7 +108,6 @@ function App(){
 
 
 			<Route path="/cart" element={<Cart />} />
-			<Route path="/checkout" element={<Checkout /> } />
 			<Route path="/confirm" element={<Confirm /> } />
 			<Route path="/success" element={<Success /> } />
 
@@ -120,7 +120,6 @@ function App(){
 				<Route path="cancelled" element={<CancelledOrders /> } />
 			</Route>
 			<Route path="/order/invoice" element={<Invoice /> } />
-
 
 			{/* {/ AUTH ROUTES /} */}
 

@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-import loginIcon from "../../assets/icons8-login-30.png"
-import registerIcon from "../../assets/icons8-register-30.png"
+import loginIcon from "../../assets/old-header-login-icn.png"
+import registerIcon from "../../assets/old-header-reg-icn.png"
 import { LoginContext } from "../../App";
 import { batteryIndoreDataService } from "../../services/dataService";
 import log from "../../utils/utilityFunctions";
@@ -21,24 +21,32 @@ function Header({ pageData }) {
 	const [contactDetails, setContactDetails] = useState(null);
 
 	const toggleMenu = () => {
-		console.log("TOggle menu", isMenuOpen)
+		log("TOggle menu", isMenuOpen)
 		setIsMenuOpen(!isMenuOpen);
 		setIsStickyMenuOpen(false)
 	}; const toggleStickyMenu = () => {
-		console.log("Sticky menu", isStickyMenuOpen)
+		log("Sticky menu", isStickyMenuOpen)
 		setIsStickyMenuOpen(!isStickyMenuOpen);
 		setIsMenuOpen(false)
 	};
 
 	async function getAllBatteryBrands() {
-		const response = await axios.get(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-all-battery-brands`);
+		const response = await axios.get(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-all-battery-brands`, {
+			headers:{
+				"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+			}
+		});
 		setBrandNames(response?.data?.data);
 	}
 
 	async function handleLogout() {
 		try {
 			log("handling logout")
-			const response = await axios.get(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/auth/user-logout`);
+			const response = await axios.get(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/auth/user-logout`, {
+				headers:{
+					"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+				}
+			});
 			if (response.status === 200) {
 				if (response.data?.success) {
 					setLoginStatus(null);
@@ -67,11 +75,11 @@ function Header({ pageData }) {
 	async function getContactDetails() {
 		try {
 			const response = await batteryIndoreDataService.getContactDetails();
-			console.log("GETTING CONTACT DETAILS RESPONSE", response);
+			log("GETTING CONTACT DETAILS RESPONSE", response);
 			setContactDetails(response?.data?.data);
 
 		} catch (error) {
-			console.log(error);
+			log(error);
 		}
 	}
 
@@ -187,9 +195,9 @@ function Header({ pageData }) {
 
 						{/* NORMAL LOWER HEADER MENU */}
 						<ul className="flex lower-header-cont justify-center bg-[#EEEEEE]">
-							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/offers" className="brand-link"><span className="hover">Special Offers</span></Link></li>
-							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/about-us" className="brand-link"><span className="hover">About Us</span></Link></li>
-							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] brands-nav cursor-pointer">
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/offers" className="brand-link"><span className="hover">Special Offers</span></Link></li>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/about-us" className="brand-link"><span className="hover">About Us</span></Link></li>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#202020] font-[600] brands-nav cursor-pointer">
 								<div><span> Brands &nbsp; <i class="fa-solid fa-angle-down text-[#ff7637]"></i></span></div>
 								<div className="relative">
 									<ul className="brands-submenu bg-[#ff7637] top-[19px] w-[260px] text-[#fff] absolute font-[400] text-[14px] px-[20px] py-[20px]">
@@ -199,11 +207,11 @@ function Header({ pageData }) {
 									</ul>
 								</div>
 							</li>
-							{/* <li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/under-construction" className="brand-link"><span className="hover">Exchange Battery</span></Link></li> */}
-							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/warranty-registeration" className="brand-link"><span className="hover">Warranty Registration</span></Link></li>
-							<li className="p-[20px]	 px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/faq" className="brand-link"><span className="hover">FAQ</span></Link></li>
-							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/contact-us" className="brand-link"><span className="hover">Contact</span></Link></li>
-							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#000] font-[600] accounts-nav flex-grow">
+							{/* <li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/under-construction" className="brand-link"><span className="hover">Exchange Battery</span></Link></li> */}
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/warranty-registeration" className="brand-link"><span className="hover">Warranty Registration</span></Link></li>
+							<li className="p-[20px]	 px-[35px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/faq" className="brand-link"><span className="hover">FAQ</span></Link></li>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/contact-us" className="brand-link"><span className="hover">Contact</span></Link></li>
+							<li className="p-[20px] px-[35px] mr-[10px] ml-[10px] text-[#202020] font-[600] accounts-nav flex-grow">
 								<span className=" flex gap-[10px]">
 									<figure><img src="/images/User.png" alt="my account" /></figure> {loginStatus && loginStatus?.isLoggedIn ? loginStatus?.userName : 'Log In'}</span>
 								<div className="relative shadow-lg bg-[#fff] w-full ">
@@ -298,9 +306,9 @@ function Header({ pageData }) {
 
 						</div>
 						<ul className="flex lower-header-cont">
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer "><Link to="/offers" className="brand-link"><span className="hover"> Special Offers</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer "><Link to="/about-us" className="brand-link"><span className="hover">About Us</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] brands-nav cursor-pointer">
+							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer "><Link to="/offers" className="brand-link"><span className="hover"> Special Offers</span></Link></li>
+							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer "><Link to="/about-us" className="brand-link"><span className="hover">About Us</span></Link></li>
+							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#202020] font-[600] brands-nav cursor-pointer">
 								<div className=""><span> Brands &nbsp; <i class="fa-solid fa-angle-down text-[#ff7637]"></i></span></div>
 								<div className="relative">
 									<ul className="brands-submenu bg-[#ff7637] top-[19px] w-[260px] text-[#fff] absolute font-[400] text-[14px] px-[20px] py-[20px]">
@@ -310,11 +318,11 @@ function Header({ pageData }) {
 									</ul>
 								</div>
 							</li>
-							{/* <li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/under-construction" className="brand-link"><span className="hover">Exchange Battery</span></Link></li> */}
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/warranty-registeration" className="brand-link"><span className="hover">Warranty Registration</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/faq" className="brand-link"><span className="hover">FAQ</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] cursor-pointer"><Link to="/contact-us" className="brand-link"><span className="hover">Contact</span></Link></li>
-							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#000] font-[600] accounts-nav">
+							{/* <li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/under-construction" className="brand-link"><span className="hover">Exchange Battery</span></Link></li> */}
+							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/warranty-registeration" className="brand-link"><span className="hover">Warranty Registration</span></Link></li>
+							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/faq" className="brand-link"><span className="hover">FAQ</span></Link></li>
+							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#202020] font-[600] cursor-pointer"><Link to="/contact-us" className="brand-link"><span className="hover">Contact</span></Link></li>
+							<li className="p-[20px] px-[25px] mr-[10px] ml-[10px] text-[#202020] font-[600] accounts-nav">
 								<span className=" flex gap-[10px]">
 									<figure><img src="/images/User.png" alt="my account" /></figure> {loginStatus && loginStatus?.isLoggedIn ? loginStatus?.userName : 'Log In'}</span>
 								<div className="relative">
@@ -322,10 +330,10 @@ function Header({ pageData }) {
 										{
 											(loginStatus && loginStatus?.isLoggedIn) ? (
 												<>
-													<Link to="/cart"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-cart-shopping text-[18px]"></i> <span>Cart</span></li></Link>
-													<Link to="/wishlist"> <li className="py-[10px] flex gap-[15px] hover:text-[#B80000] transition"><i className="fa-regular fa-heart text-[18px]"></i> <span>Whislist</span></li></Link>
-													<Link to="/orders/current"> <li className="py-[10px] flex gap-[15px] hover:text-[#FF6C22] transition"><i className="fa-solid fa-boxes-stacked text-[18px]"></i> <span>Orders</span></li></Link>
-													<li onClick={handleLogout} className="py-[10px] flex gap-[15px] hover:text-[#40A2E3] transition"><i className="fa-solid fa-right-from-bracket text-[18px]"></i> <span className="whitespace-nowrap">Sign Out</span></li>
+													<Link to="/cart"> <li className="py-[10px] flex gap-[15px] transition"><i className="fa-solid fa-cart-shopping text-[18px]"></i> <span>Cart</span></li></Link>
+													<Link to="/wishlist"> <li className="py-[10px] flex gap-[15px] transition"><i className="fa-regular fa-heart text-[18px]"></i> <span>Whislist</span></li></Link>
+													<Link to="/orders/current"> <li className="py-[10px] flex gap-[15px] transition"><i className="fa-solid fa-boxes-stacked text-[18px]"></i> <span>Orders</span></li></Link>
+													<li onClick={handleLogout} className="py-[10px] flex gap-[15px] transition"><i className="fa-solid fa-right-from-bracket text-[18px]"></i> <span className="whitespace-nowrap">Sign Out</span></li>
 												</>
 											) : (
 												<>

@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from "react";
 import Header from "./common/Header";
 import axios from "axios";
-import { displayRazorpay } from "../../helpers/placeOrder";
 import { Link,useParams } from "react-router-dom";
 import Footer from "./common/Footer";
 import EnquirySection from "./homeComponents/EnquirySection";
@@ -73,7 +72,11 @@ function Brands(){
 
     
 	const fetchBatteriesByBrand = async () => {
-		const response = await axios.get(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-batteries-by-brand/${brandName}`);
+		const response = await axios.get(`https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/get-batteries-by-brand/${brandName}`, {
+			headers:{
+				"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+			}
+		});
 		setAllBatteries(response?.data?.data);
 		log(response?.data?.data[3]?.postData)
 	}

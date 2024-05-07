@@ -7,10 +7,10 @@ function Footer() {
 				<div className="flex items-center flex-col">
 					<h4 className="text-center py-[15px] font-sans font-[500] flex items-center flex-col">
 						<div className="flex gap-[5px] flex-wrap">
-						<span className="320:text-[12px] 1200:text-[14px] 320:w-full 320:text-center leading-[20px]">Copyright {new Date().getFullYear()}.</span>
-						<span className="320:text-[12px] 1200:text-[14px] 320:w-full 320:text-center leading-[20px]">All Rights Reserved By <Link to="/"> Indore Battery</Link></span>
+						<span className="320:text-[12px] 1200:text-[14px] 320:text-slate-100 650:text-[#202020] 320:w-full 320:text-center leading-[20px]">Copyright {new Date().getFullYear()}.</span>
+						<span className="320:text-[12px] 1200:text-[14px] 320:text-slate-100 650:text-[#202020] 320:w-full 320:text-center leading-[20px]">All Rights Reserved By <Link to="/"> Indore Battery</Link></span>
 						</div>
-						<span className="cursive 320:text-[16px] text-[19px] text-[#989898] 320:tracking-wide 320:mt-[15px]">Crafted with <i className="fa-solid fa-heart text-red-300 text-[13px]"></i> By <Link to="https://conativeitsolutions.com" className="320:text-[14px] 320:font-[500]"> &nbsp;Conative IT Solutions</Link></span>
+						{/* <span className="cursive 320:text-[16px] text-[19px] text-[#989898] 320:tracking-wide 320:mt-[15px]">Crafted with <i className="fa-solid fa-heart text-red-300 text-[13px]"></i> By <a target="_blank" href="https://conativeitsolutions.com" className="320:text-[14px] 320:font-[500]"> &nbsp;Conative IT Solutions</a></span> */}
 					</h4>
 				</div>
 			</div>

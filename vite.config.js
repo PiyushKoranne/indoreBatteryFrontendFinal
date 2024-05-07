@@ -6,11 +6,5 @@ export default defineConfig({
   plugins: [react()],
   server:{
     host:'0.0.0.0',
-	proxy: {
-        '/api': {
-			target: 'https://batterybackend.react.stagingwebsite.co.in',
-			changeOrigin: true,
-        },
-	},
   }
 })

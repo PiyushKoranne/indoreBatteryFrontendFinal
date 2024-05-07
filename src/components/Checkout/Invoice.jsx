@@ -4,6 +4,9 @@ import Footer from '../common/Footer'
 import { QRCodeSVG } from 'qrcode.react';
 import axios from 'axios';
 import HeaderNew from '../common/HeaderNew';
+import Meta from '../common/Meta';
+import log from '../../utils/utilityFunctions';
+
 
 function Invoice() {
 
@@ -17,9 +20,13 @@ function Invoice() {
 
 		const response = await axios.post("https://batterybackend.react.stagingwebsite.co.in/api/v1/manage/track-package", {
 			orderId: orderId,
+		}, {
+			headers:{
+				"Authorization":`Bearer ${localStorage.getItem("ibjwtoken")}`
+			}
 		})
 		setOrderDetails(response?.data)
-		console.log("THIS IS THE RESPONSE DATA :)", response?.data)
+		log("THIS IS THE RESPONSE DATA :)", response?.data)
 	}
 
 	const months = [
@@ -37,21 +44,22 @@ function Invoice() {
 
 	return (
 		<>
+			<Meta title="Invoice | Indore Battery"  />
 			<HeaderNew />
 			<section className="bg-[#ffffff] pt-[100px] pb-[4%]">
 				<div className="center-wr">
-					<div className='flex items-center rounded-[8px] border-[1px] border-[rgba(0,0,0,0.15)] h-[200px]'>
-						<div className='w-[27%] bg-[#FFF8F5] p-[25px] h-full'>
+					<div className='flex flex-wrap items-center rounded-[8px] border-[1px] border-[rgba(0,0,0,0.15)] 320:h-auto bg-[#FFF8F5]'>
+						<div className='850:w-[27%] 320:w-full bg-[#FFF8F5] p-[25px] h-full'>
 							<p>
 								<span className='block font-semibold text-[14px] uppercase text-[#999999]'>Order Id</span>
 								<span className='block font-semibold text-[14px]'>{orderDetails?.orderId}</span>
 							</p>
 							<p className='mt-[15px]'>
 								<span className='block font-semibold text-[14px] uppercase text-[#999999]'>Email</span>
-								<span className='block font-semibold text-[14px]'>{orderDetails?.buyerInformation?.email}</span>
+								<span className='block font-semibold text-[14px] break-words'>{orderDetails?.buyerInformation?.email}</span>
 							</p>
 						</div>
-						<div className='w-[27%] bg-[#FFF8F5] p-[25px] h-full'>
+						<div className='850:w-[27%] 320:w-full bg-[#FFF8F5] p-[25px] h-full'>
 							<p>
 								<span className='block font-semibold text-[14px] uppercase text-[#999999]'>Document Number</span>
 								<span className='block font-semibold text-[14px]'>123123546</span>
@@ -61,13 +69,13 @@ function Invoice() {
 								<span className='block font-semibold text-[14px]'>{`${months[new Date(orderDetails?.createdAt).getMonth()]} ${new Date(orderDetails?.createdAt).getDate()}, ${new Date(orderDetails?.createdAt).getFullYear()}`}</span>
 							</p>
 						</div>
-						<div className='w-[27%] bg-[#FFF8F5] p-[25px] h-full'>
+						<div className='850:w-[27%] 320:w-full bg-[#FFF8F5] p-[25px] h-full'>
 							<p>
 								<span className='block font-semibold text-[14px] uppercase text-[#999999]'>Bill To</span>
 								<span className='block font-semibold text-[14px]'>{orderDetails?.buyerInformation?.firstName} {orderDetails?.buyerInformation?.lastName}</span>
 							</p>
 						</div>
-						<div className='w-[19%] p-[25px] h-full flex items-center justify-center' >
+						<div className='850:w-[19%] 320:w-full p-[25px] h-full flex items-center justify-center bg-white' >
 							<QRCodeSVG
 								value={"https://reactjs.org/"}
 								size={148}
@@ -92,13 +100,13 @@ function Invoice() {
 							<thead className='border-b-[2px] border-[#d8d8d8] bg-slate-100'>
 								<tr>
 									<th>
-										<div className='flex items-center justify-start p-[10px]'>
-											<h3 className='text-[14px] font-semibold font-sans' >Field</h3>
+										<div className='flex items-center justify-start p-[10px] text-[14px] font-semibold font-sans 850:text-[16px]'>
+											Field
 										</div>
 									</th>
 									<th>
-										<div className='flex items-center justify-start p-[10px]'>
-											<h3 className='text-[14px] font-semibold font-sans' >Value</h3>
+										<div className='flex items-center justify-start p-[10px] text-[14px] font-semibold font-sans 850:text-[16px]'>
+											Value
 										</div>
 									</th>
 								</tr>
@@ -109,8 +117,8 @@ function Invoice() {
 									<td>{orderDetails?.orderId}</td>
 								</tr>
 								<tr>
-									<td>Order Total</td>
-									<td>₹ {orderDetails?.orderTotal}</td>
+									<td>Order Total (after discount)</td>
+									<td className='font-semibold text-green-700'>₹ {orderDetails?.orderTotal}</td>
 								</tr>
 								<tr>
 									<td>Sub Total</td>
@@ -133,8 +141,8 @@ function Invoice() {
 									<td>{orderDetails?.quantity}</td>
 								</tr>
 								<tr>
-									<td>Buyer Information</td>
-									<td className='border-[#d8d8d8] border-l-[1px]'>
+									<td className='320:hidden 560:table-cell'>Buyer Information</td>
+									<td colSpan={window.innerWidth >= 560 ? 1 : 2} className='border-[#d8d8d8] border-l-[1px] '>
 										<table>
 											<tr>
 												<td className='border-[rgba(0,0,0,0.25)] border-b-[1px] text-[#ff7637]'>Buyer Information:</td>
@@ -161,8 +169,8 @@ function Invoice() {
 									</td>
 								</tr>
 								<tr style={{ display: orderDetails?.expressDelivery === "undefined" ? "none" : "table-row" }}>
-									<td>Express Delivery</td>
-									<td>{orderDetails?.expressDelivery}</td>
+									<td>Delivery Type</td>
+									<td className='uppercase font-medium'>{orderDetails?.expressDelivery ? 'express' : 'standard'}</td>
 								</tr>
 								<tr>
 									<td>Status</td>
@@ -178,14 +186,14 @@ function Invoice() {
 						<thead className='border-b-[2px] border-[#d8d8d8] bg-white'>
 							<tr className='bg-slate-100'>
 								<th>
-									<div className='flex items-center justify-start p-[10px]'>
-										<h3 className='text-[14px] font-semibold font-sans'>Field</h3>
-									</div>
+								<div className='flex items-center justify-start p-[10px] text-[14px] font-semibold font-sans 850:text-[16px]'>
+											Field
+										</div>
 								</th>
 								<th>
-									<div className='flex items-center justify-start p-[10px]'>
-										<h3 className='text-[14px] font-semibold font-sans'>Value</h3>
-									</div>
+								<div className='flex items-center justify-start p-[10px] text-[14px] font-semibold font-sans 850:text-[16px]'>
+											Value
+										</div>
 								</th>
 							</tr>
 						</thead>
@@ -218,9 +226,9 @@ function Invoice() {
 						<thead className='border-b-[2px] border-[#d8d8d8] bg-white'>
 							<tr>
 								<th className='bg-slate-100'>
-									<div className='flex items-center justify-start p-[10px]'>
-										<h3 className='text-[14px] font-semibold font-sans'>Field</h3>
-									</div>
+								<div className='flex items-center justify-start p-[10px] text-[14px] font-semibold font-sans 850:text-[16px]'>
+											Field
+										</div>
 								</th>
 							</tr>
 						</thead>
@@ -294,7 +302,7 @@ function Invoice() {
 						</tbody>
 					</table>
 					<div className='p-[25px] px-[0]' >
-						<div onClick={giveReview} className=' cursor-pointer rounded-[8px] margin-[10px]	px-[15px] py-[8px] border-[1px] border-amber-300 bg-yellow-50  flex items-center relative font-semibold text-gray-600 '>
+						<div onClick={giveReview} className=' cursor-pointer rounded-[8px] margin-[10px]	px-[15px] py-[8px] border-[1px] border-amber-300 bg-yellow-50  flex items-center relative font-semibold text-gray-600 320:text-[14px] 850:text-[16px]'>
 							<img src="/images/testimonial-star.png" alt="rating" width={20} className='mr-[15px]' />
 							Please rate your experience with us on Google
 						</div>

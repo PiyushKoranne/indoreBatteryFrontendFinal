@@ -10,22 +10,24 @@ import 'swiper/css/pagination';
 import log from "../../utils/utilityFunctions";
 
 function ShopByManufacturer({ pageData }) {
+
 	const [brands, setBrands] = useState([]);
 	const navigate = useNavigate();
 	const backend_url = import.meta.env.VITE_BACKEND_URL;
+
 	async function getImages() {
 		const response = await batteryIndoreDataService.getAllCarBrands();
-		setBrands(response.data.reverse())
+		setBrands(response.data.reverse());
 	}
 
 	useEffect(() => {
-		getImages()
+		getImages();
 	}, []);
 
 	return (
-		<section className="shop-by-manufactures font-[oswald] my-[5%]">
+		<section className="shop-by-manufactures font-[oswald] 320:mt-[35px] 560:mt-[60px] 1024:mt-[75px] 1200:mt-[100px] ">
 			<div className="center-wr">
-				<h3 className="w-[100%] pb-[35px] text-center text-[34px] text-[#000] font-[800]" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[0]?.elementValue }}></h3>
+				<h3 className="w-[100%]  text-center text-[34px] text-[#202020] font-[800]" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[0]?.elementValue }}></h3>
 				<div className="320:block 980:hidden car-brands-manu ">
 					<Swiper
 						key={'car-brands-swiper-320'}
@@ -56,7 +58,7 @@ function ShopByManufacturer({ pageData }) {
 				<div className="btn-cont flex justify-center mt-[45px] 980:mt-[0px] 1368:mt-[45px]">
 					<Link to={"/categories/car-batteries"} className="w-[15%] 320:w-fit">
 						<button
-							className="btn-special-spread-second p-[10px]  w-[100%] py-[15px] px-[40px] mt-[30px] text-[18px] font-[600] focus:outline-none bg-[#1B283A] text-white border-l-[8px] solid border-l-[#FF7637]
+							className="btn-special-spread-second p-[10px]  w-[100%] py-[15px] px-[40px] text-[18px] font-[600] focus:outline-none bg-[#1B283A] text-white border-l-[8px] solid border-l-[#FF7637]
               ">
 							{pageData?.sectionContent[1]?.elementValue}
 						</button>
@@ -68,4 +70,3 @@ function ShopByManufacturer({ pageData }) {
 }
 
 export default ShopByManufacturer;
-

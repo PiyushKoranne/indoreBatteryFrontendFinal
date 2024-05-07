@@ -14,9 +14,9 @@ const  CarBrandsGrid = ({ brands }) => {
 
 	return (
 		<div className='320:hidden 980:block'>
-			<div className="car-brand-grid-container 320:hidden 980:flex flex-wrap justify-center 320:gap-[30px] 1200:gap-0 320:py-[25px]">
+			<div className="car-brand-grid-container 320:hidden 980:flex flex-wrap justify-center 320:gap-[30px] 1200:gap-0 980:gap-0 320:py-[25px]">
 				{brands.slice(0, 18).map((brand, index) => (
-					<div onClick={() => { navigate(`/categories/car-batteries/models/${encodeURIComponent(brand?.postData?.brandName)}`, { state: brand?.postData }) }} key={index} className="1200:w-[220px] 1200:h-[220px] 320:w-[40%] 560:w-[33%] 768:w-[20%] 320:h-auto flex justify-center items-center transition-all 320:border-none 375:py-[20px] hover:bg-[#ff76370a] cursor-pointer">
+					<div onClick={() => { navigate(`/categories/car-batteries/models/${encodeURIComponent(brand?.postData?.brandName)}`, { state: brand?.postData }) }} key={index} className="980:w-[16.6%] 1200:w-[16.6%] 1200:h-auto 1500:w-[220px] 1500:h-[220px] 320:w-[40%] 560:w-[33%] 768:w-[20%] 320:h-auto flex justify-center items-center transition-all 320:border-none 375:py-[20px] hover:bg-[#ff76370a] cursor-pointer">
 						<img src={`${backend_url}/images/${brand?.postData?.brandLogo}`} className='max-w-[55%] 320:p-[5px] 560:p-[10px]' alt={brand.brandName} />
 					</div>
 				))}

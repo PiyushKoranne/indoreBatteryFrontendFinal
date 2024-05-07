@@ -24,9 +24,9 @@ function ShopByBrand({ pageData }) {
 
 
 	return (
-		<section className="shop-by-manufactures font-[oswald] my-[5%]">
+		<section className="shop-by-manufactures font-[oswald] 320:mt-[35px] 560:mt-[60px] 1024:mt-[75px] 1200:mt-[100px]">
 			<div className="center-wr">
-				<h3 className="w-[100%] pb-[35px] text-center text-[34px] text-[#000] font-[800]" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[0]?.elementValue }}></h3>
+				<h3 className="w-[100%] text-center text-[34px] text-[#202020] font-[800] 320:mb-[45px]" dangerouslySetInnerHTML={{ __html: pageData?.sectionContent[0]?.elementValue }}></h3>
 				<BatteryBrandsGrid brands={brands?.slice(0, 12)} />
 			</div>
 		</section>

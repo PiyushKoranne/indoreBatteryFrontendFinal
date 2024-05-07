@@ -4,6 +4,8 @@ import { Formik } from 'formik';
 import { batteryIndoreDataService } from '../../services/dataService';
 import OtpInput from 'formik-otp-input';
 import { ColorRing } from 'react-loader-spinner';
+import Meta from '../common/Meta';
+import log from '../../utils/utilityFunctions';
 
 const Forgot = () => {
 	const navigate = useNavigate();
@@ -19,7 +21,7 @@ const Forgot = () => {
 				emailRef.current = values.email;
 			}
 		} catch (error) {
-			console.log(error);
+			log(error);
 		}
 	}
 
@@ -30,12 +32,13 @@ const Forgot = () => {
 				navigate("/login", { state: { message: 'Your password has been reset successfully.' } })
 			}
 		} catch (error) {
-			console.log(error);
+			log(error);
 		}
 	}
 
 	return (
 		<>
+		<Meta title="Forgot Password | Indore Battery"  />
 			<section className="bg-[#f7f7f5] h-screen">
 				<div className="center-wr h-full">
 					<div className='flex items-center justify-center h-full'>
